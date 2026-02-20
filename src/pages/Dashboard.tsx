@@ -54,6 +54,21 @@ const Dashboard = () => {
           <p className="text-white/45 text-lg leading-relaxed max-w-lg mx-auto">
             Select an assignment to begin. Real-time alignment analytics ensure every score is consistent and defensible.
           </p>
+
+          {/* Feature highlights */}
+          <div className="grid grid-cols-3 gap-4 mt-8 w-full max-w-lg">
+            {[
+              { icon: TrendingUp, label: "Drift Detection", desc: "Cross-section" },
+              { icon: Eye, label: "Live Validation", desc: "Real-time" },
+              { icon: Zap, label: "AI Insights", desc: "Per criterion" },
+            ].map(({ icon: Icon, label, desc }) => (
+              <div key={label} className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-3.5 text-center">
+                <Icon className="w-4 h-4 text-blue-400/70 mb-2 mx-auto" />
+                <p className="text-xs font-medium text-white/70">{label}</p>
+                <p className="text-[10px] text-white/30">{desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Assignment Card */}
@@ -108,21 +123,6 @@ const Dashboard = () => {
                 <ClipboardCheck className="w-3.5 h-3.5" />
                 {assignment.rubricCriteria} criteria
               </span>
-            </div>
-
-            {/* Feature highlights */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
-              {[
-                { icon: TrendingUp, label: "Drift Detection", desc: "Cross-section" },
-                { icon: Eye, label: "Live Validation", desc: "Real-time" },
-                { icon: Zap, label: "AI Insights", desc: "Per criterion" },
-              ].map(({ icon: Icon, label, desc }) => (
-                <div key={label} className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
-                  <Icon className="w-4 h-4 text-blue-400/70 mb-2" />
-                  <p className="text-xs font-medium text-white/70">{label}</p>
-                  <p className="text-[10px] text-white/30">{desc}</p>
-                </div>
-              ))}
             </div>
 
             {/* Progress */}
