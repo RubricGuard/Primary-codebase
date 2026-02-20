@@ -395,6 +395,13 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       score: 25,
       explanation: "Exceptional depth. Distinguishes lab vs. real-world findings, applies UDL framework to the exemption problem, and reframes the core issue as pedagogical rather than technological. No marks deducted — this represents the highest standard of undergraduate critical analysis.",
       validated: false,
+      aiSuggestion: "Perfect score is well-deserved. The student synthesizes across three distinct analytical frameworks (cognitive science, UDL, and active learning pedagogy) — this cross-framework synthesis is rare at the undergraduate level and fully justifies 25/25.",
+      aiSuggestedScore: 25,
+      aiSupportingEvidence: [
+        "The Mueller and Oppenheimer study tested immediate and delayed recall under controlled conditions — a far cry from the complex, multi-week learning that characterizes actual university courses.",
+        "A laptop ban with disability exemptions inverts this principle: it creates a restrictive default and forces students to self-identify as \"different\" to receive accommodation.",
+        "If students are multitasking during lectures, the root cause may be lecture design rather than device availability.",
+      ],
       highlightedTexts: [
         "The Mueller and Oppenheimer study tested immediate and delayed recall under controlled conditions — a far cry from the complex, multi-week learning that characterizes actual university courses.",
         "A laptop ban with disability exemptions inverts this principle: it creates a restrictive default and forces students to self-identify as \"different\" to receive accommodation. This is both pedagogically and ethically problematic.",
