@@ -99,7 +99,7 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
   const rawValidityPct = allValidationCounts.total > 0
     ? (allValidationCounts.valid / allValidationCounts.total) * 100
     : 100;
-  const fairnessPenalty = Math.min(similarityFlags.length * 2, 20); // cap penalty at 20%
+  const fairnessPenalty = Math.min(similarityFlags.length * 1, 20); // cap penalty at 20%
   const explanationValidityRate = Math.max(0, Math.round(rawValidityPct - fairnessPenalty));
 
   const validityBarColor =
@@ -192,7 +192,7 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
             <p className="text-[10px] text-muted-foreground font-mono mb-2">
               {Math.round(rawValidityPct)}%{fairnessPenalty > 0 ? ` − ${fairnessPenalty}%` : ""} = {explanationValidityRate}%
               <span className="ml-1 text-muted-foreground/60">
-                ({allValidationCounts.valid}/{allValidationCounts.total} valid{fairnessPenalty > 0 ? ` · ${similarityFlags.length} flag${similarityFlags.length > 1 ? "s" : ""} × 2%` : ""})
+                ({allValidationCounts.valid}/{allValidationCounts.total} valid{fairnessPenalty > 0 ? ` · ${similarityFlags.length} flag${similarityFlags.length > 1 ? "s" : ""} × 1%` : ""})
               </span>
             </p>
           )}
@@ -253,7 +253,7 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
             cumFlags = flagCount;
 
             const raw = cumTotal > 0 ? (cumValid / cumTotal) * 100 : 100;
-            const penalty = Math.min(cumFlags * 2, 20);
+            const penalty = Math.min(cumFlags * 1, 20);
             const rate = Math.max(0, Math.round(raw - penalty));
 
             trendData.push({ name: sid.replace("STU0", "S"), rate });

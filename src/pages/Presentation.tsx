@@ -386,8 +386,8 @@ const ValidityCalcSlide = () => (
           </p>
           <div className="mt-8 space-y-5">
             <CalcStep num="1" label="Count validations" formula="fully_supported / total_validated × 100" example="15 of 20 validations fully supported = 75%" />
-            <CalcStep num="2" label="Fairness penalty" formula="fairness_flags × 2% (capped at 20%)" example="1 fairness flag = 2% penalty" />
-            <CalcStep num="3" label="Final rate" formula="raw_validity − fairness_penalty" example="75% − 2% = 73% validity rate" />
+            <CalcStep num="2" label="Fairness penalty" formula="fairness_flags × 1% (capped at 20%)" example="1 fairness flag = 1% penalty" />
+            <CalcStep num="3" label="Final rate" formula="raw_validity − fairness_penalty" example="75% − 1% = 74% validity rate" />
           </div>
         </div>
 
@@ -428,14 +428,14 @@ const ValidityCalcSlide = () => (
             <div className="mt-5 pt-5 border-t border-white/10">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-white/40 text-xs font-mono">Raw: 15/20 = 75%</span>
-                <span className="text-white/40 text-xs font-mono">Penalty: 1 flag × 2% = 2%</span>
+                <span className="text-white/40 text-xs font-mono">Penalty: 1 flag × 1% = 1%</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-white/60 text-sm font-semibold">Final Validity Rate</span>
-                <span className="text-blue-400 text-3xl font-serif font-bold">73%</span>
+                <span className="text-blue-400 text-3xl font-serif font-bold">74%</span>
               </div>
               <div className="h-3 bg-white/5 rounded-full overflow-hidden mt-3">
-                <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" style={{ width: "73%" }} />
+                <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" style={{ width: "74%" }} />
               </div>
             </div>
           </div>
@@ -555,9 +555,9 @@ const SegmentGradesSlide = () => (
         The Segment Grades view aggregates all 3 graders, showing per-professor analytics and a complete grade table with validation status dots.
       </p>
       <div className="grid grid-cols-3 gap-8 mt-12 max-w-[1400px]">
-        <GraderSummaryCard name="Prof. Sharma" section="Section A" students={5} avgScore={72.4} validityRate={73} fairnessAlerts={1} highlight />
+        <GraderSummaryCard name="Prof. Sharma" section="Section A" students={5} avgScore={72.4} validityRate={74} fairnessAlerts={1} highlight />
         <GraderSummaryCard name="Prof. Somani" section="Section B" students={5} avgScore={79.8} validityRate={88} fairnessAlerts={0} />
-        <GraderSummaryCard name="Prof. Raymahesh" section="Section C" students={5} avgScore={75.2} validityRate={65} fairnessAlerts={2} />
+        <GraderSummaryCard name="Prof. Raymahesh" section="Section C" students={5} avgScore={75.2} validityRate={67} fairnessAlerts={2} />
       </div>
       <div className="mt-10 bg-white/5 border border-white/10 rounded-xl p-5 max-w-[1000px]">
         <div className="grid grid-cols-7 gap-3 text-xs text-white/40 font-mono mb-3">
@@ -621,8 +621,8 @@ const ProfessorViewSlide = () => (
             <p className="text-white/50 text-xs font-mono mb-4 uppercase tracking-wider">Explanation Validity Rate by Grader</p>
             <div className="space-y-4">
               <TABar name="Prof. Somani" section="Section B" rate={88} color="green" />
-              <TABar name="Prof. Sharma" section="Section A" rate={73} color="blue" />
-              <TABar name="Prof. Raymahesh" section="Section C" rate={65} color="orange" />
+              <TABar name="Prof. Sharma" section="Section A" rate={74} color="blue" />
+              <TABar name="Prof. Raymahesh" section="Section C" rate={67} color="orange" />
             </div>
             <div className="mt-6 pt-5 border-t border-white/10">
               <p className="text-white/50 text-xs font-mono mb-3 uppercase tracking-wider">Flagged Issues</p>
@@ -718,7 +718,7 @@ const ValueImpactSlide = () => (
       </div>
       <div className="grid grid-cols-3 gap-10 mt-8 max-w-[1400px]">
         <ValueCard icon={<GraduationCap className="w-10 h-10" />} title="Student Trust" metric="↑ 60%" desc="Improvement in perceived grading fairness and learning outcomes" />
-        <ValueCard icon={<Calculator className="w-10 h-10" />} title="Quality Signal" metric="73%" desc="Explanation Validity Rate — the one metric for grading quality assurance" />
+        <ValueCard icon={<Calculator className="w-10 h-10" />} title="Quality Signal" metric="74%" desc="Explanation Validity Rate — the one metric for grading quality assurance" />
         <ValueCard icon={<Zap className="w-10 h-10" />} title="Growth" metric="54→88%" desc="Typical grader improvement over 6 weeks of AI-assisted calibration" />
       </div>
     </div>

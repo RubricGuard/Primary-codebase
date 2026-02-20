@@ -270,7 +270,7 @@ const SegmentGrades = () => {
                 });
 
                 const raw = cumTotal > 0 ? (cumValid / cumTotal) * 100 : 100;
-                const penalty = Math.min(flagCount * 2, 20);
+                const penalty = Math.min(flagCount * 1, 20);
                 const rate = Math.max(0, Math.round(raw - penalty));
                 trendData.push({ name: s.id.replace("STU0", "S").replace("STU", "S"), rate });
               });
