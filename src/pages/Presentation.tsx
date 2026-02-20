@@ -3,7 +3,7 @@ import { Shield, ChevronLeft, ChevronRight, Maximize, AlertTriangle, CheckCircle
 import gradingWorkspaceScreenshot from "@/assets/screenshots/grading-workspace.png";
 import analyticsScreenshot from "@/assets/screenshots/analytics-dashboard.png";
 
-const TOTAL_SLIDES = 28;
+const TOTAL_SLIDES = 29;
 
 const Presentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -49,6 +49,7 @@ const Presentation = () => {
     <ValidityCalcSlide key={12} />,
     <LiveAnalyticsDeepSlide key={13} />,
     <FairnessDetectionSlide key={14} />,
+    <StoryboardSlide key="storyboard" />,
     <AnalyticsDashSlide key={15} />,
     <AnalyticsHeatmapSlide key={16} />,
     <SegmentGradesSlide key={17} />,
@@ -805,6 +806,47 @@ const FairnessDetectionSlide = () => (
     </div>
   </SlideLayout>
 );
+
+const StoryboardSlide = () => {
+  const panels = [
+    { num: 1, icon: <GraduationCap className="w-7 h-7" />, title: "The Professor", desc: "A professor teaches a large multi-section university course. Multiple teaching assistants grade essay assignments across different sections." },
+    { num: 2, icon: <AlertTriangle className="w-7 h-7" />, title: "The Problem", desc: "Grading inconsistency emerges. Similar-quality essays receive different scores across sections. Students compare grades and question fairness." },
+    { num: 3, icon: <Coffee className="w-7 h-7" />, title: "The Fatigue", desc: "The professor is overwhelmed and fatigued during a long grading session late at night — buried in papers, running on coffee." },
+    { num: 4, icon: <XCircle className="w-7 h-7" />, title: "The Gap", desc: "Existing tools like Canvas, Turnitin, and Gradescope display grades and feedback but cannot detect cross-section grading drift. The professor is frustrated." },
+    { num: 5, icon: <Lightbulb className="w-7 h-7" />, title: "Enter RubricGuard", desc: "Enter RubricGuard AI — a supportive grading copilot that assists faculty without replacing their judgment." },
+    { num: 6, icon: <Layers className="w-7 h-7" />, title: "The Workspace", desc: "The grading interface: submission viewer on the left, rubric scoring cards in the center, and live consistency analytics on the right." },
+    { num: 7, icon: <Brain className="w-7 h-7" />, title: "AI Validates", desc: "The AI validates a score explanation and flags a consistency alert — scoring drift detected across sections." },
+    { num: 8, icon: <UserCheck className="w-7 h-7" />, title: "Human in Control", desc: "The professor reviews the alert, adjusts or confirms the score. Faculty remains fully in control of every decision." },
+    { num: 9, icon: <Award className="w-7 h-7" />, title: "Alignment Validated", desc: "Grades finalized with an 'Alignment Validated' summary. The professor feels confident and relieved." },
+  ];
+
+  return (
+    <SlideLayout>
+      <div className="absolute top-20 left-1/3 w-[500px] h-[400px] bg-blue-500/6 rounded-full blur-[120px]" />
+      <div className="absolute inset-0 flex flex-col justify-center items-center px-24">
+        <SectionLabel text="User Journey" color="blue" />
+        <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-4 mb-10">
+          Storyboard
+        </h2>
+        <div className="grid grid-cols-3 gap-5 max-w-[1500px]">
+          {panels.map((p) => (
+            <div key={p.num} className="relative bg-white/[0.04] border border-white/10 rounded-xl p-5 hover:bg-white/[0.06] transition-colors">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-8 h-8 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400 text-sm font-bold shrink-0">
+                  {p.num}
+                </div>
+                <div className="text-blue-400/60">{p.icon}</div>
+                <span className="text-white/80 font-semibold text-sm">{p.title}</span>
+              </div>
+              <p className="text-white/40 text-xs leading-relaxed">{p.desc}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-white/20 text-sm mt-8 italic">RubricGuard AI supports human judgment — it does not replace it.</p>
+      </div>
+    </SlideLayout>
+  );
+};
 
 /* ═══════════════════════ ACT 4: THE BIGGER PICTURE ═══════════════════════ */
 
