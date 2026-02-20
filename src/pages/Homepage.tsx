@@ -140,10 +140,10 @@ const Homepage = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-4 gap-3">
               <button
                 onClick={() => navigate("/grading/bus302-ca1")}
-                className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl py-3 font-medium text-sm hover:from-blue-400 hover:to-indigo-400 transition-all duration-300 shadow-lg shadow-blue-500/20 col-span-1"
+                className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl py-3 font-medium text-sm hover:from-blue-400 hover:to-indigo-400 transition-all duration-300 shadow-lg shadow-blue-500/20"
               >
                 Start Grading
                 <ChevronRight className="w-4 h-4" />
@@ -153,7 +153,7 @@ const Homepage = () => {
                 className="flex items-center justify-center gap-2 bg-white/[0.06] border border-white/[0.1] text-white/80 rounded-xl py-3 font-medium text-sm hover:bg-white/[0.1] transition-all duration-200"
               >
                 <FileText className="w-4 h-4" />
-                View Assignment
+                Assignment
               </button>
               <button
                 onClick={() => navigate("/rubrics")}
@@ -161,6 +161,13 @@ const Homepage = () => {
               >
                 <ClipboardCheck className="w-4 h-4" />
                 Rubrics
+              </button>
+              <button
+                onClick={() => navigate("/analytics")}
+                className="flex items-center justify-center gap-2 bg-white/[0.06] border border-white/[0.1] text-white/80 rounded-xl py-3 font-medium text-sm hover:bg-white/[0.1] transition-all duration-200"
+              >
+                <BarChart3 className="w-4 h-4" />
+                Analytics
               </button>
             </div>
           </div>
