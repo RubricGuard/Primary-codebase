@@ -9,6 +9,7 @@ import Rubrics from "./pages/Rubrics";
 import GradingWorkspace from "./pages/GradingWorkspace";
 import Analytics from "./pages/Analytics";
 import SegmentGrades from "./pages/SegmentGrades";
+import Submissions from "./pages/Submissions";
 import Presentation from "./pages/Presentation";
 import NotFound from "./pages/NotFound";
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/" element={<Homepage />} />
           <Route path="/assignment/:assignmentId" element={<AssignmentDetail />} />
           <Route path="/rubrics" element={<Rubrics />} />
+          <Route path="/submissions/:assignmentId" element={<Submissions />} />
           <Route path="/grading/:assignmentId" element={<GradingWorkspace />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/segment-grades" element={<SegmentGrades />} />

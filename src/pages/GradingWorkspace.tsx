@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Shield, ArrowLeft, ChevronLeft, ChevronRight, BarChart3 } from "lucide-react";
 import { studentSubmissions as allStudents, rubricCriteria, sampleGradedData, type GradingScore } from "@/lib/mockData";
 
@@ -12,7 +12,9 @@ import { toast } from "sonner";
 
 const GradingWorkspace = () => {
   const navigate = useNavigate();
-  const [currentStudentIdx, setCurrentStudentIdx] = useState(0);
+  const [searchParams] = useSearchParams();
+  const initialStudent = Math.min(Math.max(Number(searchParams.get("student") || 0), 0), studentSubmissions.length - 1);
+  const [currentStudentIdx, setCurrentStudentIdx] = useState(initialStudent);
   const student = studentSubmissions[currentStudentIdx];
 
   const [scores, setScores] = useState<Record<string, GradingScore[]>>(() => {
