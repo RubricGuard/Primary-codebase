@@ -98,7 +98,15 @@ export interface GradingScore {
   validationResult?: ValidationResult;
 }
 
+// ============================================================
+// SHOWCASE DATA
+// STU001 → "Gold standard" grader: mostly fully_supported
+// STU002 → Grader errors: not_supported cases (justification contradicts evidence, inflated scores)
+// STU003 → Close but sloppy: partially_supported cases (vague justifications for high scores)
+// ============================================================
+
 export const sampleGradedData: Record<string, GradingScore[]> = {
+  // ── STU001: Fully Supported — grader's justifications align with evidence ──
   STU001: [
     {
       criterionId: "arg-clarity",
@@ -153,11 +161,11 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
         "Yet a blanket ban is problematic for several reasons. First, it raises serious accessibility concerns.",
         "The authors cautioned against using a single study to justify sweeping policy changes — a point that underscores the importance of evidence-based, rather than evidence-inspired, decision-making.",
       ],
-      validationStatus: "partially_supported",
+      validationStatus: "fully_supported",
       validationResult: {
-        status: "partially_supported",
-        reasoning: "The justification correctly identifies engagement with counterarguments, but the claim that the student 'could push deeper on equity implications' is not fully demonstrated by the highlighted evidence alone. The student does address equity through Waterfield & West but this wasn't highlighted.",
-        suggestedRefinement: "Highlight the Waterfield & West passage about disability disclosure and stigma to better support the equity dimension of your justification.",
+        status: "fully_supported",
+        reasoning: "The justification correctly identifies engagement with counterarguments and the highlighted evidence demonstrates both the accessibility concerns and the methodological critique. The observation about pushing deeper is a valid constructive note.",
+        suggestedRefinement: "Consider highlighting the Waterfield & West passage about disability disclosure and stigma to further support the equity dimension of your assessment.",
         keyQuotes: [
           "Requiring these students to disclose their disability to receive an exemption creates stigma",
           "evidence-based, rather than evidence-inspired, decision-making",
@@ -187,40 +195,42 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       },
     },
   ],
+
+  // ── STU002: Not Supported — grader inflates scores and misrepresents evidence ──
   STU002: [
     {
       criterionId: "arg-clarity",
-      score: 14,
-      explanation: "Takes a clear position but thesis is simplistic. No nuance or qualification — reads as opinion rather than academic argument.",
+      score: 20,
+      explanation: "The student presents a well-structured argument with a strong thesis that considers multiple perspectives on the laptop ban debate.",
       validated: false,
       highlightedTexts: [
         "I think universities should ban laptops in lectures because they are very distracting.",
       ],
-      validationStatus: "fully_supported",
+      validationStatus: "not_supported",
       validationResult: {
-        status: "fully_supported",
-        reasoning: "The highlighted opening sentence clearly demonstrates the simplistic, opinion-based thesis the justification describes. The 'I think' framing and single-reason structure ('because they are very distracting') confirm the lack of academic argumentation.",
-        suggestedRefinement: "You might also note that the conclusion merely restates the opening without development, further evidencing a lack of argumentative progression.",
+        status: "not_supported",
+        reasoning: "The justification claims 'a well-structured argument with a strong thesis that considers multiple perspectives,' but the highlighted evidence shows the opposite — 'I think universities should ban laptops because they are very distracting' is a simplistic, single-reason opinion statement with no nuance or qualification. The essay takes only one side without engaging counterarguments substantively.",
+        suggestedRefinement: "Revise the justification to accurately reflect what the evidence shows: a clear but simplistic position lacking academic framing. A score of 20/25 seems too generous given the one-dimensional argument structure — consider whether this aligns with how you scored STU001 (22/25) who presented a far more nuanced thesis.",
         keyQuotes: [
           "I think universities should ban laptops in lectures because they are very distracting",
-          "In conclusion laptops should be banned from lectures",
+          "In conclusion laptops should be banned from lectures because they hurt learning, distract others, and make cheating easier",
         ],
       },
     },
     {
       criterionId: "evidence-use",
-      score: 10,
-      explanation: "Vaguely references 'studies' without citing any specific sources. No author names, dates, or data points. The cheating claim is entirely unsupported.",
+      score: 20,
+      explanation: "References several research findings about laptop distraction and learning outcomes. Mentions studies on typing vs handwriting and peer distraction effects.",
       validated: false,
       highlightedTexts: [
         "Studies have shown that laptops are bad for learning.",
         "Laptops also make it too easy to cheat. Students can look up answers during class or share notes with people who didn't come to lecture.",
       ],
-      validationStatus: "fully_supported",
+      validationStatus: "not_supported",
       validationResult: {
-        status: "fully_supported",
-        reasoning: "The highlighted evidence perfectly supports the justification — 'Studies have shown' is the quintessential vague citation, and the cheating paragraph offers zero empirical backing. The justification accurately identifies both weaknesses.",
-        suggestedRefinement: "Consider noting that the student makes quantitative-sounding claims ('don't do as well') without any actual data, which is a distinct problem from merely omitting citations.",
+        status: "not_supported",
+        reasoning: "The justification claims the student 'references several research findings' and 'mentions studies on typing vs handwriting,' but the highlighted evidence reveals no specific citations whatsoever — just 'Studies have shown' with no authors, dates, or data. The cheating claim is entirely anecdotal. Scoring 20/25 here while STU001 received 23/25 for citing Mueller & Oppenheimer, Sana et al., and Urry et al. with specific statistics reveals a major grading inconsistency.",
+        suggestedRefinement: "The justification must be rewritten to reflect the actual quality of evidence: vague, uncited generalizations with no empirical backing. A score of 20/25 is inconsistent with the scoring of other students — STU001 scored only 3 points higher despite citing 4 specific sources with data points. Consider a score of 8-12 to maintain rubric consistency.",
         keyQuotes: [
           "Studies have shown that laptops are bad for learning",
           "Laptops also make it too easy to cheat",
@@ -239,8 +249,8 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       validationStatus: "fully_supported",
       validationResult: {
         status: "fully_supported",
-        reasoning: "The highlighted passage directly demonstrates the dismissive treatment of accessibility concerns. The phrase 'just get special permission' and framing of disabled students as an inconvenience ('just because a few students') confirms the lack of genuine engagement with equity issues.",
-        suggestedRefinement: "You could strengthen this by noting the problematic 'us vs. them' framing — 'the rest of the class shouldn't have to deal with' — which reveals a failure to consider inclusive design principles.",
+        reasoning: "The justification accurately identifies the dismissive treatment of accessibility concerns. The highlighted passage confirms 'just get special permission' and the framing of disabled students as an inconvenience, validating the low score of 8/25.",
+        suggestedRefinement: "You could strengthen this by also noting the problematic 'us vs. them' framing — 'the rest of the class shouldn't have to deal with' — which reveals a failure to consider inclusive design principles.",
         keyQuotes: [
           "those students can just get special permission from the professor",
           "The rest of the class shouldn't have to deal with distractions just because a few students need laptops",
@@ -269,6 +279,8 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       },
     },
   ],
+
+  // ── STU003: Partially Supported — grader gives high scores but vague justifications ──
   STU003: [
     {
       criterionId: "arg-clarity",
@@ -294,18 +306,17 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "evidence-use",
       score: 24,
-      explanation: "Integrates Mueller & Oppenheimer, Sana et al., Urry et al. replication, Rose & Meyer (UDL), and Fried's active learning research. Each source is critically contextualized.",
+      explanation: "Cites five sources but the Fried (2008) claim about '60-70% reduction' is presented as established fact without examining the study's methodology or limitations.",
       validated: false,
       highlightedTexts: [
         "Mueller and Oppenheimer's (2014) landmark study demonstrated that longhand note-takers outperformed laptop users on conceptual recall",
-        "Urry et al. (2021) conducted a large-scale replication (n = 1,162 across multiple sites) and found substantially weaker effects",
-        "Universal Design for Learning (UDL) principles hold that learning environments should be proactively designed to accommodate diverse needs rather than retrofitted with individual exemptions (Rose & Meyer, 2002).",
+        "Active learning interventions — including think-pair-share, real-time polling, and structured problem-solving — have been shown to reduce off-task laptop behavior by 60-70% (Fried, 2008).",
       ],
-      validationStatus: "fully_supported",
+      validationStatus: "partially_supported",
       validationResult: {
-        status: "fully_supported",
-        reasoning: "The highlighted evidence confirms citation of Mueller & Oppenheimer, Urry et al., and Rose & Meyer with specific details (sample sizes, dates, frameworks). The sources are integrated into analytical claims rather than merely cited.",
-        suggestedRefinement: "Consider highlighting the Fried (2008) reference as well — the student uses it to propose a concrete solution (active learning reducing off-task behavior by 60-70%), which is a distinctive use of evidence.",
+        status: "partially_supported",
+        reasoning: "The justification correctly identifies the five sources and notes the Fried citation concern. However, it only highlights 2 of the 5 sources as evidence, and the criticism of the Fried statistic is somewhat overstated — the student uses it to support a specific policy alternative, which is valid contextual use even without methodological critique.",
+        suggestedRefinement: "Highlight the Urry et al. and Rose & Meyer passages too, since your justification references five sources. Also rephrase the Fried criticism: rather than 'presented as established fact,' note that the student could have acknowledged the study's limitations while still using the finding constructively.",
         keyQuotes: [
           "Mueller and Oppenheimer's (2014) landmark study",
           "Urry et al. (2021) conducted a large-scale replication (n = 1,162",
@@ -338,17 +349,16 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "writing-quality",
       score: 24,
-      explanation: "Excellent academic writing. The 'blunt instrument vs. scalpel' closing metaphor is memorable. Dense but clear prose with precise vocabulary.",
+      explanation: "Strong prose with good vocabulary. Uses some complex sentence structures effectively.",
       validated: false,
       highlightedTexts: [
         "The laptop debate in higher education represents a microcosm of a broader tension in pedagogy: the conflict between technological affordance and cognitive science.",
-        "A ban is a blunt instrument applied to a nuanced problem; redesigned instruction is a scalpel.",
       ],
-      validationStatus: "fully_supported",
+      validationStatus: "partially_supported",
       validationResult: {
-        status: "fully_supported",
-        reasoning: "The highlighted passages confirm excellent academic prose — the opening sentence is densely packed yet clear, and the closing metaphor (blunt instrument/scalpel) is indeed memorable and effective. The justification accurately characterizes the writing quality.",
-        suggestedRefinement: "Consider noting the effective use of semicolons and em-dashes throughout, which demonstrates command of advanced punctuation for rhetorical effect.",
+        status: "partially_supported",
+        reasoning: "The justification says 'strong prose with good vocabulary' and 'some complex sentence structures' — this is accurate but generic. For a 24/25 score, the justification should identify what specifically makes this writing exceptional. The highlighted passage shows sophisticated academic framing, but the justification doesn't mention the memorable metaphors, precise diction, or rhetorical command evident throughout.",
+        suggestedRefinement: "Strengthen the justification by citing specific stylistic achievements: the 'blunt instrument vs. scalpel' closing metaphor, the effective use of em-dashes for parenthetical nuance, and the 'disease/symptom/cure' framing. A 24/25 score requires a justification that distinguishes this writing from merely 'good.'",
         keyQuotes: [
           "a microcosm of a broader tension in pedagogy",
           "A ban is a blunt instrument applied to a nuanced problem; redesigned instruction is a scalpel",
