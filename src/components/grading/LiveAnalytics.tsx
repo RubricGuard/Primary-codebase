@@ -141,6 +141,9 @@ const detectSimilarityFlags = (
 };
 
 const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }: Props) => {
+  // Smart similarity-based consistency flags (computed first, used below)
+  const similarityFlags = allScores ? detectSimilarityFlags(allScores, criteria) : [];
+
   // Validation status summary
   const statusCounts = {
     fully_supported: scores.filter((s) => s.validationStatus === "fully_supported").length,
@@ -150,21 +153,45 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
   const totalValidated = statusCounts.fully_supported + statusCounts.partially_supported + statusCounts.not_supported;
   const qualityRate = totalValidated > 0 ? Math.round((statusCounts.fully_supported / totalValidated) * 100) : 0;
 
-  const consistency = qualityRate >= 75 ? "Stable" : qualityRate >= 50 ? "Moderate" : "Low";
-  const consistencyColor =
-    consistency === "Stable"
-      ? "text-success bg-success-light"
-      : consistency === "Moderate"
-      ? "text-warning bg-warning-light"
-      : "text-destructive bg-destructive/10";
+  // Explanation Validity Rate: computed across ALL graded students
+  const allValidationCounts = (() => {
+    if (!allScores) return { total: 0, valid: 0 };
+    let total = 0;
+    let valid = 0;
+    Object.values(allScores).forEach((studentScores) => {
+      studentScores.forEach((s) => {
+        if (s.validationStatus) {
+          total++;
+          if (s.validationStatus === "fully_supported") valid++;
+        }
+      });
+    });
+    return { total, valid };
+  })();
+
+  const rawValidityPct = allValidationCounts.total > 0
+    ? (allValidationCounts.valid / allValidationCounts.total) * 100
+    : 100;
+  const fairnessPenalty = similarityFlags.length * 8; // each fairness flag costs 8%
+  const explanationValidityRate = Math.max(0, Math.round(rawValidityPct - fairnessPenalty));
+
+  const validityBarColor =
+    explanationValidityRate >= 75
+      ? "bg-success"
+      : explanationValidityRate >= 50
+      ? "bg-warning"
+      : "bg-destructive";
+  const validityTextColor =
+    explanationValidityRate >= 75
+      ? "text-success"
+      : explanationValidityRate >= 50
+      ? "text-warning"
+      : "text-destructive";
 
   const scoredCriteria = scores.filter((s) => s.score !== null);
   const avgScore = scoredCriteria.length > 0
     ? (scoredCriteria.reduce((sum, s) => sum + (s.score || 0), 0) / scoredCriteria.length).toFixed(1)
     : "—";
-
-  // Smart similarity-based consistency flags
-  const similarityFlags = allScores ? detectSimilarityFlags(allScores, criteria) : [];
 
   return (
     <div className="p-5">
@@ -220,15 +247,33 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
           )}
         </div>
 
-        {/* Overall Consistency */}
+        {/* Explanation Validity Rate — under Session Progress */}
         <div className="bg-card rounded-xl border border-border/40 shadow-soft p-4">
           <div className="flex items-center gap-2 mb-3">
             <TrendingUp className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-foreground">Overall Consistency</span>
+            <span className="text-sm font-medium text-foreground">Explanation Validity Rate</span>
           </div>
-          <span className={`inline-flex items-center text-xs font-semibold rounded-full px-3 py-1 ${consistencyColor}`}>
-            {consistency}
-          </span>
+          <div className="flex items-center justify-between text-sm mb-2">
+            <span className="text-muted-foreground text-xs">
+              {allValidationCounts.total > 0
+                ? `${allValidationCounts.valid}/${allValidationCounts.total} valid${similarityFlags.length > 0 ? ` · ${similarityFlags.length} fairness alert${similarityFlags.length > 1 ? "s" : ""}` : ""}`
+                : "No validations yet"}
+            </span>
+            <span className={`font-semibold text-sm ${validityTextColor}`}>{explanationValidityRate}%</span>
+          </div>
+          <div className="h-2 bg-muted rounded-full overflow-hidden">
+            <div
+              className={`h-full rounded-full transition-all duration-500 ${validityBarColor}`}
+              style={{ width: `${explanationValidityRate}%` }}
+            />
+          </div>
+          {allValidationCounts.total > 0 && explanationValidityRate < 75 && (
+            <p className="text-[10px] text-muted-foreground mt-2">
+              {similarityFlags.length > 0
+                ? "Unsupported explanations and fairness inconsistencies are reducing this rate."
+                : "Some explanations lack full AI validation support."}
+            </p>
+          )}
         </div>
 
         {/* Cross-Student Grading Fairness */}
