@@ -91,6 +91,8 @@ export interface GradingScore {
   explanation: string;
   validated: boolean;
   aiSuggestion?: string;
+  aiSuggestedScore?: number;
+  aiSupportingEvidence?: string[];
   overridden?: boolean;
   highlightedTexts?: string[];
   validationStatus?: ValidationStatus;
@@ -114,6 +116,12 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       explanation: "Clear thesis advocating a structured middle ground. Well-signposted argument that moves logically from evidence against laptops to accessibility concerns to a proposed solution.",
       validated: false,
       aiSuggestion: "The student's thesis is nuanced ('carefully structured policy rather than an outright ban') — this sophistication may warrant a higher score than a simple pro/con thesis would.",
+      aiSuggestedScore: 24,
+      aiSupportingEvidence: [
+        "Universities should implement a carefully structured laptop policy rather than an outright ban.",
+        "The most effective approach is a structured middle ground: designated \"laptop-free\" zones or sessions within a course, combined with explicit instruction on effective digital note-taking strategies.",
+        "the question is not whether laptops can hinder learning — the evidence suggests they can — but whether a university-wide ban is the appropriate response.",
+      ],
       highlightedTexts: [
         "Universities should implement a carefully structured laptop policy rather than an outright ban.",
         "The most effective approach is a structured middle ground: designated \"laptop-free\" zones or sessions within a course, combined with explicit instruction on effective digital note-taking strategies.",
@@ -135,6 +143,14 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       score: 18,
       explanation: "Cites Mueller & Oppenheimer, Sana et al., Waterfield & West, and the Urry meta-analysis. Evidence is well-integrated into the argument rather than just listed.",
       validated: false,
+      aiSuggestion: "The student cites four distinct sources with specific data points (11%, 17%) and uses them to build a progressive argument. This level of integration typically warrants a score of 21–23.",
+      aiSuggestedScore: 22,
+      aiSupportingEvidence: [
+        "Mueller and Oppenheimer (2014) demonstrated that students who took notes by hand scored significantly higher on conceptual questions than those who typed",
+        "Sana, Weston, and Cepeda (2013) found that not only did laptop multitaskers perform 11% worse on comprehension tests, but students sitting within view of a multitasking peer scored 17% lower",
+        "Waterfield & West, 2006",
+        "A 2020 meta-analysis by Urry et al. found that the Mueller and Oppenheimer effect was smaller and less consistent when replicated at scale.",
+      ],
       highlightedTexts: [
         "Mueller and Oppenheimer (2014) demonstrated that students who took notes by hand scored significantly higher on conceptual questions than those who typed",
         "Sana, Weston, and Cepeda (2013) found that not only did laptop multitaskers perform 11% worse on comprehension tests, but students sitting within view of a multitasking peer scored 17% lower",
@@ -157,6 +173,13 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       score: 21,
       explanation: "Engages with counterarguments (accessibility, contested research) but could push deeper on the equity implications of alternative policies.",
       validated: false,
+      aiSuggestion: "The student explicitly addresses accessibility, disability stigma, and methodological limitations of key studies — this multi-layered counterargument engagement is stronger than the current score reflects.",
+      aiSuggestedScore: 23,
+      aiSupportingEvidence: [
+        "Yet a blanket ban is problematic for several reasons. First, it raises serious accessibility concerns.",
+        "Requiring these students to disclose their disability to receive an exemption creates stigma and violates the spirit of inclusive education",
+        "The authors cautioned against using a single study to justify sweeping policy changes",
+      ],
       highlightedTexts: [
         "Yet a blanket ban is problematic for several reasons. First, it raises serious accessibility concerns.",
         "The authors cautioned against using a single study to justify sweeping policy changes — a point that underscores the importance of evidence-based, rather than evidence-inspired, decision-making.",
@@ -178,6 +201,12 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       score: 23,
       explanation: "Strong academic prose with effective transitions. The 'second-hand smoke' metaphor is vivid. Minor point: conclusion could be more concise.",
       validated: false,
+      aiSuggestion: "The essay demonstrates sophisticated rhetorical techniques including extended metaphor and effective use of em-dashes. The score of 23 is well-calibrated for this quality level.",
+      aiSuggestedScore: 23,
+      aiSupportingEvidence: [
+        "This \"second-hand smoke\" effect means that one student's laptop use imposes a negative externality on the learning environment",
+        "a nuanced policy is both more ethical and more effective than prohibition",
+      ],
       highlightedTexts: [
         "This \"second-hand smoke\" effect means that one student's laptop use imposes a negative externality on the learning environment",
         "the question is not whether laptops can hinder learning — the evidence suggests they can — but whether a university-wide ban is the appropriate response.",
