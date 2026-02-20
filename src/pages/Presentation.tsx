@@ -602,7 +602,7 @@ const ProfessorViewSlide = () => (
           </p>
           <div className="mt-8 space-y-4">
             <FeatureBullet text="Per-grader validity rates at a glance — one number for rubric fidelity" icon={<LineChart className="w-5 h-5 text-purple-400" />} />
-            <FeatureBullet text="Cross-section fairness dashboard highlights scoring drift between graders" icon={<Scale className="w-5 h-5 text-purple-400" />} />
+            <FeatureBullet text="Cross-section fairness homepage highlights scoring drift between graders" icon={<Scale className="w-5 h-5 text-purple-400" />} />
             <FeatureBullet text="Criterion-level breakdown shows WHERE each grader is lenient or strict" icon={<BarChart3 className="w-5 h-5 text-purple-400" />} />
             <FeatureBullet text="Validation breakdown: fully / partially / not supported counts" icon={<TrendingUp className="w-5 h-5 text-purple-400" />} />
           </div>
@@ -772,7 +772,7 @@ const DemoFlowSlide = () => (
       </h2>
       <div className="grid grid-cols-5 gap-4 mt-14 max-w-[1600px]">
         {[
-          { num: 1, icon: <BookOpen className="w-8 h-8" />, title: "Dashboard", desc: "Assignment overview with progress" },
+          { num: 1, icon: <BookOpen className="w-8 h-8" />, title: "Homepage", desc: "Assignment overview with progress" },
           { num: 2, icon: <ClipboardCheck className="w-8 h-8" />, title: "Grading", desc: "3-column workspace for 5 students" },
           { num: 3, icon: <Brain className="w-8 h-8" />, title: "Validate", desc: "AI checks justifications live" },
           { num: 4, icon: <BarChart3 className="w-8 h-8" />, title: "Analytics", desc: "Session report with fairness audit" },
@@ -793,7 +793,7 @@ const DemoFlowSlide = () => (
           </div>
         ))}
       </div>
-      <p className="text-white/25 text-sm mt-10">Dashboard → Grade 5 students → View Analytics → See Full Segment Grades across all graders</p>
+      <p className="text-white/25 text-sm mt-10">Homepage → Grade 5 students → View Analytics → See Full Segment Grades across all graders</p>
     </div>
   </SlideLayout>
 );

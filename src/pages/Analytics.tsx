@@ -122,7 +122,7 @@ const Analytics = () => {
               className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              Dashboard
+              Homepage
             </button>
             <div className="w-px h-5 bg-border/60" />
             <div className="flex items-center gap-2">
@@ -429,7 +429,7 @@ const Analytics = () => {
             className="flex items-center gap-2 bg-muted/50 border border-border/40 text-foreground font-medium text-sm rounded-2xl px-8 py-3.5 hover:bg-muted transition-all duration-200"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Dashboard
+            Back to Homepage
           </button>
           <button
             onClick={() => navigate("/segment-grades")}

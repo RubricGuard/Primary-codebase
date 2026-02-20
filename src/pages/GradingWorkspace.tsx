@@ -140,7 +140,7 @@ const GradingWorkspace = () => {
               className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              Dashboard
+              Homepage
             </button>
             <div className="w-px h-5 bg-border" />
             <div className="flex items-center gap-2">

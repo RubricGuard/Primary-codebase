@@ -356,7 +356,7 @@ const SegmentGrades = () => {
           </div>
         ))}
 
-        {/* Back to Dashboard */}
+        {/* Back to Homepage */}
         <div className="flex justify-center pb-6 animate-fade-in" style={{ animationDelay: "0.3s" }}>
           <button
             onClick={() => navigate("/")}
@@ -364,7 +364,7 @@ const SegmentGrades = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
             <CheckCircle2 className="w-5 h-5 relative z-10" />
-            <span className="relative z-10">Back to Dashboard</span>
+            <span className="relative z-10">Back to Homepage</span>
           </button>
         </div>
       </main>

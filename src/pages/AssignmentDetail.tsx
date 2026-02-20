@@ -17,7 +17,7 @@ const AssignmentDetail = () => {
           <div className="flex items-center gap-4">
             <button onClick={() => navigate("/")} className="flex items-center gap-1.5 text-sm text-white/50 hover:text-white/80 transition-colors">
               <ArrowLeft className="w-4 h-4" />
-              Dashboard
+              Homepage
             </button>
             <div className="w-px h-5 bg-white/10" />
             <div className="flex items-center gap-2">
