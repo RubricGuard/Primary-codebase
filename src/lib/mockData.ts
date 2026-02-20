@@ -132,7 +132,7 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     },
     {
       criterionId: "evidence-use",
-      score: 23,
+      score: 18,
       explanation: "Cites Mueller & Oppenheimer, Sana et al., Waterfield & West, and the Urry meta-analysis. Evidence is well-integrated into the argument rather than just listed.",
       validated: false,
       highlightedTexts: [
