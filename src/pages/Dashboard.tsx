@@ -166,6 +166,70 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* Dummy Assignment Card */}
+        <div className="max-w-xl w-full rounded-2xl text-left animate-fade-in relative mb-8 opacity-60" style={{ animationDelay: "0.1s" }}>
+          <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-white/[0.08] to-white/[0.02] pointer-events-none" />
+          <div className="relative bg-white/[0.03] backdrop-blur-sm rounded-2xl border border-white/[0.06] p-7">
+            <div className="flex items-start justify-between mb-5">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center">
+                  <BookOpen className="w-4 h-4 text-violet-400" />
+                </div>
+                <div>
+                  <p className="text-xs text-violet-400/80 font-medium">BUS405 — Organizational Behavior</p>
+                  <h3 className="font-serif text-lg font-semibold text-white mt-0.5">
+                    Case Study: Leadership Styles in Crisis Management
+                  </h3>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 mb-5">
+              <div className="bg-white/[0.03] border border-white/[0.06] rounded-lg px-4 py-3">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-[10px] font-medium text-white/40 uppercase tracking-wider">Assigned</span>
+                </div>
+                <p className="text-sm font-semibold text-white/90">Feb 20, 2026</p>
+              </div>
+              <div className="bg-white/[0.03] border border-white/[0.06] rounded-lg px-4 py-3">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="text-[10px] font-medium text-white/40 uppercase tracking-wider">Due Date</span>
+                </div>
+                <p className="text-sm font-semibold text-white/90">Mar 6, 2026</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-5 text-sm text-white/40 mb-5">
+              <span className="flex items-center gap-1.5">
+                <Users className="w-3.5 h-3.5" />
+                2 sections
+              </span>
+              <span className="flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5" />
+                32 submissions
+              </span>
+              <span className="flex items-center gap-1.5">
+                <ClipboardCheck className="w-3.5 h-3.5" />
+                5 criteria
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between text-sm mb-2.5">
+              <span className="text-white/35 text-xs">Progress</span>
+              <span className="text-xs font-medium text-white/60">0 of 32</span>
+            </div>
+            <div className="h-1 bg-white/[0.06] rounded-full overflow-hidden mb-6">
+              <div className="h-full bg-gradient-to-r from-violet-500 to-purple-400 rounded-full" style={{ width: "1.5%" }} />
+            </div>
+
+            <div className="flex items-center justify-center py-2">
+              <span className="text-xs text-white/30 italic">Submissions not yet due</span>
+            </div>
+          </div>
+        </div>
+
         {/* Disclaimer */}
         <p className="mt-8 text-[13px] text-white/25 max-w-sm text-center leading-relaxed animate-fade-in" style={{ animationDelay: "0.2s" }}>
           Final grading authority remains with the professor. AI provides alignment support only.
