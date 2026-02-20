@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { Shield, ChevronLeft, ChevronRight, Maximize, AlertTriangle, CheckCircle2, Scale, TrendingUp, Brain, BarChart3, Users, Target, Zap, ArrowRight, GraduationCap, FileCheck, Eye, Lightbulb, BookOpen, UserCheck, Award, ClipboardCheck, MessageCircle, LineChart, Coffee, XCircle, Calculator, Layers, Sparkles, PenLine, CircleDot } from "lucide-react";
+import { Shield, ChevronLeft, ChevronRight, Maximize, AlertTriangle, CheckCircle2, Scale, TrendingUp, Brain, BarChart3, Users, Target, Zap, ArrowRight, GraduationCap, FileCheck, Eye, Lightbulb, BookOpen, UserCheck, Award, ClipboardCheck, MessageCircle, LineChart, Coffee, XCircle, Calculator, Layers, Sparkles, PenLine, CircleDot, FileText, Highlighter } from "lucide-react";
 import gradingWorkspaceScreenshot from "@/assets/screenshots/grading-workspace.png";
 import analyticsScreenshot from "@/assets/screenshots/analytics-dashboard.png";
 
@@ -811,15 +811,15 @@ const storyboardImages = Object.values(import.meta.glob('@/assets/storyboard/*.p
 
 const StoryboardSlide = () => {
   const panels = [
-    { num: 1, icon: <GraduationCap className="w-7 h-7" />, title: "The Professor", desc: "A professor teaches a large multi-section university course. Multiple teaching assistants grade essay assignments across different sections." },
-    { num: 2, icon: <AlertTriangle className="w-7 h-7" />, title: "The Problem", desc: "Grading inconsistency emerges. Similar-quality essays receive different scores across sections. Students compare grades and question fairness." },
-    { num: 3, icon: <Coffee className="w-7 h-7" />, title: "The Fatigue", desc: "The professor is overwhelmed and fatigued during a long grading session late at night — buried in papers, running on coffee." },
-    { num: 4, icon: <XCircle className="w-7 h-7" />, title: "The Gap", desc: "Existing tools like Canvas, Turnitin, and Gradescope display grades and feedback but cannot detect cross-section grading drift. The professor is frustrated." },
-    { num: 5, icon: <Lightbulb className="w-7 h-7" />, title: "Enter RubricGuard", desc: "Enter RubricGuard AI — a supportive grading copilot that assists faculty without replacing their judgment." },
-    { num: 6, icon: <Layers className="w-7 h-7" />, title: "The Workspace", desc: "The grading interface: submission viewer on the left, rubric scoring cards in the center, and live consistency analytics on the right." },
-    { num: 7, icon: <Brain className="w-7 h-7" />, title: "AI Validates", desc: "The AI validates a score explanation and flags a consistency alert — scoring drift detected across sections." },
-    { num: 8, icon: <UserCheck className="w-7 h-7" />, title: "Human in Control", desc: "The professor reviews the alert, adjusts or confirms the score. Faculty remains fully in control of every decision." },
-    { num: 9, icon: <Award className="w-7 h-7" />, title: "Alignment Validated", desc: "Grades finalized with an 'Alignment Validated' summary. The professor feels confident and relieved." },
+    { num: 1, icon: <Shield className="w-7 h-7" />, title: "Launch RubricGuard AI", desc: "Professor opens the RubricGuard AI web app. The Assignment Selection screen loads with available courses and assignments." },
+    { num: 2, icon: <FileText className="w-7 h-7" />, title: "Select Assignment", desc: "Professor selects \"Case Analysis 1 (BUS302).\" The system loads the rubric criteria and the first student submission in grading order." },
+    { num: 3, icon: <Layers className="w-7 h-7" />, title: "Enter Grading Workspace", desc: "The three-column grading interface appears: submission viewer on the left, rubric scoring cards in the center, and live consistency analytics on the right." },
+    { num: 4, icon: <Highlighter className="w-7 h-7" />, title: "Review & Highlight", desc: "Professor reads the student's submission and highlights relevant excerpts to link evidence to a rubric criterion." },
+    { num: 5, icon: <PenLine className="w-7 h-7" />, title: "Score & Justify", desc: "Professor enters a numeric score and written justification for each rubric criterion." },
+    { num: 6, icon: <Brain className="w-7 h-7" />, title: "Validate Justification", desc: "The system analyzes the explanation against the submission text and rubric definition, then displays a validation badge with referenced excerpts and reasoning." },
+    { num: 7, icon: <AlertTriangle className="w-7 h-7" />, title: "Consistency Alert", desc: "If the score deviates from the grading baseline, the system displays a consistency alert with a reference to a previously graded example." },
+    { num: 8, icon: <UserCheck className="w-7 h-7" />, title: "Adjust or Override", desc: "Professor revises the score or overrides the suggestion. The system logs the decision and updates live analytics." },
+    { num: 9, icon: <CheckCircle2 className="w-7 h-7" />, title: "Finalize & Review", desc: "Professor reviews session analytics — aggregated metrics, criterion stability heatmap, score timeline — then clicks \"Finalize Grades\" to lock the session." },
   ];
 
   return (
