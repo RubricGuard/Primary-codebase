@@ -61,6 +61,9 @@ const GradingWorkspace = () => {
     const criterion = rubricCriteria.find((c) => c.id === criterionId);
     if (!scoreData?.highlightedTexts?.length || !scoreData?.explanation || !criterion) return;
 
+    // If already validated with a result, don't re-call the API
+    if (scoreData.validationResult) return;
+
     updateScore(criterionId, "validationLoading", true);
 
     try {
