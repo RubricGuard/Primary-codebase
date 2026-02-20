@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Shield, BookOpen, Calendar, Users, FileText, ClipboardCheck, ArrowRight, GraduationCap } from "lucide-react";
+import { ArrowLeft, Shield, BookOpen, Calendar, Users, FileText, ClipboardCheck, ArrowRight, GraduationCap, Clock } from "lucide-react";
 import { assignments, rubricCriteria, studentSubmissions } from "@/lib/mockData";
 
 const AssignmentDetail = () => {
@@ -89,23 +89,39 @@ const AssignmentDetail = () => {
           </div>
         </div>
 
-        {/* Recent Submissions Preview */}
+        {/* All Submissions — Prof. Sharma (Section A) */}
         <div className="mb-10 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-          <h2 className="text-sm font-semibold text-white/60 uppercase tracking-wide mb-4">Recent Submissions</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-sm font-semibold text-white/60 uppercase tracking-wide">
+              Submissions — Prof. Sharma
+            </h2>
+            <span className="text-xs text-white/30">
+              {studentSubmissions.filter(s => s.section === "Section A").length} submitted
+            </span>
+          </div>
           <div className="space-y-2">
-            {studentSubmissions.slice(0, 3).map((s) => (
-              <div key={s.id} className="bg-white/[0.03] border border-white/[0.06] rounded-lg px-4 py-3 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-xs font-semibold text-blue-400">
-                    {s.id.slice(-2)}
+            {studentSubmissions
+              .filter(s => s.section === "Section A")
+              .map((s, i) => (
+                <div
+                  key={s.id}
+                  className="bg-white/[0.03] border border-white/[0.06] rounded-lg px-4 py-3 flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-xs font-semibold text-blue-400">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-white/80">{s.name}</p>
+                      <p className="text-[11px] text-white/35">{s.section}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm font-medium text-white/80">{s.name}</p>
-                    <p className="text-[11px] text-white/35">{s.submittedAt} · {s.section}</p>
+                  <div className="flex items-center gap-1.5 text-white/40">
+                    <Clock className="w-3 h-3" />
+                    <span className="text-xs">{s.submittedAt}</span>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
 
