@@ -78,6 +78,7 @@ const GradingWorkspace = () => {
             criterionDescription: criterion.description,
             maxScore: criterion.maxScore,
             score: scoreData.score,
+            fullSubmission: student.content,
           }),
         }
       );
@@ -95,6 +96,7 @@ const GradingWorkspace = () => {
         status: result.status,
         reasoning: result.reasoning,
         suggestedRefinement: result.suggestedRefinement,
+        keyQuotes: result.keyQuotes,
       });
       updateScore(criterionId, "validationLoading", false);
 
@@ -116,6 +118,11 @@ const GradingWorkspace = () => {
   const gradedStudents = Object.entries(scores).filter(([_, s]) =>
     s.every((sc) => sc.score !== null)
   ).length;
+
+  // Collect all AI-highlighted quotes for the current student
+  const aiHighlightedQuotes = currentScores
+    .flatMap((s) => s.validationResult?.keyQuotes || [])
+    .filter((q) => student.content.includes(q));
 
   return (
     <div className="h-screen flex flex-col bg-gradient-to-br from-white via-blue-50/30 to-slate-50/40 overflow-hidden">
@@ -193,7 +200,7 @@ const GradingWorkspace = () => {
       {/* 3-Column Layout */}
       <div className="flex-1 flex overflow-hidden">
         <div className="w-[30%] border-r border-border/40 overflow-y-auto scrollbar-thin">
-          <SubmissionViewer student={student} onTextSelected={handleTextSelected} />
+          <SubmissionViewer student={student} onTextSelected={handleTextSelected} aiHighlights={aiHighlightedQuotes} />
         </div>
 
         <div className="w-[45%] overflow-y-auto scrollbar-thin">

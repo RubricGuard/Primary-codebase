@@ -333,6 +333,22 @@ const RubricPanel = ({
                 </p>
               </div>
             </div>
+
+            {/* AI Key Quotes */}
+            {dialogScore?.validationResult?.keyQuotes && dialogScore.validationResult.keyQuotes.length > 0 && (
+              <div>
+                <h4 className="font-semibold text-sm text-foreground mb-2">AI-Highlighted Evidence</h4>
+                <div className="space-y-2">
+                  {dialogScore.validationResult.keyQuotes.map((quote, i) => (
+                    <div key={i} className="flex items-start gap-2 bg-yellow-50 border border-yellow-200 rounded-lg px-3 py-2">
+                      <span className="text-xs font-bold text-yellow-600 mt-0.5 shrink-0">{i + 1}.</span>
+                      <p className="text-sm text-foreground/75 italic leading-relaxed">"{quote}"</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground mt-2">These quotes are highlighted in yellow in the submission viewer.</p>
+              </div>
+            )}
           </div>
 
           <div className="flex justify-end pt-2">

@@ -82,6 +82,7 @@ export interface ValidationResult {
   status: ValidationStatus;
   reasoning: string;
   suggestedRefinement: string;
+  keyQuotes?: string[];
 }
 
 export interface GradingScore {

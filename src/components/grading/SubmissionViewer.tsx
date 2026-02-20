@@ -1,5 +1,5 @@
 import { FileText, Clock, MapPin, Highlighter } from "lucide-react";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 interface Props {
   student: {
@@ -10,9 +10,37 @@ interface Props {
     content: string;
   };
   onTextSelected?: (text: string) => void;
+  aiHighlights?: string[];
 }
 
-const SubmissionViewer = ({ student, onTextSelected }: Props) => {
+/** Split text so that any substring matching one of the AI quotes is wrapped in a yellow highlight */
+const highlightText = (text: string, quotes: string[]) => {
+  if (!quotes.length) return [text];
+
+  // Sort quotes longest-first to prefer longer matches
+  const sorted = [...quotes].sort((a, b) => b.length - a.length);
+  const escaped = sorted.map((q) => q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const regex = new RegExp(`(${escaped.join("|")})`, "gi");
+
+  const parts = text.split(regex);
+  return parts.map((part, i) => {
+    const isMatch = sorted.some((q) => q.toLowerCase() === part.toLowerCase());
+    if (isMatch) {
+      return (
+        <mark
+          key={i}
+          className="bg-yellow-200/70 text-foreground rounded-sm px-0.5 -mx-0.5"
+          title="AI-highlighted evidence"
+        >
+          {part}
+        </mark>
+      );
+    }
+    return part;
+  });
+};
+
+const SubmissionViewer = ({ student, onTextSelected, aiHighlights = [] }: Props) => {
   const handleMouseUp = useCallback(() => {
     const selection = window.getSelection();
     const text = selection?.toString().trim();
@@ -20,6 +48,11 @@ const SubmissionViewer = ({ student, onTextSelected }: Props) => {
       onTextSelected(text);
     }
   }, [onTextSelected]);
+
+  const uniqueHighlights = useMemo(
+    () => [...new Set(aiHighlights)],
+    [aiHighlights]
+  );
 
   return (
     <div className="p-6">
@@ -47,6 +80,12 @@ const SubmissionViewer = ({ student, onTextSelected }: Props) => {
             Select text to attach as evidence for a rubric criterion
           </div>
         )}
+        {uniqueHighlights.length > 0 && (
+          <div className="flex items-center gap-1.5 mt-2 text-xs text-yellow-700 bg-yellow-50 rounded-lg px-3 py-2 border border-yellow-200">
+            <Sparkle className="w-3.5 h-3.5" />
+            Yellow highlights show AI-identified key evidence
+          </div>
+        )}
       </div>
 
       <div
@@ -59,7 +98,7 @@ const SubmissionViewer = ({ student, onTextSelected }: Props) => {
               key={i}
               className="text-foreground/85 leading-[1.8] text-[14.5px] mb-4 last:mb-0 selection:bg-primary/20 selection:text-primary"
             >
-              {paragraph}
+              {highlightText(paragraph, uniqueHighlights)}
             </p>
           ))}
         </div>
@@ -67,5 +106,12 @@ const SubmissionViewer = ({ student, onTextSelected }: Props) => {
     </div>
   );
 };
+
+// Small sparkle icon for the legend
+const Sparkle = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5z" />
+  </svg>
+);
 
 export default SubmissionViewer;
