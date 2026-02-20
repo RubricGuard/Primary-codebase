@@ -5,8 +5,8 @@ import { studentSubmissions, rubricCriteria, sampleGradedData, type GradingScore
 // Grader definitions
 const graders = [
   { id: "section-a", name: "Prof. Sharma", section: "Section A", role: "Professor" },
-  { id: "section-b", name: "TA: M. Chen", section: "Section B", role: "Teaching Assistant" },
-  { id: "section-c", name: "TA: R. Patel", section: "Section C", role: "Teaching Assistant" },
+  { id: "section-b", name: "Prof. Somani", section: "Section B", role: "Professor" },
+  { id: "section-c", name: "Prof. Raymahesh", section: "Section C", role: "Professor" },
 ];
 
 const AI_SIMILARITY_THRESHOLD = 2;
