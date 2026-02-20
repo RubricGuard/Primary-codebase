@@ -21,7 +21,7 @@ const Rubrics = () => {
             <div className="w-px h-5 bg-white/10" />
             <div className="flex items-center gap-2">
               <Shield className="w-5 h-5 text-blue-400" strokeWidth={1.5} />
-              <span className="font-semibold text-white">Rubric<span className="text-blue-400">Guard</span> <span className="text-white">AI</span></span>
+              <span className="font-semibold text-white">Rubric<span className="text-blue-400">Guard</span></span>
             </div>
           </div>
         </div>

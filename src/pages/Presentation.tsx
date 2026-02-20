@@ -130,7 +130,7 @@ const TitleSlide = () => (
         <Shield className="w-16 h-16 text-blue-400" strokeWidth={1.5} />
       </div>
       <h1 className="text-[88px] font-serif font-bold text-white leading-tight tracking-tight">
-        Rubric<span className="text-blue-400">Guard</span> AI
+        Rubric<span className="text-blue-400">Guard</span>
       </h1>
       <p className="text-[32px] text-white/50 mt-4 font-light tracking-wide">
         AI-Powered Grading Consistency & Fairness Engine
@@ -299,7 +299,7 @@ const MarketGapSlide = () => (
           <CompetitorCard name="Canvas SpeedGrader" features={["Inline comments", "Rubric templates", "Speed tools"]} gap="No consistency checking" />
           <CompetitorCard name="Gradescope" features={["AI grouping", "Batch grading", "Rubric reuse"]} gap="No fairness detection" />
           <CompetitorCard name="Turnitin" features={["Plagiarism detection", "Grammar check", "Similarity"]} gap="No score validation" />
-          <CompetitorCard name="RubricGuard AI" features={["AI validation ✓", "Fairness detection ✓", "Live analytics ✓"]} gap="" isOurs />
+          <CompetitorCard name="RubricGuard" features={["AI validation ✓", "Fairness detection ✓", "Live analytics ✓"]} gap="" isOurs />
         </div>
       </div>
     </div>
@@ -811,7 +811,7 @@ const storyboardImages = Object.values(import.meta.glob('@/assets/storyboard/*.p
 
 const StoryboardSlide = () => {
   const panels = [
-    { num: 1, icon: <Shield className="w-7 h-7" />, title: "Launch RubricGuard AI", desc: "Professor opens the RubricGuard AI web app. The Assignment Selection screen loads with available courses and assignments." },
+    { num: 1, icon: <Shield className="w-7 h-7" />, title: "Launch RubricGuard", desc: "Professor opens the RubricGuard web app. The Assignment Selection screen loads with available courses and assignments." },
     { num: 2, icon: <FileText className="w-7 h-7" />, title: "Select Assignment", desc: "Professor selects \"Case Analysis 1 (BUS302).\" The system loads the rubric criteria and the first student submission in grading order." },
     { num: 3, icon: <Layers className="w-7 h-7" />, title: "Enter Grading Workspace", desc: "The three-column grading interface appears: submission viewer on the left, rubric scoring cards in the center, and live consistency analytics on the right." },
     { num: 4, icon: <Highlighter className="w-7 h-7" />, title: "Review & Highlight", desc: "Professor reads the student's submission and highlights relevant excerpts to link evidence to a rubric criterion." },
@@ -848,7 +848,7 @@ const StoryboardSlide = () => {
             </div>
           ))}
         </div>
-        <p className="text-white/20 text-sm mt-6 italic">RubricGuard AI supports human judgment — it does not replace it.</p>
+        <p className="text-white/20 text-sm mt-6 italic">RubricGuard supports human judgment — it does not replace it.</p>
       </div>
     </SlideLayout>
   );

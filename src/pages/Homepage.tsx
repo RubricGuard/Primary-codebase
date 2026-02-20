@@ -28,7 +28,7 @@ const Homepage = () => {
               <Shield className="w-4.5 h-4.5 text-white" strokeWidth={2} />
             </div>
             <h1 className="text-lg font-semibold tracking-tight text-white">
-              Rubric<span className="text-blue-400">Guard</span> <span className="text-white">AI</span>
+              Rubric<span className="text-blue-400">Guard</span>
             </h1>
           </div>
           <div className="flex items-center gap-3">
