@@ -52,7 +52,8 @@ const Homepage = () => {
             <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent"> confidence</span>
           </h2>
           <p className="text-white/45 text-lg leading-relaxed max-w-lg mx-auto">
-            Every score justified, every justification validated, every student graded fairly.
+            Every score justified. Every justification validated.<br />
+            Every student graded fairly.
           </p>
 
           {/* Feature highlights */}
