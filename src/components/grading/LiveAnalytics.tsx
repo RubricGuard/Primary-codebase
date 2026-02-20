@@ -310,27 +310,41 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
 
                   {/* Stacked student comparison */}
                   <div className="space-y-1.5">
-                    <div className="bg-muted/30 rounded-md px-3 py-2 border border-border/30">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] text-muted-foreground font-medium">{flag.studentA.id}</span>
-                        <span className="text-[10px] text-muted-foreground">AI: {flag.studentA.aiScore}</span>
-                      </div>
-                      <span className="text-xs font-bold text-foreground">{flag.studentA.score}/{flag.maxScore}</span>
-                    </div>
-                    <div className="bg-muted/30 rounded-md px-3 py-2 border border-border/30">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] text-muted-foreground font-medium">{flag.studentB.id}</span>
-                        <span className="text-[10px] text-muted-foreground">AI: {flag.studentB.aiScore}</span>
-                      </div>
-                      <span className="text-xs font-bold text-foreground">{flag.studentB.score}/{flag.maxScore}</span>
-                    </div>
+                    {[flag.studentA, flag.studentB].map((stu) => {
+                      const deviation = Math.abs(stu.score - stu.aiScore);
+                      const isClose = deviation <= 2;
+                      return (
+                        <div key={stu.id} className={`rounded-md px-3 py-2 border ${isClose ? "bg-muted/30 border-border/30" : "bg-destructive/5 border-destructive/20"}`}>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] text-muted-foreground font-medium">{stu.id}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] text-muted-foreground">AI: {stu.aiScore}</span>
+                              <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${isClose ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"}`}>
+                                {isClose ? "within range" : `${deviation}pt off`}
+                              </span>
+                            </div>
+                          </div>
+                          <span className={`text-xs font-bold ${isClose ? "text-foreground" : "text-destructive"}`}>{stu.score}/{flag.maxScore}</span>
+                        </div>
+                      );
+                    })}
                   </div>
 
                   {/* Gap indicator */}
                   <div className="flex items-center gap-1.5">
                     <AlertTriangle className="w-3 h-3 text-destructive shrink-0" />
                     <span className="text-[10px] text-destructive/90 font-medium leading-tight">
-                      AI says similar quality, but scores differ by {flag.scoreDiff} pts
+                      {(() => {
+                        const aOff = Math.abs(flag.studentA.score - flag.studentA.aiScore);
+                        const bOff = Math.abs(flag.studentB.score - flag.studentB.aiScore);
+                        if (aOff <= 2 && bOff > 2) {
+                          return `${flag.studentA.id} aligns with AI but ${flag.studentB.id} deviates by ${bOff} pts`;
+                        }
+                        if (bOff <= 2 && aOff > 2) {
+                          return `${flag.studentB.id} aligns with AI but ${flag.studentA.id} deviates by ${aOff} pts`;
+                        }
+                        return `AI says similar quality, but scores differ by ${flag.scoreDiff} pts`;
+                      })()}
                     </span>
                   </div>
                 </div>

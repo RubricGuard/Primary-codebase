@@ -677,11 +677,11 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
   STU005: [
     {
       criterionId: "arg-clarity",
-      score: 20,
-      explanation: "Clear thesis arguing against laptop bans with a well-structured progression from evidence to accessibility to alternatives. Deducted 5 marks: the thesis is stated somewhat late in the first paragraph, the opening sentence is generic ('have become increasingly popular'), and the 'misguided and counterproductive' framing is strong but not fully developed throughout.",
+      score: 16,
+      explanation: "Has a thesis but arrives late and is vaguely developed. The 'misguided and counterproductive' framing is stated but not sufficiently argued throughout the essay. Deducted 9 marks: thesis placement, generic opening, and the central claim lacks sustained development across body paragraphs.",
       validated: false,
-      aiSuggestion: "The 5-mark deduction is reasonable overall. The thesis is clear but does arrive late in the paragraph. The 'misguided and counterproductive' claim is bold but the essay focuses more on 'counterproductive' than 'misguided,' creating slight imbalance. A score of 20 fairly reflects this.",
-      aiSuggestedScore: 20,
+      aiSuggestion: "The 9-mark deduction is too harsh. While the thesis arrives late, it is clearly stated and the essay does develop the 'counterproductive' dimension well. The opening is generic but the argument structure is sound. A score of 20–21 would be more appropriate.",
+      aiSuggestedScore: 22,
       aiSupportingEvidence: [
         "this essay argues that such bans are misguided and counterproductive",
         "The answer lies in better teaching, not fewer tools.",
@@ -690,11 +690,11 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
         "Laptop bans in universities have become increasingly popular, but this essay argues that such bans are misguided and counterproductive.",
         "The answer lies in better teaching, not fewer tools.",
       ],
-      validationStatus: "fully_supported",
+      validationStatus: "not_supported",
       validationResult: {
-        status: "fully_supported",
-        reasoning: "The highlighted passages confirm a clear anti-ban thesis and a strong concluding restatement. The deduction for late thesis placement and generic opening is well-supported. The 'misguided vs counterproductive' imbalance is a valid analytical observation.",
-        suggestedRefinement: "The closing line ('better teaching, not fewer tools') is rhetorically effective and may partially compensate for the slow thesis introduction — consider whether this merits a slight upward revision.",
+        status: "not_supported",
+        reasoning: "The highlighted passages show a clear thesis and strong conclusion, which contradicts the heavy 9-mark deduction. The essay does develop the 'counterproductive' argument with evidence from Sana et al. and Fried. The grader's assessment of 'vaguely developed' is not supported by the text.",
+        suggestedRefinement: "The evidence in the submission supports a score of 20–22. The current score of 16 appears to be an outlier compared to AI assessment of 22. Consider whether grader fatigue or bias influenced this deduction.",
         keyQuotes: [
           "such bans are misguided and counterproductive",
           "The answer lies in better teaching, not fewer tools",
