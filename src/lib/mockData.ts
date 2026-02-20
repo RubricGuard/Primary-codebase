@@ -108,14 +108,14 @@ export interface GradingScore {
 // ============================================================
 
 export const sampleGradedData: Record<string, GradingScore[]> = {
-  // ── STU001: Fully Supported — grader's justifications align with evidence ──
+  // ── STU001: Mix of reasonable and questionable deductions ──
   STU001: [
     {
       criterionId: "arg-clarity",
       score: 22,
-      explanation: "Clear thesis advocating a structured middle ground. Well-signposted argument that moves logically from evidence against laptops to accessibility concerns to a proposed solution.",
+      explanation: "Clear thesis advocating a structured middle ground. Well-signposted argument. Deducted 3 marks: thesis doesn't explicitly state which specific 'laptop-free' model is being proposed, leaving the reader to infer the exact policy recommendation.",
       validated: false,
-      aiSuggestion: "The student's thesis is nuanced ('carefully structured policy rather than an outright ban') — this sophistication may warrant a higher score than a simple pro/con thesis would.",
+      aiSuggestion: "The 3-mark deduction seems harsh — the student's thesis progressively narrows from a general principle to a specific policy ('laptop-free zones + digital note-taking instruction'). The refinement happens across the essay, which is a sign of argumentative sophistication, not weakness.",
       aiSuggestedScore: 24,
       aiSupportingEvidence: [
         "Universities should implement a carefully structured laptop policy rather than an outright ban.",
@@ -129,8 +129,8 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       validationStatus: "fully_supported",
       validationResult: {
         status: "fully_supported",
-        reasoning: "The justification accurately identifies the nuanced thesis and logical structure. The highlighted evidence clearly shows a well-signposted argument moving from problem identification to proposed solution.",
-        suggestedRefinement: "Consider noting how the student's thesis evolves throughout the essay — the opening claim is refined by the conclusion into a more specific policy recommendation.",
+        reasoning: "The justification accurately identifies the nuanced thesis and logical structure. The deduction reason ('thesis doesn't explicitly state which model') is defensible, though the highlighted evidence shows the student does specify their policy later in the essay.",
+        suggestedRefinement: "Consider noting how the student's thesis evolves throughout the essay — the opening claim is refined by the conclusion into a more specific policy recommendation, which may reduce the validity of the 3-mark deduction.",
         keyQuotes: [
           "carefully structured laptop policy rather than an outright ban",
           "a structured middle ground: designated \"laptop-free\" zones",
@@ -141,9 +141,9 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "evidence-use",
       score: 18,
-      explanation: "Cites Mueller & Oppenheimer, Sana et al., Waterfield & West, and the Urry meta-analysis. Evidence is well-integrated into the argument rather than just listed.",
+      explanation: "Cites Mueller & Oppenheimer, Sana et al., Waterfield & West, and the Urry meta-analysis. Evidence is well-integrated. Deducted 7 marks: the student fails to include any primary data or original analysis, relying entirely on secondary sources without critically evaluating their methodologies.",
       validated: false,
-      aiSuggestion: "The student cites four distinct sources with specific data points (11%, 17%) and uses them to build a progressive argument. This level of integration typically warrants a score of 21–23.",
+      aiSuggestion: "The 7-mark deduction for 'no primary data' is disproportionate — undergraduate argumentative essays are not expected to include original research. The rubric criterion is about quality, relevance, and integration of sources, all of which are strong here.",
       aiSuggestedScore: 22,
       aiSupportingEvidence: [
         "Mueller and Oppenheimer (2014) demonstrated that students who took notes by hand scored significantly higher on conceptual questions than those who typed",
@@ -156,11 +156,11 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
         "Sana, Weston, and Cepeda (2013) found that not only did laptop multitaskers perform 11% worse on comprehension tests, but students sitting within view of a multitasking peer scored 17% lower",
         "A 2020 meta-analysis by Urry et al. found that the Mueller and Oppenheimer effect was smaller and less consistent when replicated at scale.",
       ],
-      validationStatus: "fully_supported",
+      validationStatus: "partially_supported",
       validationResult: {
-        status: "fully_supported",
-        reasoning: "The justification is well-supported — all four cited sources appear in the highlighted evidence with specific data points (11%, 17%). The student integrates rather than just lists sources.",
-        suggestedRefinement: "You could also note that Waterfield & West (2006) is used for a different purpose (accessibility) than the cognitive science sources, showing versatile evidence deployment.",
+        status: "partially_supported",
+        reasoning: "The positive assessment of evidence integration is well-supported by the highlighted text. However, the 7-mark deduction for 'no primary data' applies a standard beyond the rubric's scope — the criterion evaluates 'quality, relevance, and integration of supporting evidence from credible sources,' not original research contribution.",
+        suggestedRefinement: "Re-evaluate the deduction against the rubric criteria. If 'primary data' is not required by the rubric, the deduction should reflect actual weaknesses in source integration or relevance instead.",
         keyQuotes: [
           "Mueller and Oppenheimer (2014) demonstrated that students who took notes by hand",
           "Sana, Weston, and Cepeda (2013) found that not only did laptop multitaskers",
@@ -171,9 +171,9 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "critical-analysis",
       score: 21,
-      explanation: "Engages with counterarguments (accessibility, contested research) but could push deeper on the equity implications of alternative policies.",
+      explanation: "Engages with counterarguments (accessibility, contested research). Deducted 4 marks: does not address the economic cost of implementing laptop-free zones (e.g., signage, enforcement) and doesn't consider the perspective of university administrators.",
       validated: false,
-      aiSuggestion: "The student explicitly addresses accessibility, disability stigma, and methodological limitations of key studies — this multi-layered counterargument engagement is stronger than the current score reflects.",
+      aiSuggestion: "The deduction for 'economic cost of signage/enforcement' applies a policy implementation standard rather than an analytical depth standard. The student demonstrates strong critical analysis through methodological critique and equity analysis, which is what the rubric assesses.",
       aiSuggestedScore: 23,
       aiSupportingEvidence: [
         "Yet a blanket ban is problematic for several reasons. First, it raises serious accessibility concerns.",
@@ -187,8 +187,8 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       validationStatus: "fully_supported",
       validationResult: {
         status: "fully_supported",
-        reasoning: "The justification correctly identifies engagement with counterarguments and the highlighted evidence demonstrates both the accessibility concerns and the methodological critique. The observation about pushing deeper is a valid constructive note.",
-        suggestedRefinement: "Consider highlighting the Waterfield & West passage about disability disclosure and stigma to further support the equity dimension of your assessment.",
+        reasoning: "The justification correctly identifies engagement with counterarguments. The deduction reason (economic cost, administrator perspective) is a valid observation about what's missing, though it may set the bar beyond what the rubric requires for a 25/25.",
+        suggestedRefinement: "Consider whether the rubric's 'depth of analytical reasoning' requires policy cost analysis, or whether the student's methodological critique and equity analysis already demonstrate sufficient depth.",
         keyQuotes: [
           "Requiring these students to disclose their disability to receive an exemption creates stigma",
           "evidence-based, rather than evidence-inspired, decision-making",
@@ -199,9 +199,9 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "writing-quality",
       score: 23,
-      explanation: "Strong academic prose with effective transitions. The 'second-hand smoke' metaphor is vivid. Minor point: conclusion could be more concise.",
+      explanation: "Strong academic prose with effective transitions. The 'second-hand smoke' metaphor is vivid. Deducted 2 marks: conclusion could be more concise, and the essay slightly exceeds the ideal paragraph length in the middle sections.",
       validated: false,
-      aiSuggestion: "The essay demonstrates sophisticated rhetorical techniques including extended metaphor and effective use of em-dashes. The score of 23 is well-calibrated for this quality level.",
+      aiSuggestion: "The 2-mark deduction for conclusion length and paragraph density is reasonable and proportionate. The essay demonstrates sophisticated rhetorical techniques including extended metaphor and effective use of em-dashes.",
       aiSuggestedScore: 23,
       aiSupportingEvidence: [
         "This \"second-hand smoke\" effect means that one student's laptop use imposes a negative externality on the learning environment",
@@ -214,7 +214,7 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       validationStatus: "fully_supported",
       validationResult: {
         status: "fully_supported",
-        reasoning: "The highlighted passages confirm strong rhetorical devices ('second-hand smoke' metaphor) and effective academic framing. The conclusion excerpt supports the 'could be more concise' observation as it's somewhat lengthy.",
+        reasoning: "The highlighted passages confirm strong rhetorical devices ('second-hand smoke' metaphor) and effective academic framing. The deduction for conclusion conciseness is reasonable and well-proportioned at 2 marks.",
         suggestedRefinement: "Consider noting the effective use of em-dashes for parenthetical asides throughout the essay as an additional marker of writing sophistication.",
         keyQuotes: [
           "This \"second-hand smoke\" effect means that one student's laptop use",
@@ -225,21 +225,27 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     },
   ],
 
-  // ── STU002: Not Supported — grader inflates scores and misrepresents evidence ──
+  // ── STU002: Grader errors — inflated scores with fabricated reasons, plus one honest low score ──
   STU002: [
     {
       criterionId: "arg-clarity",
       score: 22,
-      explanation: "The student constructs a nuanced, multi-layered thesis with explicit qualifications, citing Mueller & Oppenheimer (2014) directly in the thesis statement to ground the argument in empirical research from the outset.",
+      explanation: "The student constructs a nuanced, multi-layered thesis with explicit qualifications, citing Mueller & Oppenheimer (2014) directly in the thesis statement. Deducted only 3 marks for minor structural flow issues between paragraphs.",
       validated: false,
+      aiSuggestion: "The score of 22 is far too high. The thesis is a single informal sentence ('I think universities should ban laptops') with no qualifications, no citations, and no nuance. A score of 10–12 would better reflect the actual argument clarity.",
+      aiSuggestedScore: 11,
+      aiSupportingEvidence: [
+        "I think universities should ban laptops in lectures because they are very distracting.",
+        "laptops should be banned from lectures because they hurt learning, distract others, and make cheating easier.",
+      ],
       highlightedTexts: [
         "I think universities should ban laptops in lectures because they are very distracting.",
       ],
       validationStatus: "not_supported",
       validationResult: {
         status: "not_supported",
-        reasoning: "The grader's justification claims the thesis is 'nuanced' and 'multi-layered' and cites a specific academic study (Mueller & Oppenheimer). However, the student's submission contains no such citation, and the highlighted thesis is a simple, straightforward statement without qualifications.",
-        suggestedRefinement: "The grader should revise the justification to reflect the actual text, which lacks academic citations in the thesis, and adjust the score to account for the simplicity of the argument rather than crediting non-existent complexity.",
+        reasoning: "The grader's justification claims the thesis is 'nuanced' and 'multi-layered' and cites Mueller & Oppenheimer. However, the student's submission contains no such citation, and the highlighted thesis is a simple, straightforward statement without qualifications. The 3-mark deduction implies a near-perfect argument, which is inaccurate.",
+        suggestedRefinement: "The grader should revise the justification to reflect the actual text, which lacks academic citations in the thesis, and adjust the score significantly downward to account for the simplicity of the argument.",
         keyQuotes: [
           "I think universities should ban laptops in lectures because they are very distracting.",
           "laptops should be banned from lectures because they hurt learning, distract others, and make cheating easier.",
@@ -249,8 +255,14 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "evidence-use",
       score: 21,
-      explanation: "The student cites Mueller & Oppenheimer (2014) and Sana et al. (2013) with specific statistics on comprehension reduction, demonstrating strong integration of peer-reviewed sources into the argument.",
+      explanation: "The student cites Mueller & Oppenheimer (2014) and Sana et al. (2013) with specific statistics on comprehension reduction. Deducted 4 marks because only two sources are used instead of the recommended three or more.",
       validated: false,
+      aiSuggestion: "The deduction rationale implies the student cited two named sources — but the submission contains zero named citations. The actual text only says 'Studies have shown' without any author names, years, or data points. The score should reflect the absence of credible sourcing.",
+      aiSuggestedScore: 8,
+      aiSupportingEvidence: [
+        "Studies have shown that laptops are bad for learning.",
+        "Laptops also make it too easy to cheat. Students can look up answers during class or share notes with people who didn't come to lecture.",
+      ],
       highlightedTexts: [
         "Studies have shown that laptops are bad for learning.",
         "Laptops also make it too easy to cheat. Students can look up answers during class or share notes with people who didn't come to lecture.",
@@ -258,8 +270,8 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       validationStatus: "not_supported",
       validationResult: {
         status: "not_supported",
-        reasoning: "The grader's justification is entirely unsupported by the student's submission. The grader claims the student cites specific peer-reviewed authors and statistics, but the actual text only contains a vague reference to 'Studies' without any citations or specific data.",
-        suggestedRefinement: "The grader needs to re-evaluate the submission based on what is actually written; the current justification appears to be for a completely different paper that included scholarly citations.",
+        reasoning: "The grader's justification is entirely unsupported. The grader claims the student cites specific peer-reviewed authors and statistics, but the actual text only contains a vague reference to 'Studies' without any citations or specific data. The deduction for 'only two sources' is also fabricated since zero sources are properly cited.",
+        suggestedRefinement: "The grader needs to re-evaluate the submission based on what is actually written; the current justification appears to be for a completely different paper.",
         keyQuotes: [
           "Studies have shown that laptops are bad for learning.",
           "Laptops also make it too easy to cheat.",
@@ -269,15 +281,21 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "critical-analysis",
       score: 8,
-      explanation: "Dismisses the accessibility counterargument ('they can just get special permission') without engaging with the underlying equity concerns. No alternative perspectives explored.",
+      explanation: "Dismisses the accessibility counterargument ('they can just get special permission') without engaging with the underlying equity concerns. Deducted 17 marks: no alternative perspectives explored, no engagement with methodological limitations, and the counterargument treatment borders on dismissive rather than analytical.",
       validated: false,
+      aiSuggestion: "The heavy deduction is well-justified. The student's treatment of accessibility is dismissive and frames disabled students as an inconvenience. The 'us vs. them' framing reveals a complete failure to engage with inclusive design principles.",
+      aiSuggestedScore: 7,
+      aiSupportingEvidence: [
+        "Some people say laptops should be allowed for students with disabilities but I think those students can just get special permission from the professor.",
+        "The rest of the class shouldn't have to deal with distractions just because a few students need laptops.",
+      ],
       highlightedTexts: [
         "Some people say laptops should be allowed for students with disabilities but I think those students can just get special permission from the professor. The rest of the class shouldn't have to deal with distractions just because a few students need laptops.",
       ],
       validationStatus: "fully_supported",
       validationResult: {
         status: "fully_supported",
-        reasoning: "The justification accurately identifies the dismissive treatment of accessibility concerns. The highlighted passage confirms 'just get special permission' and the framing of disabled students as an inconvenience, validating the low score of 8/25.",
+        reasoning: "The justification accurately identifies the dismissive treatment of accessibility concerns. The highlighted passage confirms 'just get special permission' and the framing of disabled students as an inconvenience, validating the low score of 8/25 and the specific deduction reasons.",
         suggestedRefinement: "You could strengthen this by also noting the problematic 'us vs. them' framing — 'the rest of the class shouldn't have to deal with' — which reveals a failure to consider inclusive design principles.",
         keyQuotes: [
           "those students can just get special permission from the professor",
@@ -288,8 +306,15 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "writing-quality",
       score: 15,
-      explanation: "Readable but informal. Uses 'I think' framing, lacks paragraph cohesion, and contains run-on sentences. Missing commas in compound sentences.",
+      explanation: "Readable but informal. Uses 'I think' framing, lacks paragraph cohesion. Deducted 10 marks: run-on sentences throughout, missing commas in compound sentences, and the conclusion merely restates the introduction without development.",
       validated: false,
+      aiSuggestion: "The deduction for informality and 'I think' framing is valid (roughly 5 marks). However, claiming 'run-on sentences throughout' is overstated — most sentences are short and simple rather than run-on. A score of 12–13 might be more appropriate.",
+      aiSuggestedScore: 13,
+      aiSupportingEvidence: [
+        "I think universities should ban laptops in lectures because they are very distracting.",
+        "When students have laptops open they just go on social media and don't pay attention to the professor.",
+        "In conclusion laptops should be banned from lectures because they hurt learning, distract others, and make cheating easier.",
+      ],
       highlightedTexts: [
         "I think universities should ban laptops in lectures because they are very distracting. When students have laptops open they just go on social media and don't pay attention to the professor.",
         "In conclusion laptops should be banned from lectures because they hurt learning, distract others, and make cheating easier. Universities need to take action to protect the quality of education.",
@@ -297,8 +322,8 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       validationStatus: "partially_supported",
       validationResult: {
         status: "partially_supported",
-        reasoning: "The highlighted text supports the 'I think' framing and informal tone observations. However, the claim about run-on sentences and missing commas isn't strongly evidenced by these specific excerpts — the second excerpt is actually grammatically acceptable.",
-        suggestedRefinement: "Highlight a passage with clearer grammatical errors, such as 'When students have laptops open they just go on social media' (missing comma after 'open') to better support the punctuation claim.",
+        reasoning: "The highlighted text supports the 'I think' framing and informal tone observations. However, the claim about 'run-on sentences throughout' isn't strongly evidenced — most sentences are short and grammatically simple. The missing comma observation is valid (e.g., 'When students have laptops open they just go on social media').",
+        suggestedRefinement: "Distinguish between 'informal tone' (supported) and 'run-on sentences' (not well-evidenced). The deduction should be reframed around informality and lack of academic register rather than grammar errors.",
         keyQuotes: [
           "I think universities should ban laptops in lectures",
           "When students have laptops open they just go on social media",
@@ -308,13 +333,19 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     },
   ],
 
-  // ── STU003: Partially Supported — grader gives high scores but vague justifications ──
+  // ── STU003: High scores with some reasonable and some unreasonable deduction reasoning ──
   STU003: [
     {
       criterionId: "arg-clarity",
       score: 24,
-      explanation: "Sophisticated thesis reframing the debate from 'should we ban?' to 'should we redesign pedagogy?' — this elevates the argument beyond a simple pro/con structure.",
+      explanation: "Sophisticated thesis reframing the debate from 'should we ban?' to 'should we redesign pedagogy?' Deducted 1 mark: the thesis could have explicitly acknowledged the strongest counterargument (second-hand distraction) before reframing.",
       validated: false,
+      aiSuggestion: "The 1-mark deduction is reasonable — the student's thesis is exceptionally strong but could benefit from briefly acknowledging the distraction externality before proposing the pedagogical solution.",
+      aiSuggestedScore: 24,
+      aiSupportingEvidence: [
+        "This essay contends that universities should not ban laptops, but should instead redesign lecture pedagogy to render the distraction problem irrelevant.",
+        "Rather than treating laptops as the disease, universities should treat disengagement as the symptom and active pedagogy as the cure.",
+      ],
       highlightedTexts: [
         "This essay contends that universities should not ban laptops, but should instead redesign lecture pedagogy to render the distraction problem irrelevant.",
         "Rather than treating laptops as the disease, universities should treat disengagement as the symptom and active pedagogy as the cure.",
@@ -322,7 +353,7 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       validationStatus: "fully_supported",
       validationResult: {
         status: "fully_supported",
-        reasoning: "The highlighted passages perfectly demonstrate the reframing thesis. The opening contention and closing metaphor (disease/symptom/cure) show how the student elevates the debate beyond a binary ban/no-ban discussion.",
+        reasoning: "The highlighted passages perfectly demonstrate the reframing thesis. The 1-mark deduction for not explicitly acknowledging the strongest counterargument in the thesis itself is a fair and proportionate observation.",
         suggestedRefinement: "Consider noting that the thesis is introduced in the opening and then refined in the conclusion — this progressive development is itself a marker of argumentative sophistication.",
         keyQuotes: [
           "redesign lecture pedagogy to render the distraction problem irrelevant",
@@ -334,8 +365,15 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "evidence-use",
       score: 24,
-      explanation: "Excellent use of well-integrated, credible sources throughout. The student compares effect sizes across the Mueller and Urry studies quantitatively, demonstrating strong methodological awareness and data literacy beyond typical undergraduate work.",
+      explanation: "Excellent use of well-integrated, credible sources throughout. Deducted 1 mark: the student doesn't include any sources published after 2021, suggesting the evidence base may not reflect the most current research in this rapidly evolving field.",
       validated: false,
+      aiSuggestion: "The 1-mark deduction for 'no sources after 2021' is questionable — the assignment prompt itself references Mueller & Oppenheimer (2014) and Sana et al. (2013). Penalizing recency when the prompt directs students to older landmark studies is inconsistent.",
+      aiSuggestedScore: 25,
+      aiSupportingEvidence: [
+        "Mueller and Oppenheimer's (2014) landmark study demonstrated that longhand note-takers outperformed laptop users on conceptual recall",
+        "Urry et al. (2021) conducted a large-scale replication (n = 1,162 across multiple sites) and found substantially weaker effects",
+        "Active learning interventions — including think-pair-share, real-time polling, and structured problem-solving — have been shown to reduce off-task laptop behavior by 60-70% (Fried, 2008).",
+      ],
       highlightedTexts: [
         "Mueller and Oppenheimer's (2014) landmark study demonstrated that longhand note-takers outperformed laptop users on conceptual recall",
         "Active learning interventions — including think-pair-share, real-time polling, and structured problem-solving — have been shown to reduce off-task laptop behavior by 60-70% (Fried, 2008).",
@@ -343,8 +381,8 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       validationStatus: "partially_supported",
       validationResult: {
         status: "partially_supported",
-        reasoning: "The grader's justification discusses the comparison between Mueller and Urry studies and the use of five sources. While the highlighted evidence only shows the Mueller and Fried citations, the full text does indeed contain five distinct sources. However, the specific quantitative comparison of effect sizes mentioned in the justification is slightly more sophisticated than what is in the text, which describes 'substantially weaker effects' rather than a direct statistical comparison.",
-        suggestedRefinement: "The highlighter should be expanded to include the Urry et al. (2021) paragraph to better support the grader's claim about comparing studies. The justification should also specify that the student compares the 'robustness' and 'scale' of the studies rather than just raw effect sizes.",
+        reasoning: "The positive assessment of evidence integration is well-supported. However, the deduction for 'no sources after 2021' is questionable — the assignment prompt itself directs students to use landmark studies from 2013–2014, making a recency penalty inconsistent with the task design.",
+        suggestedRefinement: "Reconsider whether the recency deduction is appropriate given the assignment prompt explicitly references older studies. If you want to maintain the deduction, cite the specific area where more current research would strengthen the argument.",
         keyQuotes: [
           "Mueller and Oppenheimer study tested immediate and delayed recall under controlled conditions — a far cry from the complex, multi-week learning",
           "Urry et al. (2021) conducted a large-scale replication (n = 1,162 across multiple sites) and found substantially weaker effects",
@@ -355,7 +393,7 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "critical-analysis",
       score: 25,
-      explanation: "Exceptional depth. Distinguishes lab vs. real-world findings, applies UDL framework to the exemption problem, and reframes the core issue as pedagogical rather than technological.",
+      explanation: "Exceptional depth. Distinguishes lab vs. real-world findings, applies UDL framework to the exemption problem, and reframes the core issue as pedagogical rather than technological. No marks deducted — this represents the highest standard of undergraduate critical analysis.",
       validated: false,
       highlightedTexts: [
         "The Mueller and Oppenheimer study tested immediate and delayed recall under controlled conditions — a far cry from the complex, multi-week learning that characterizes actual university courses.",
@@ -377,16 +415,23 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "writing-quality",
       score: 24,
-      explanation: "Excellent academic prose with sophisticated paragraph transitions and a consistent counterargument-rebuttal structure throughout. The student employs parallel syntactic structures across paragraphs and uses data-driven rhetoric to strengthen claims.",
+      explanation: "Excellent academic prose with sophisticated paragraph transitions. Deducted 1 mark: the essay uses the word 'rather' four times, which slightly weakens the stylistic variety and suggests over-reliance on a single rhetorical transition.",
       validated: false,
+      aiSuggestion: "The 1-mark deduction for repeating the word 'rather' is nitpicky but technically observable. However, the repetition serves a deliberate rhetorical function — creating parallel reframing structures — which could be seen as a stylistic choice rather than a flaw.",
+      aiSuggestedScore: 25,
+      aiSupportingEvidence: [
+        "The laptop debate in higher education represents a microcosm of a broader tension in pedagogy: the conflict between technological affordance and cognitive science.",
+        "Rather than treating laptops as the disease, universities should treat disengagement as the symptom and active pedagogy as the cure.",
+        "A ban is a blunt instrument applied to a nuanced problem; redesigned instruction is a scalpel.",
+      ],
       highlightedTexts: [
         "The laptop debate in higher education represents a microcosm of a broader tension in pedagogy: the conflict between technological affordance and cognitive science.",
       ],
       validationStatus: "partially_supported",
       validationResult: {
         status: "partially_supported",
-        reasoning: "The justification praises the overall structure, transitions, and rhetorical strategies of the entire essay, while the highlighted evidence is only the single opening sentence. While the highlighted sentence is 'excellent academic prose,' it cannot support claims about transitions, counterargument structures, or parallel syntactic structures across paragraphs on its own.",
-        suggestedRefinement: "Expand the highlighted evidence to include transitions between paragraphs (e.g., 'These findings are significant but require careful contextualization') and the conclusion to demonstrate the 'counterargument-rebuttal structure' and 'sophisticated transitions' mentioned.",
+        reasoning: "The justification praises the overall structure and transitions, but the highlighted evidence is only the opening sentence. The deduction for 'rather' repetition is observable but arguably a deliberate rhetorical device. The main issue is that the single highlighted excerpt cannot support broad claims about transitions and counterargument structures across paragraphs.",
+        suggestedRefinement: "Expand the highlighted evidence to include transitions between paragraphs (e.g., 'These findings are significant but require careful contextualization') to better support the assessment of writing quality across the full essay.",
         keyQuotes: [
           "The laptop debate in higher education represents a microcosm of a broader tension in pedagogy",
           "A ban is a blunt instrument applied to a nuanced problem; redesigned instruction is a scalpel.",
