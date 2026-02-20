@@ -26,6 +26,8 @@ interface Props {
   pendingHighlight: string | null;
   onAttachHighlight: (criterionId: string) => void;
   onValidateJustification: (criterionId: string) => void;
+  focusedCriterion: string | null;
+  onFocusCriterion: (criterionId: string) => void;
 }
 
 const statusConfig: Record<string, { label: string; icon: typeof ShieldCheck; className: string; badgeClass: string }> = {
@@ -59,6 +61,8 @@ const RubricPanel = ({
   pendingHighlight,
   onAttachHighlight,
   onValidateJustification,
+  focusedCriterion,
+  onFocusCriterion,
 }: Props) => {
   const [validationDialogCriterion, setValidationDialogCriterion] = useState<string | null>(null);
 
@@ -89,15 +93,21 @@ const RubricPanel = ({
           const isValidationActive = activeValidation === criterion.id && score?.aiSuggestion;
           const status = score?.validationStatus;
           const statusInfo = status ? statusConfig[status] : null;
+          const isFocused = focusedCriterion === criterion.id;
 
           return (
             <div
               key={criterion.id}
-              className="bg-card rounded-xl border border-border/40 shadow-soft overflow-hidden transition-all duration-300"
+              className={`bg-card rounded-xl border shadow-soft overflow-hidden transition-all duration-300 ${
+                isFocused ? "border-primary/50 ring-2 ring-primary/20" : "border-border/40"
+              }`}
             >
               <div className="p-5">
                 {/* Header */}
-                <div className="flex items-start justify-between mb-3">
+                <div
+                  className="flex items-start justify-between mb-3 cursor-pointer"
+                  onClick={() => onFocusCriterion(criterion.id)}
+                >
                   <div className="flex-1">
                     <h3 className="font-semibold text-foreground text-[15px]">
                       {criterion.name}
