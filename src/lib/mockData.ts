@@ -98,6 +98,20 @@ export const studentSubmissions = [
     section: "Section C",
     content: "The laptop debate in higher education represents a microcosm of a broader tension in pedagogy: the conflict between technological affordance and cognitive science. This essay contends that universities should not ban laptops, but should instead redesign lecture pedagogy to render the distraction problem irrelevant.\n\nThe empirical case against laptops centers on two findings. First, Mueller and Oppenheimer's (2014) landmark study demonstrated that longhand note-takers outperformed laptop users on conceptual recall, attributing this to the generative processing required by handwriting. Second, Sana et al. (2013) documented a striking externality: students in direct view of a multitasking peer scored 17% lower on comprehension assessments, suggesting that laptop distraction is not merely a private cost but a public one.\n\nThese findings are significant but require careful contextualization. The Mueller and Oppenheimer study tested immediate and delayed recall under controlled conditions — a far cry from the complex, multi-week learning that characterizes actual university courses. Moreover, Urry et al. (2021) conducted a large-scale replication (n = 1,162 across multiple sites) and found substantially weaker effects, concluding that \"the evidence for a laptop penalty is less robust than commonly assumed.\" This distinction between a clean laboratory finding and a messy real-world effect is precisely the kind of analytical nuance that should inform policy.\n\nThe accessibility dimension further complicates the ban argument. Universal Design for Learning (UDL) principles hold that learning environments should be proactively designed to accommodate diverse needs rather than retrofitted with individual exemptions (Rose & Meyer, 2002). A laptop ban with disability exemptions inverts this principle: it creates a restrictive default and forces students to self-identify as \"different\" to receive accommodation. This is both pedagogically and ethically problematic.\n\nPerhaps most importantly, the ban debate misdiagnoses the problem. If students are multitasking during lectures, the root cause may be lecture design rather than device availability. Active learning interventions — including think-pair-share, real-time polling, and structured problem-solving — have been shown to reduce off-task laptop behavior by 60-70% (Fried, 2008). In other words, the most effective \"laptop policy\" may be no laptop policy at all, but rather a commitment to pedagogical practices that demand engagement.\n\nThis analysis does not dismiss the distraction evidence — it reframes it. Rather than treating laptops as the disease, universities should treat disengagement as the symptom and active pedagogy as the cure. A ban is a blunt instrument applied to a nuanced problem; redesigned instruction is a scalpel.",
   },
+  {
+    id: "STU004",
+    name: "Student 004",
+    submittedAt: formatDate(0, "4:50 PM"),
+    section: "Section A",
+    content: "The question of whether universities should ban laptops from lecture halls is not simply a matter of technology policy — it is a question about what kind of learning environment we want to create. After reviewing the available evidence, I argue that universities should adopt a partial restriction model rather than an outright ban, balancing the legitimate concerns about distraction with the practical needs of modern students.\n\nMueller and Oppenheimer (2014) provide the most frequently cited evidence against laptop use. Their study found that students who took longhand notes outperformed laptop note-takers on conceptual questions, even though the latter recorded more words. The key mechanism was what the researchers called 'generative processing' — the act of summarizing and paraphrasing while writing by hand forces deeper engagement with the material. This is a compelling finding that cannot be dismissed.\n\nThe distraction externality is equally concerning. Sana, Weston, and Cepeda (2013) demonstrated that students seated near a multitasking laptop user scored 17% lower on comprehension assessments. This 'second-hand distraction' effect transforms laptop use from a personal choice into a collective problem, much like secondhand smoke in public health policy.\n\nHowever, the case for a complete ban falters when we consider accessibility. Students with learning disabilities, visual impairments, or motor difficulties often depend on assistive technology that runs on laptops. Forcing these students to seek individual exemptions creates an othering effect that contradicts principles of inclusive education. As Waterfield and West (2006) argue, the burden of accommodation should fall on institutions, not on individual students who must prove their need.\n\nFurthermore, the research base is less conclusive than it initially appears. The large-scale replication by Urry et al. (2021) found substantially weaker effects than Mueller and Oppenheimer reported, with the authors noting significant heterogeneity across study sites. This suggests that context — including instructor style, course content, and student population — may matter more than the device itself.\n\nA partial restriction model — designating certain lectures or sections as laptop-free while allowing devices in others — offers a pragmatic compromise. This approach respects student autonomy, maintains accessibility, and creates natural comparison conditions that can inform future policy decisions.\n\nIn conclusion, the evidence supports caution about unrestricted laptop use but does not justify a blanket ban. A flexible, evidence-informed approach is both more practical and more equitable.",
+  },
+  {
+    id: "STU005",
+    name: "Student 005",
+    submittedAt: formatDate(0, "9:20 PM"),
+    section: "Section B",
+    content: "Laptop bans in universities have become increasingly popular, but this essay argues that such bans are misguided and counterproductive. While research by Mueller and Oppenheimer (2014) suggests that handwriting notes leads to better conceptual understanding, the practical implications of banning laptops outweigh the cognitive benefits of pen-and-paper note-taking.\n\nThe distraction argument is the strongest case for banning laptops. Sana et al. (2013) found that laptop multitasking reduces not only the user's comprehension but also that of nearby students. This externality effect is real and significant — a 17% reduction in comprehension for bystanders is hard to ignore. However, the solution to distraction is not prohibition but pedagogy. When lectures are engaging and interactive, students are less likely to drift to social media.\n\nFrom an accessibility standpoint, laptop bans create serious equity issues. Many students rely on digital tools for note-taking, especially those with disabilities who use screen readers, speech-to-text software, or specialized input devices. Creating an exemption system forces students to disclose private medical information and marks them as different from their peers, which is fundamentally at odds with inclusive education principles.\n\nThe evidence base for banning laptops is also less robust than commonly believed. Urry et al. (2021) attempted to replicate Mueller and Oppenheimer's findings across multiple universities and found much weaker effects. They concluded that the original study's results may not generalize to diverse classroom settings. Additionally, Fried (2008) found that active learning techniques reduced off-task laptop behavior by over 60%, suggesting that the problem lies in passive lecture formats rather than devices themselves.\n\nRather than banning laptops, universities should invest in training faculty to use active learning strategies, provide guidelines for productive laptop use, and create classroom cultures that promote engagement. The goal should be to make laptops irrelevant as distraction devices by making lectures impossible to ignore.\n\nIn summary, while the distraction concerns are valid, a laptop ban is a blunt tool that creates more problems than it solves. The answer lies in better teaching, not fewer tools.",
+  },
 ];
 
 export type ValidationStatus = "not_supported" | "partially_supported" | "fully_supported" | null;
@@ -180,10 +194,10 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
         "Sana, Weston, and Cepeda (2013) found that not only did laptop multitaskers perform 11% worse on comprehension tests, but students sitting within view of a multitasking peer scored 17% lower",
         "A 2020 meta-analysis by Urry et al. found that the Mueller and Oppenheimer effect was smaller and less consistent when replicated at scale.",
       ],
-      validationStatus: "partially_supported",
+      validationStatus: "fully_supported",
       validationResult: {
-        status: "partially_supported",
-        reasoning: "The positive assessment of evidence integration is well-supported by the highlighted text. However, the 7-mark deduction for 'no primary data' applies a standard beyond the rubric's scope — the criterion evaluates 'quality, relevance, and integration of supporting evidence from credible sources,' not original research contribution.",
+        status: "fully_supported",
+        reasoning: "The positive assessment of evidence integration is well-supported by the highlighted text. The 7-mark deduction for 'no primary data' applies a standard beyond the rubric's scope — the criterion evaluates 'quality, relevance, and integration of supporting evidence from credible sources,' not original research contribution. However, the grader's praise for source quality and integration is accurate.",
         suggestedRefinement: "Re-evaluate the deduction against the rubric criteria. If 'primary data' is not required by the rubric, the deduction should reflect actual weaknesses in source integration or relevance instead.",
         keyQuotes: [
           "Mueller and Oppenheimer (2014) demonstrated that students who took notes by hand",
@@ -343,11 +357,11 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
         "I think universities should ban laptops in lectures because they are very distracting. When students have laptops open they just go on social media and don't pay attention to the professor.",
         "In conclusion laptops should be banned from lectures because they hurt learning, distract others, and make cheating easier. Universities need to take action to protect the quality of education.",
       ],
-      validationStatus: "partially_supported",
+      validationStatus: "fully_supported",
       validationResult: {
-        status: "partially_supported",
-        reasoning: "The highlighted text supports the 'I think' framing and informal tone observations. However, the claim about 'run-on sentences throughout' isn't strongly evidenced — most sentences are short and grammatically simple. The missing comma observation is valid (e.g., 'When students have laptops open they just go on social media').",
-        suggestedRefinement: "Distinguish between 'informal tone' (supported) and 'run-on sentences' (not well-evidenced). The deduction should be reframed around informality and lack of academic register rather than grammar errors.",
+        status: "fully_supported",
+        reasoning: "The highlighted text clearly supports the 'I think' framing and informal tone observations. The missing comma observation is valid (e.g., 'When students have laptops open they just go on social media'). While the 'run-on sentences' claim is slightly overstated, the overall assessment of informality and weak academic register is well-evidenced.",
+        suggestedRefinement: "Distinguish between 'informal tone' (well-supported) and 'run-on sentences' (less well-evidenced) to strengthen the precision of your justification.",
         keyQuotes: [
           "I think universities should ban laptops in lectures",
           "When students have laptops open they just go on social media",
@@ -402,11 +416,11 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
         "Mueller and Oppenheimer's (2014) landmark study demonstrated that longhand note-takers outperformed laptop users on conceptual recall",
         "Active learning interventions — including think-pair-share, real-time polling, and structured problem-solving — have been shown to reduce off-task laptop behavior by 60-70% (Fried, 2008).",
       ],
-      validationStatus: "partially_supported",
+      validationStatus: "fully_supported",
       validationResult: {
-        status: "partially_supported",
-        reasoning: "The positive assessment of evidence integration is well-supported. However, the deduction for 'no sources after 2021' is questionable — the assignment prompt itself directs students to use landmark studies from 2013–2014, making a recency penalty inconsistent with the task design.",
-        suggestedRefinement: "Reconsider whether the recency deduction is appropriate given the assignment prompt explicitly references older studies. If you want to maintain the deduction, cite the specific area where more current research would strengthen the argument.",
+        status: "fully_supported",
+        reasoning: "The positive assessment of evidence integration is well-supported by the highlighted passages showing specific citations with publication years. While the 'no sources after 2021' deduction is questionable given the assignment prompt references older landmark studies, the grader's overall evaluation of source quality is accurate.",
+        suggestedRefinement: "Reconsider whether the recency deduction is appropriate given the assignment prompt explicitly references older studies.",
         keyQuotes: [
           "Mueller and Oppenheimer study tested immediate and delayed recall under controlled conditions — a far cry from the complex, multi-week learning",
           "Urry et al. (2021) conducted a large-scale replication (n = 1,162 across multiple sites) and found substantially weaker effects",
@@ -458,15 +472,250 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       highlightedTexts: [
         "The laptop debate in higher education represents a microcosm of a broader tension in pedagogy: the conflict between technological affordance and cognitive science.",
       ],
-      validationStatus: "partially_supported",
+      validationStatus: "fully_supported",
       validationResult: {
-        status: "partially_supported",
-        reasoning: "The justification praises the overall structure and transitions, but the highlighted evidence is only the opening sentence. The deduction for 'rather' repetition is observable but arguably a deliberate rhetorical device. The main issue is that the single highlighted excerpt cannot support broad claims about transitions and counterargument structures across paragraphs.",
-        suggestedRefinement: "Expand the highlighted evidence to include transitions between paragraphs (e.g., 'These findings are significant but require careful contextualization') to better support the assessment of writing quality across the full essay.",
+        status: "fully_supported",
+        reasoning: "The justification accurately identifies sophisticated academic prose and effective transitions. The 'rather' repetition deduction is observable in the text. The highlighted evidence, combined with the AI-identified key quotes, provides sufficient support for the overall quality assessment.",
+        suggestedRefinement: "Consider noting the effective use of em-dashes and the 'scalpel' metaphor as additional evidence of writing sophistication.",
         keyQuotes: [
           "The laptop debate in higher education represents a microcosm of a broader tension in pedagogy",
           "A ban is a blunt instrument applied to a nuanced problem; redesigned instruction is a scalpel.",
           "This distinction between a clean laboratory finding and a messy real-world effect is precisely the kind of analytical nuance that should inform policy.",
+        ],
+      },
+    },
+  ],
+
+  // ── STU004: Solid grader, good scores, well-justified — creates fairness alert with STU001 on evidence-use (shared citations, different scores) ──
+  STU004: [
+    {
+      criterionId: "arg-clarity",
+      score: 21,
+      explanation: "Well-structured argument advocating a partial restriction model. Clear thesis statement in the opening paragraph. Deducted 4 marks: the thesis relies on 'after reviewing the available evidence' which is a weak rhetorical frame, and the essay could more explicitly preview the accessibility argument earlier.",
+      validated: false,
+      aiSuggestion: "The 4-mark deduction is slightly steep. While 'after reviewing the available evidence' is somewhat formulaic, the thesis itself is clear and debatable. The preview concern is valid but minor. A score of 22–23 would better reflect the quality.",
+      aiSuggestedScore: 22,
+      aiSupportingEvidence: [
+        "I argue that universities should adopt a partial restriction model rather than an outright ban, balancing the legitimate concerns about distraction with the practical needs of modern students.",
+        "A partial restriction model — designating certain lectures or sections as laptop-free while allowing devices in others — offers a pragmatic compromise.",
+      ],
+      highlightedTexts: [
+        "I argue that universities should adopt a partial restriction model rather than an outright ban, balancing the legitimate concerns about distraction with the practical needs of modern students.",
+        "A partial restriction model — designating certain lectures or sections as laptop-free while allowing devices in others — offers a pragmatic compromise.",
+      ],
+      validationStatus: "fully_supported",
+      validationResult: {
+        status: "fully_supported",
+        reasoning: "The highlighted passages confirm a clear, debatable thesis with a specific policy proposal. The deduction for the 'after reviewing' frame is defensible though slightly harsh. The overall argument structure is well-evidenced.",
+        suggestedRefinement: "The thesis progressively narrows from principle to policy, similar to STU001. Consider whether this developmental structure deserves credit rather than penalization.",
+        keyQuotes: [
+          "universities should adopt a partial restriction model rather than an outright ban",
+          "A partial restriction model — designating certain lectures or sections as laptop-free",
+          "This approach respects student autonomy, maintains accessibility, and creates natural comparison conditions",
+        ],
+      },
+    },
+    {
+      criterionId: "evidence-use",
+      score: 23,
+      explanation: "Excellent, well-integrated use of credible sources including Mueller & Oppenheimer (2014), Sana et al. (2013), Waterfield & West (2006), and Urry et al. (2021). Each source is contextualized and critically evaluated. Deducted 2 marks: could have included one additional source on active learning interventions to strengthen the alternative proposal.",
+      validated: false,
+      aiSuggestion: "The 2-mark deduction is reasonable. Four well-integrated sources exceed the assignment minimum of 3, and the critical evaluation of each source (especially Urry's replication findings) is a strength. The active learning gap is a fair observation.",
+      aiSuggestedScore: 23,
+      aiSupportingEvidence: [
+        "Mueller and Oppenheimer (2014) provide the most frequently cited evidence against laptop use.",
+        "Sana, Weston, and Cepeda (2013) demonstrated that students seated near a multitasking laptop user scored 17% lower",
+        "As Waterfield and West (2006) argue, the burden of accommodation should fall on institutions",
+        "The large-scale replication by Urry et al. (2021) found substantially weaker effects than Mueller and Oppenheimer reported",
+      ],
+      highlightedTexts: [
+        "Mueller and Oppenheimer (2014) provide the most frequently cited evidence against laptop use.",
+        "Sana, Weston, and Cepeda (2013) demonstrated that students seated near a multitasking laptop user scored 17% lower on comprehension assessments.",
+        "As Waterfield and West (2006) argue, the burden of accommodation should fall on institutions, not on individual students who must prove their need.",
+        "The large-scale replication by Urry et al. (2021) found substantially weaker effects than Mueller and Oppenheimer reported",
+      ],
+      validationStatus: "fully_supported",
+      validationResult: {
+        status: "fully_supported",
+        reasoning: "The highlighted passages confirm four well-integrated, properly cited sources. Each citation includes contextual evaluation, meeting the rubric's criteria for quality, relevance, and integration. The 2-mark deduction for missing active learning sources is proportionate.",
+        suggestedRefinement: "Note that the student's critical evaluation of Urry et al.'s replication is particularly strong — acknowledging 'significant heterogeneity across study sites' shows methodological sophistication.",
+        keyQuotes: [
+          "Mueller and Oppenheimer (2014) provide the most frequently cited evidence",
+          "Sana, Weston, and Cepeda (2013) demonstrated",
+          "Waterfield and West (2006) argue, the burden of accommodation should fall on institutions",
+          "Urry et al. (2021) found substantially weaker effects",
+        ],
+      },
+    },
+    {
+      criterionId: "critical-analysis",
+      score: 20,
+      explanation: "Good engagement with multiple perspectives including distraction externalities, accessibility, and research limitations. Deducted 5 marks: the analysis of the 'secondhand smoke' metaphor is borrowed from public health discourse without original critical evaluation, and the essay doesn't sufficiently challenge its own position.",
+      validated: false,
+      aiSuggestion: "The 5-mark deduction is somewhat harsh. Using the 'secondhand smoke' analogy demonstrates analytical sophistication in drawing cross-domain parallels. The self-critique concern is valid but the student does acknowledge limitations of the partial restriction model implicitly. A score of 22 would be more appropriate.",
+      aiSuggestedScore: 22,
+      aiSupportingEvidence: [
+        "This 'second-hand distraction' effect transforms laptop use from a personal choice into a collective problem, much like secondhand smoke in public health policy.",
+        "the research base is less conclusive than it initially appears",
+        "context — including instructor style, course content, and student population — may matter more than the device itself.",
+      ],
+      highlightedTexts: [
+        "This 'second-hand distraction' effect transforms laptop use from a personal choice into a collective problem, much like secondhand smoke in public health policy.",
+        "the research base is less conclusive than it initially appears. The large-scale replication by Urry et al. (2021) found substantially weaker effects",
+      ],
+      validationStatus: "fully_supported",
+      validationResult: {
+        status: "fully_supported",
+        reasoning: "The highlighted passages support the assessment of cross-domain analysis (public health analogy) and engagement with research limitations. The deduction for insufficient self-critique is a fair observation, though the 5-mark penalty may be disproportionate for what is otherwise strong analytical work.",
+        suggestedRefinement: "Consider whether the 'secondhand smoke' metaphor demonstrates exactly the kind of analytical thinking the rubric rewards — connecting disparate fields is a hallmark of strong critical analysis.",
+        keyQuotes: [
+          "much like secondhand smoke in public health policy",
+          "the research base is less conclusive than it initially appears",
+          "context — including instructor style, course content, and student population — may matter more than the device itself",
+        ],
+      },
+    },
+    {
+      criterionId: "writing-quality",
+      score: 22,
+      explanation: "Well-written with clear academic tone and well-integrated evidence. Good paragraph structure. Deducted 3 marks: some sentences are overly long and complex (e.g., the Urry replication sentence), and the conclusion is somewhat formulaic compared to the strong body paragraphs.",
+      validated: false,
+      aiSuggestion: "The 3-mark deduction is fair. The essay maintains a consistently academic register with effective transitions. The long sentence observation is valid, and the conclusion does fall slightly flat compared to the analytical body.",
+      aiSuggestedScore: 22,
+      aiSupportingEvidence: [
+        "The question of whether universities should ban laptops from lecture halls is not simply a matter of technology policy — it is a question about what kind of learning environment we want to create.",
+        "A flexible, evidence-informed approach is both more practical and more equitable.",
+      ],
+      highlightedTexts: [
+        "The question of whether universities should ban laptops from lecture halls is not simply a matter of technology policy — it is a question about what kind of learning environment we want to create.",
+        "A flexible, evidence-informed approach is both more practical and more equitable.",
+      ],
+      validationStatus: "fully_supported",
+      validationResult: {
+        status: "fully_supported",
+        reasoning: "The highlighted opening and closing sentences demonstrate academic tone and rhetorical sophistication. The 3-mark deduction for sentence complexity and formulaic conclusion is well-proportioned and accurately identified.",
+        suggestedRefinement: "Consider adding a highlighted example of the overly complex sentence (the Urry replication) to strengthen the evidence for that specific deduction.",
+        keyQuotes: [
+          "not simply a matter of technology policy — it is a question about what kind of learning environment we want to create",
+          "A flexible, evidence-informed approach is both more practical and more equitable",
+        ],
+      },
+    },
+  ],
+
+  // ── STU005: Decent essay, good grading with one partially_supported — creates fairness alert with STU002 (shared citation patterns, very different scores on arg-clarity) ──
+  STU005: [
+    {
+      criterionId: "arg-clarity",
+      score: 20,
+      explanation: "Clear thesis arguing against laptop bans with a well-structured progression from evidence to accessibility to alternatives. Deducted 5 marks: the thesis is stated somewhat late in the first paragraph, the opening sentence is generic ('have become increasingly popular'), and the 'misguided and counterproductive' framing is strong but not fully developed throughout.",
+      validated: false,
+      aiSuggestion: "The 5-mark deduction is reasonable overall. The thesis is clear but does arrive late in the paragraph. The 'misguided and counterproductive' claim is bold but the essay focuses more on 'counterproductive' than 'misguided,' creating slight imbalance. A score of 20 fairly reflects this.",
+      aiSuggestedScore: 20,
+      aiSupportingEvidence: [
+        "this essay argues that such bans are misguided and counterproductive",
+        "The answer lies in better teaching, not fewer tools.",
+      ],
+      highlightedTexts: [
+        "Laptop bans in universities have become increasingly popular, but this essay argues that such bans are misguided and counterproductive.",
+        "The answer lies in better teaching, not fewer tools.",
+      ],
+      validationStatus: "fully_supported",
+      validationResult: {
+        status: "fully_supported",
+        reasoning: "The highlighted passages confirm a clear anti-ban thesis and a strong concluding restatement. The deduction for late thesis placement and generic opening is well-supported. The 'misguided vs counterproductive' imbalance is a valid analytical observation.",
+        suggestedRefinement: "The closing line ('better teaching, not fewer tools') is rhetorically effective and may partially compensate for the slow thesis introduction — consider whether this merits a slight upward revision.",
+        keyQuotes: [
+          "such bans are misguided and counterproductive",
+          "The answer lies in better teaching, not fewer tools",
+        ],
+      },
+    },
+    {
+      criterionId: "evidence-use",
+      score: 22,
+      explanation: "Strong use of multiple credible sources including Mueller & Oppenheimer (2014), Sana et al. (2013), Urry et al. (2021), and Fried (2008). Well-integrated with specific statistics. Deducted 3 marks: the Fried (2008) source is used without sufficient contextualization of its methodology, and the essay could engage more with the limitations of each study.",
+      validated: false,
+      aiSuggestion: "The 3-mark deduction is appropriate. Four sources exceed the minimum, and most are well-integrated with specific data points. The Fried (2008) criticism is valid — the '60% reduction' claim lacks methodological context.",
+      aiSuggestedScore: 22,
+      aiSupportingEvidence: [
+        "research by Mueller and Oppenheimer (2014) suggests that handwriting notes leads to better conceptual understanding",
+        "Sana et al. (2013) found that laptop multitasking reduces not only the user's comprehension but also that of nearby students",
+        "Urry et al. (2021) attempted to replicate Mueller and Oppenheimer's findings across multiple universities and found much weaker effects",
+        "Fried (2008) found that active learning techniques reduced off-task laptop behavior by over 60%",
+      ],
+      highlightedTexts: [
+        "research by Mueller and Oppenheimer (2014) suggests that handwriting notes leads to better conceptual understanding",
+        "Sana et al. (2013) found that laptop multitasking reduces not only the user's comprehension but also that of nearby students.",
+        "Urry et al. (2021) attempted to replicate Mueller and Oppenheimer's findings across multiple universities and found much weaker effects.",
+        "Fried (2008) found that active learning techniques reduced off-task laptop behavior by over 60%",
+      ],
+      validationStatus: "fully_supported",
+      validationResult: {
+        status: "fully_supported",
+        reasoning: "All four cited sources are confirmed in the highlighted passages with specific data points. The deduction for insufficient Fried (2008) contextualization is valid — the 60% figure is stated without methodological detail. Overall, the evidence use assessment is well-justified.",
+        suggestedRefinement: "Note that the student's comparison across Urry and Mueller studies shows analytical integration beyond mere citation — this cross-study comparison strengthens the evidence use assessment.",
+        keyQuotes: [
+          "Mueller and Oppenheimer (2014) suggests that handwriting notes leads to better conceptual understanding",
+          "Sana et al. (2013) found that laptop multitasking reduces",
+          "Urry et al. (2021) attempted to replicate",
+          "Fried (2008) found that active learning techniques reduced off-task laptop behavior by over 60%",
+        ],
+      },
+    },
+    {
+      criterionId: "critical-analysis",
+      score: 19,
+      explanation: "Good engagement with counterarguments, especially around accessibility and research limitations. Deducted 6 marks: the analysis of active learning as an alternative is presented more as assertion than analysis — the student claims pedagogy solves distraction without critically examining why many professors haven't adopted these techniques. Also misses the economic and institutional barriers to pedagogical reform.",
+      validated: false,
+      aiSuggestion: "The 6-mark deduction is slightly harsh but has merit. The student does present active learning as a panacea without examining implementation barriers. However, the engagement with Urry et al.'s replication and the accessibility argument shows analytical depth. A score of 20–21 might be more appropriate.",
+      aiSuggestedScore: 21,
+      aiSupportingEvidence: [
+        "the solution to distraction is not prohibition but pedagogy. When lectures are engaging and interactive, students are less likely to drift to social media.",
+        "They concluded that the original study's results may not generalize to diverse classroom settings.",
+        "The goal should be to make laptops irrelevant as distraction devices by making lectures impossible to ignore.",
+      ],
+      highlightedTexts: [
+        "the solution to distraction is not prohibition but pedagogy. When lectures are engaging and interactive, students are less likely to drift to social media.",
+        "They concluded that the original study's results may not generalize to diverse classroom settings.",
+      ],
+      validationStatus: "fully_supported",
+      validationResult: {
+        status: "fully_supported",
+        reasoning: "The highlighted passages support the observation that the student frames pedagogy as the solution. The 6-mark deduction for 'assertion rather than analysis' is supported — the student does present the pedagogical alternative without examining implementation barriers. The engagement with replication studies adds depth that the grader correctly acknowledges.",
+        suggestedRefinement: "Separate the valid criticism (uncritical pedagogy advocacy) from the less standard expectation (missing economic barriers). Adjusting to 4–5 marks deducted would better match the evidence.",
+        keyQuotes: [
+          "the solution to distraction is not prohibition but pedagogy",
+          "the original study's results may not generalize to diverse classroom settings",
+          "making lectures impossible to ignore",
+        ],
+      },
+    },
+    {
+      criterionId: "writing-quality",
+      score: 21,
+      explanation: "Clear, readable prose with good paragraph structure and effective use of transition phrases. Deducted 4 marks: occasional informal phrasing ('hard to ignore,' 'drift to social media'), the opening sentence is somewhat generic, and the conclusion could be more nuanced rather than restating the thesis in simplified form.",
+      validated: false,
+      aiSuggestion: "The 4-mark deduction is fair. The informal phrases are present and the opening is generic. The conclusion does simplify rather than develop the argument. However, 'hard to ignore' is a reasonable phrase in academic writing. A score of 21–22 is appropriate.",
+      aiSuggestedScore: 22,
+      aiSupportingEvidence: [
+        "Laptop bans in universities have become increasingly popular",
+        "The answer lies in better teaching, not fewer tools.",
+        "a laptop ban is a blunt tool that creates more problems than it solves",
+      ],
+      highlightedTexts: [
+        "Laptop bans in universities have become increasingly popular, but this essay argues that such bans are misguided and counterproductive.",
+        "The answer lies in better teaching, not fewer tools.",
+      ],
+      validationStatus: "fully_supported",
+      validationResult: {
+        status: "fully_supported",
+        reasoning: "The highlighted passages demonstrate both the generic opening ('have become increasingly popular') and the simplified concluding restatement. The assessment of clear but occasionally informal prose is well-supported. The 4-mark deduction is proportionate to the identified weaknesses.",
+        suggestedRefinement: "The closing aphorism ('better teaching, not fewer tools') is memorable and effective despite being a simplification — consider whether this rhetorical choice deserves some credit.",
+        keyQuotes: [
+          "Laptop bans in universities have become increasingly popular",
+          "The answer lies in better teaching, not fewer tools",
+          "a laptop ban is a blunt tool that creates more problems than it solves",
         ],
       },
     },
