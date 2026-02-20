@@ -98,7 +98,7 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
   const rawValidityPct = allValidationCounts.total > 0
     ? (allValidationCounts.valid / allValidationCounts.total) * 100
     : 100;
-  const fairnessPenalty = similarityFlags.length * 3; // each fairness flag costs 3%
+  const fairnessPenalty = Math.min(similarityFlags.length * 2, 20); // cap penalty at 20%
   const explanationValidityRate = Math.max(0, Math.round(rawValidityPct - fairnessPenalty));
 
   const validityBarColor =
