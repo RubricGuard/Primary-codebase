@@ -222,21 +222,21 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
                     </span>
                   </div>
 
-                  {/* Side-by-side student comparison */}
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="bg-muted/30 rounded-md px-2.5 py-1.5 border border-border/30">
-                      <span className="text-[10px] text-muted-foreground font-medium">{flag.studentA.id}</span>
-                      <div className="flex items-center justify-between mt-1">
-                        <span className="text-xs font-bold text-foreground">{flag.studentA.score}/{flag.maxScore}</span>
+                  {/* Stacked student comparison */}
+                  <div className="space-y-1.5">
+                    <div className="bg-muted/30 rounded-md px-3 py-2 border border-border/30">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] text-muted-foreground font-medium">{flag.studentA.id}</span>
                         <span className="text-[10px] text-muted-foreground">AI: {flag.studentA.aiScore}</span>
                       </div>
+                      <span className="text-xs font-bold text-foreground">{flag.studentA.score}/{flag.maxScore}</span>
                     </div>
-                    <div className="bg-muted/30 rounded-md px-2.5 py-1.5 border border-border/30">
-                      <span className="text-[10px] text-muted-foreground font-medium">{flag.studentB.id}</span>
-                      <div className="flex items-center justify-between mt-1">
-                        <span className="text-xs font-bold text-foreground">{flag.studentB.score}/{flag.maxScore}</span>
+                    <div className="bg-muted/30 rounded-md px-3 py-2 border border-border/30">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] text-muted-foreground font-medium">{flag.studentB.id}</span>
                         <span className="text-[10px] text-muted-foreground">AI: {flag.studentB.aiScore}</span>
                       </div>
+                      <span className="text-xs font-bold text-foreground">{flag.studentB.score}/{flag.maxScore}</span>
                     </div>
                   </div>
 
