@@ -921,7 +921,7 @@ const ValueImpactSlide = () => (
         Measurable Impact
       </h2>
       <div className="grid grid-cols-3 gap-10 mt-14 max-w-[1400px]">
-        <ValueCard icon={<Scale className="w-10 h-10" />} title="Fairness" metric="↓ 85%" desc="Reduction in cross-student scoring inconsistencies through real-time alerts" />
+        <ValueCard icon={<Scale className="w-10 h-10" />} title="Fairness" metric="↑ 85%" desc="Improvement in cross-student scoring consistency through real-time drift alerts" />
         <ValueCard icon={<CheckCircle2 className="w-10 h-10" />} title="Accountability" metric="100%" desc="Every score backed by evidence. Every justification validated by AI." />
         <ValueCard icon={<TrendingUp className="w-10 h-10" />} title="Efficiency" metric="↓ 40%" desc="Reduction in grade appeal disputes through transparent, defensible grading" />
       </div>
