@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Shield, BookOpen, Calendar, Users, FileText, ClipboardCheck, ArrowRight, GraduationCap, Clock } from "lucide-react";
-import { assignments, rubricCriteria, studentSubmissions } from "@/lib/mockData";
+import { ArrowLeft, Shield, BookOpen, Calendar, Users, FileText, ClipboardCheck, ArrowRight, GraduationCap } from "lucide-react";
+import { assignments, rubricCriteria } from "@/lib/mockData";
 
 const AssignmentDetail = () => {
   const navigate = useNavigate();
@@ -89,50 +89,20 @@ const AssignmentDetail = () => {
           </div>
         </div>
 
-        {/* All Submissions — Prof. Sharma (Section A) */}
-        <div className="mb-10 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-white/60 uppercase tracking-wide">
-              Submissions — Prof. Sharma
-            </h2>
-            <span className="text-xs text-white/30">
-              {studentSubmissions.filter(s => s.section === "Section A").length} submitted
-            </span>
-          </div>
-          <div className="space-y-2">
-            {studentSubmissions
-              .filter(s => s.section === "Section A")
-              .map((s, i) => (
-                <div
-                  key={s.id}
-                  className="bg-white/[0.03] border border-white/[0.06] rounded-lg px-4 py-3 flex items-center justify-between"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-xs font-semibold text-blue-400">
-                      {String(i + 1).padStart(2, "0")}
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-white/80">{s.name}</p>
-                      <p className="text-[11px] text-white/35">{s.section}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-white/40">
-                    <Clock className="w-3 h-3" />
-                    <span className="text-xs">{s.submittedAt}</span>
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
-
         {/* Actions */}
-        <div className="flex items-center gap-4 animate-fade-in" style={{ animationDelay: "0.25s" }}>
+        <div className="flex items-center gap-4 animate-fade-in" style={{ animationDelay: "0.2s" }}>
           <button
-            onClick={() => navigate("/grading/bus302-ca1")}
+            onClick={() => navigate("/submissions/bus302-ca1")}
             className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl px-6 py-3 font-medium text-sm hover:from-blue-400 hover:to-indigo-400 transition-all duration-300 shadow-lg shadow-blue-500/20"
           >
-            Begin Grading
+            View Submissions
             <ArrowRight className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => navigate("/grading/bus302-ca1")}
+            className="flex items-center gap-2 bg-white/[0.06] border border-white/[0.1] text-white/80 rounded-xl px-6 py-3 font-medium text-sm hover:bg-white/[0.1] transition-all duration-200"
+          >
+            Begin Grading
           </button>
           <button
             onClick={() => navigate("/rubrics")}
