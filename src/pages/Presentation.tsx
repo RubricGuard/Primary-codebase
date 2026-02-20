@@ -154,7 +154,7 @@ const StoryOpenSlide = () => (
         Meet <span className="text-orange-400">Prof. Sharma</span>
       </h2>
       <p className="text-[24px] text-white/45 mt-6 max-w-[900px] leading-relaxed">
-        She teaches BUS302 — Strategic Management. 15 students across 3 sections, graded by 3 professors. An argumentative essay on whether universities should ban laptops in lectures.
+        He teaches BUS302 — Strategic Management. 15 students across 3 sections, graded by 3 professors. An argumentative essay on whether universities should ban laptops in lectures.
       </p>
       <div className="grid grid-cols-3 gap-8 mt-14 max-w-[1200px]">
         <StoryCard icon={<GraduationCap className="w-8 h-8" />} name="Prof. Sharma" section="Section A · 5 students" highlight />
@@ -178,9 +178,9 @@ const ProblemScaleSlide = () => (
         Every semester, professors grade thousands of essays with no systematic way to ensure consistency, fairness, or evidence-based justification.
       </p>
       <div className="grid grid-cols-3 gap-8 mt-16">
-        <ProblemStat icon={<Users className="w-8 h-8" />} stat="8–12%" label="of assignments receive regrade requests — desired target is ≤ 2%" />
-        <ProblemStat icon={<AlertTriangle className="w-8 h-8" />} stat="10–15pp" label="average score variance across equivalent-quality submissions" />
-        <ProblemStat icon={<Scale className="w-8 h-8" />} stat="70–80%" label="rubric adherence rate — well below the ≥ 95% target" />
+        <ProblemStat icon={<Users className="w-8 h-8" />} stat="8–12%" label="of assignments receive regrade requests — desired ≤ 2% (Product Idea Workbook, Outcome 3)" />
+        <ProblemStat icon={<AlertTriangle className="w-8 h-8" />} stat="10–15pp" label="avg score variance on equivalent-quality work (Product Idea Workbook, Outcome 1)" />
+        <ProblemStat icon={<Scale className="w-8 h-8" />} stat="70–80%" label="rubric adherence rate vs. ≥ 95% target (Product Idea Workbook, Outcome 2)" />
       </div>
     </div>
   </SlideLayout>
@@ -257,10 +257,10 @@ const StoryFrustrationSlide = () => (
     <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-32">
       <Coffee className="w-16 h-16 text-orange-400/60 mb-6" />
       <h2 className="text-[56px] font-serif font-bold text-white leading-tight max-w-[1100px]">
-        It's 2 AM. Prof. Sharma is on her <span className="text-orange-400">12th essay</span>.
+        It's 2 AM. Prof. Sharma is on his <span className="text-orange-400">12th essay</span>.
       </h2>
       <p className="text-[22px] text-white/40 mt-6 max-w-[800px] leading-relaxed">
-        She's graded 5 students. She wonders: "Am I scoring STU005 the same way I scored STU001 three hours ago?" She checks Canvas — no help. Gradescope — no consistency metrics. Turnitin — only plagiarism.
+        He's graded 5 students. He wonders: "Am I scoring STU005 the same way I scored STU001 three hours ago?" He checks Canvas — no help. Gradescope — no consistency metrics. Turnitin — only plagiarism.
       </p>
       <div className="grid grid-cols-3 gap-6 mt-12 max-w-[1100px]">
         <div className="bg-white/5 border border-white/10 rounded-xl p-6 text-center">
@@ -279,7 +279,7 @@ const StoryFrustrationSlide = () => (
           <p className="text-white/25 text-sm mt-1">No score validation</p>
         </div>
       </div>
-      <p className="text-white/20 text-sm mt-10 italic">She needs a copilot, not another grading tool.</p>
+      <p className="text-white/20 text-sm mt-10 italic">He needs a copilot, not another grading tool.</p>
     </div>
   </SlideLayout>
 );
@@ -337,7 +337,7 @@ const WorkspaceSlide = () => (
             3-Column Grading Interface
           </h2>
           <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
-            Prof. Sharma opens RubricGuard and begins grading her 5 students. The workspace shows submission, rubric, and live analytics side-by-side.
+            Prof. Sharma opens RubricGuard and begins grading his 5 students. The workspace shows submission, rubric, and live analytics side-by-side.
           </p>
           <div className="mt-8 space-y-4">
             <FeatureBullet text="Left: Full student submission with text selection & highlighting" />
@@ -474,7 +474,7 @@ const ValidationSlide = () => (
             "Is my justification backed by evidence?"
           </h2>
           <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
-            Prof. Sharma scores STU002's Argument Clarity at 12/25 and writes: "Simplistic thesis." She clicks Validate — the AI checks if her highlighted evidence actually supports that deduction.
+            Prof. Sharma scores STU002's Argument Clarity at 12/25 and writes: "Simplistic thesis." He clicks Validate — the AI checks if his highlighted evidence actually supports that deduction.
           </p>
           <div className="mt-8 space-y-4">
             <FeatureBullet text="✅ Fully Supported — justification matches the evidence" icon={<CheckCircle2 className="w-5 h-5 text-green-400" />} />
@@ -807,7 +807,7 @@ const AnalyticsDashSlide = () => (
             Grading Session Analytics
           </h2>
           <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
-            After grading 5 students, Prof. Sharma reviews her session report: quartile analysis, score timeline, criterion stability, heatmap, and fairness audit — all for her section only.
+            After grading 5 students, Prof. Sharma reviews his session report: quartile analysis, score timeline, criterion stability, heatmap, and fairness audit — all for his section only.
           </p>
           <div className="mt-8 space-y-4">
             <FeatureBullet text="Score distribution with mean, median, Q1/Q3, and IQR" />
