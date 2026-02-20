@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { Shield, ChevronLeft, ChevronRight, Maximize, AlertTriangle, CheckCircle2, Scale, TrendingUp, Brain, BarChart3, Users, Target, Zap, ArrowRight, GraduationCap, FileCheck, Eye, Lightbulb, DollarSign, Globe, BookOpen, UserCheck, Award, ClipboardCheck, MessageCircle, LineChart } from "lucide-react";
+import { Shield, ChevronLeft, ChevronRight, Maximize, AlertTriangle, CheckCircle2, Scale, TrendingUp, Brain, BarChart3, Users, Target, Zap, ArrowRight, GraduationCap, FileCheck, Eye, Lightbulb, BookOpen, UserCheck, Award, ClipboardCheck, MessageCircle, LineChart, Coffee, XCircle, Calculator, Layers } from "lucide-react";
 
-const TOTAL_SLIDES = 17;
+const TOTAL_SLIDES = 20;
 
 const Presentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -33,22 +33,25 @@ const Presentation = () => {
 
   const slides = [
     <TitleSlide key={0} />,
-    <ProblemOverviewSlide key={1} />,
-    <PainPoint1Slide key={2} />,
-    <PainPoint2Slide key={3} />,
-    <MarketSlide key={4} />,
-    <MarketGapSlide key={5} />,
-    <StoryboardSlide key={6} />,
-    <SolutionOverviewSlide key={7} />,
-    <FeatureWorkspaceSlide key={8} />,
-    <FeatureValidationSlide key={9} />,
-    <FeatureFairnessSlide key={10} />,
-    <FeatureAnalyticsSlide key={11} />,
-    <ProfessorTrackingSlide key={12} />,
-    <TAImprovementSlide key={13} />,
-    <ValuePropositionSlide key={14} />,
-    <TechStackSlide key={15} />,
-    <ClosingSlide key={16} />,
+    <StoryOpenSlide key={1} />,
+    <ProblemScaleSlide key={2} />,
+    <PainSubjectiveSlide key={3} />,
+    <PainFairnessSlide key={4} />,
+    <StoryFrustrationSlide key={5} />,
+    <MarketGapSlide key={6} />,
+    <SolutionRevealSlide key={7} />,
+    <WorkspaceSlide key={8} />,
+    <ValidationSlide key={9} />,
+    <ValidityCalcSlide key={10} />,
+    <FairnessDetectionSlide key={11} />,
+    <AnalyticsDashSlide key={12} />,
+    <SegmentGradesSlide key={13} />,
+    <ProfessorViewSlide key={14} />,
+    <GraderGrowthSlide key={15} />,
+    <ValueImpactSlide key={16} />,
+    <TechStackSlide key={17} />,
+    <DemoFlowSlide key={18} />,
+    <ClosingSlide key={19} />,
   ];
 
   return (
@@ -56,8 +59,6 @@ const Presentation = () => {
       <div className="w-full h-full flex items-center justify-center">
         <SlideScaler>{slides[currentSlide]}</SlideScaler>
       </div>
-
-      {/* Navigation bar */}
       <div className="fixed bottom-0 left-0 right-0 flex items-center justify-between px-6 py-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 z-50">
         <button onClick={goPrev} disabled={currentSlide === 0} className="text-white/60 hover:text-white disabled:opacity-20 transition-colors">
           <ChevronLeft className="w-6 h-6" />
@@ -65,11 +66,7 @@ const Presentation = () => {
         <div className="flex items-center gap-3">
           <div className="flex gap-1.5">
             {Array.from({ length: TOTAL_SLIDES }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentSlide(i)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${i === currentSlide ? "bg-white w-6" : "bg-white/30 hover:bg-white/50"}`}
-              />
+              <button key={i} onClick={() => setCurrentSlide(i)} className={`w-2 h-2 rounded-full transition-all duration-300 ${i === currentSlide ? "bg-white w-6" : "bg-white/30 hover:bg-white/50"}`} />
             ))}
           </div>
           <span className="text-white/40 text-xs ml-3 font-mono">{currentSlide + 1}/{TOTAL_SLIDES}</span>
@@ -81,8 +78,6 @@ const Presentation = () => {
           <ChevronRight className="w-6 h-6" />
         </button>
       </div>
-
-      {/* Progress bar */}
       <div className="fixed top-0 left-0 right-0 h-1 bg-white/5 z-50">
         <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500" style={{ width: `${((currentSlide + 1) / TOTAL_SLIDES) * 100}%` }} />
       </div>
@@ -90,7 +85,6 @@ const Presentation = () => {
   );
 };
 
-/** Scale 1920×1080 content to fit viewport */
 const SlideScaler = ({ children }: { children: React.ReactNode }) => {
   const [scale, setScale] = useState(1);
   useEffect(() => {
@@ -114,7 +108,7 @@ const SlideLayout = ({ children, bg = "default" }: { children: React.ReactNode; 
   </div>
 );
 
-/* ============ SLIDES ============ */
+/* ═══════════════════════ ACT 1: THE PROBLEM ═══════════════════════ */
 
 const TitleSlide = () => (
   <SlideLayout bg="blue">
@@ -139,25 +133,44 @@ const TitleSlide = () => (
         <span className="text-white/30 text-lg">fullscreen</span>
       </div>
     </div>
-    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/20 text-sm">
-      Hackathon Pitch 2026
+    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/20 text-sm">Hackathon Pitch 2026</div>
+  </SlideLayout>
+);
+
+const StoryOpenSlide = () => (
+  <SlideLayout>
+    <div className="absolute top-20 left-1/3 w-[500px] h-[400px] bg-orange-500/6 rounded-full blur-[120px]" />
+    <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-32">
+      <SectionLabel text="The Story" color="orange" />
+      <h2 className="text-[56px] font-serif font-bold text-white leading-tight mt-8 max-w-[1200px]">
+        Meet <span className="text-orange-400">Prof. Sharma</span>
+      </h2>
+      <p className="text-[24px] text-white/45 mt-6 max-w-[900px] leading-relaxed">
+        She teaches BUS302 — Strategic Management. 15 students across 3 sections, graded by 3 professors. An argumentative essay on whether universities should ban laptops in lectures.
+      </p>
+      <div className="grid grid-cols-3 gap-8 mt-14 max-w-[1200px]">
+        <StoryCard icon={<GraduationCap className="w-8 h-8" />} name="Prof. Sharma" section="Section A · 5 students" highlight />
+        <StoryCard icon={<BookOpen className="w-8 h-8" />} name="Prof. Somani" section="Section B · 5 students" />
+        <StoryCard icon={<BookOpen className="w-8 h-8" />} name="Prof. Raymahesh" section="Section C · 5 students" />
+      </div>
+      <p className="text-white/25 text-sm mt-10 italic">Each professor grades their own section. But who checks if they're grading consistently?</p>
     </div>
   </SlideLayout>
 );
 
-const ProblemOverviewSlide = () => (
+const ProblemScaleSlide = () => (
   <SlideLayout>
     <div className="absolute top-32 right-40 w-[400px] h-[400px] bg-red-500/8 rounded-full blur-[100px]" />
     <div className="absolute inset-0 flex flex-col justify-center px-32">
-      <SectionLabel text="Customer Problem Space" color="red" />
+      <SectionLabel text="The Problem" color="red" />
       <h2 className="text-[64px] font-serif font-bold text-white leading-[1.1] mt-6 max-w-[1200px]">
         Grading is <span className="text-red-400">broken</span>.
       </h2>
       <p className="text-[24px] text-white/50 mt-6 max-w-[900px] leading-relaxed">
-        Every semester, professors and TAs grade thousands of essays with no systematic way to ensure consistency, fairness, or evidence-based justification.
+        Every semester, professors grade thousands of essays with no systematic way to ensure consistency, fairness, or evidence-based justification.
       </p>
       <div className="grid grid-cols-3 gap-8 mt-16">
-        <ProblemStat icon={<Users className="w-8 h-8" />} stat="73%" label="of students report perceived grading inconsistency across TAs" />
+        <ProblemStat icon={<Users className="w-8 h-8" />} stat="73%" label="of students report perceived grading inconsistency across sections" />
         <ProblemStat icon={<AlertTriangle className="w-8 h-8" />} stat="$2.3B" label="spent annually on grade appeals and dispute resolution in US universities" />
         <ProblemStat icon={<Scale className="w-8 h-8" />} stat="38%" label="score variance on identical essays graded by different instructors" />
       </div>
@@ -165,7 +178,7 @@ const ProblemOverviewSlide = () => (
   </SlideLayout>
 );
 
-const PainPoint1Slide = () => (
+const PainSubjectiveSlide = () => (
   <SlideLayout>
     <div className="absolute top-20 left-40 w-[300px] h-[300px] bg-orange-500/8 rounded-full blur-[100px]" />
     <div className="absolute inset-0 flex justify-center items-center px-32">
@@ -176,11 +189,11 @@ const PainPoint1Slide = () => (
             Subjective scoring with no accountability
           </h2>
           <p className="text-[22px] text-white/50 mt-6 leading-relaxed">
-            Graders assign scores based on gut feeling. Justifications are vague, rarely tied to specific evidence in the student's work, and almost never validated against the rubric criteria.
+            Graders assign scores based on gut feeling. Justifications are vague, rarely tied to specific evidence in the student's work, and almost never validated against the rubric.
           </p>
           <div className="mt-10 space-y-5">
             <PainItem text="Justifications like 'good argument' with no specific evidence cited" />
-            <PainItem text="Same quality work receives 15/25 from one TA and 22/25 from another" />
+            <PainItem text="Same quality work receives 15/25 from one grader and 22/25 from another" />
             <PainItem text="No mechanism to verify if scores actually match rubric descriptors" />
           </div>
         </div>
@@ -196,18 +209,18 @@ const PainPoint1Slide = () => (
   </SlideLayout>
 );
 
-const PainPoint2Slide = () => (
+const PainFairnessSlide = () => (
   <SlideLayout>
     <div className="absolute bottom-20 right-40 w-[400px] h-[400px] bg-red-500/6 rounded-full blur-[100px]" />
     <div className="absolute inset-0 flex justify-center items-center px-32">
       <div className="flex gap-20 items-center">
         <div className="w-[500px] h-[460px] bg-white/5 rounded-3xl border border-white/10 p-8 flex flex-col justify-center">
           <div className="space-y-4">
-            <ComparisonRow label="STU001" score="18/25" color="red" desc="Same citations, same quality" />
-            <ComparisonRow label="STU003" score="24/25" color="green" desc="Same citations, same quality" />
+            <ComparisonRow label="STU001" score="18/25" color="red" desc="Sharma's Section A — same citations" />
+            <ComparisonRow label="STU006" score="24/25" color="green" desc="Somani's Section B — same citations" />
             <div className="mt-4 pt-4 border-t border-white/10 text-center">
               <span className="text-red-400 text-lg font-mono font-bold">6-point gap</span>
-              <p className="text-white/30 text-sm mt-1">for similar evidence quality</p>
+              <p className="text-white/30 text-sm mt-1">for essays citing the same research</p>
             </div>
           </div>
         </div>
@@ -217,11 +230,11 @@ const PainPoint2Slide = () => (
             Invisible fairness violations
           </h2>
           <p className="text-[22px] text-white/50 mt-6 leading-relaxed">
-            When multiple students write essays of comparable quality — citing the same research, making similar arguments — there's no system to detect when they receive wildly different grades.
+            When students across sections write essays of comparable quality — citing Mueller & Oppenheimer, Sana et al. — there's no system to detect when they receive wildly different grades from different graders.
           </p>
           <div className="mt-10 space-y-5">
-            <PainItem text="Cross-student consistency is never checked in traditional workflows" />
-            <PainItem text="Bias (unconscious or otherwise) goes completely undetected" />
+            <PainItem text="Cross-section consistency is never checked in traditional workflows" />
+            <PainItem text="Grader bias (unconscious or otherwise) goes completely undetected" />
             <PainItem text="Students lose trust in the fairness of the grading process" />
           </div>
         </div>
@@ -230,23 +243,35 @@ const PainPoint2Slide = () => (
   </SlideLayout>
 );
 
-const MarketSlide = () => (
+const StoryFrustrationSlide = () => (
   <SlideLayout>
-    <div className="absolute top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-500/6 rounded-full blur-[120px]" />
+    <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-orange-500/8 rounded-full blur-[120px]" />
     <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-32">
-      <SectionLabel text="Market Space" color="blue" />
-      <h2 className="text-[60px] font-serif font-bold text-white leading-tight mt-6">
-        The EdTech Assessment Market
+      <Coffee className="w-16 h-16 text-orange-400/60 mb-6" />
+      <h2 className="text-[56px] font-serif font-bold text-white leading-tight max-w-[1100px]">
+        It's 2 AM. Prof. Sharma is on her <span className="text-orange-400">12th essay</span>.
       </h2>
-      <p className="text-[22px] text-white/50 mt-4 max-w-[900px]">
-        A rapidly growing sector with no dominant solution for grading quality assurance
+      <p className="text-[22px] text-white/40 mt-6 max-w-[800px] leading-relaxed">
+        She's graded 5 students. She wonders: "Am I scoring STU005 the same way I scored STU001 three hours ago?" She checks Canvas — no help. Gradescope — no consistency metrics. Turnitin — only plagiarism.
       </p>
-      <div className="grid grid-cols-4 gap-8 mt-16 max-w-[1400px]">
-        <MarketCard icon={<Globe className="w-8 h-8" />} title="$22.4B" subtitle="Global EdTech assessment market by 2028" />
-        <MarketCard icon={<GraduationCap className="w-8 h-8" />} title="200M+" subtitle="University essays graded annually in the US alone" />
-        <MarketCard icon={<Users className="w-8 h-8" />} title="1.5M" subtitle="TAs and adjuncts doing the bulk of grading work" />
-        <MarketCard icon={<TrendingUp className="w-8 h-8" />} title="34%" subtitle="YoY growth in AI-assisted education tools" />
+      <div className="grid grid-cols-3 gap-6 mt-12 max-w-[1100px]">
+        <div className="bg-white/5 border border-white/10 rounded-xl p-6 text-center">
+          <XCircle className="w-8 h-8 text-red-400/50 mx-auto mb-3" />
+          <p className="text-white/60 font-semibold">Canvas</p>
+          <p className="text-white/25 text-sm mt-1">No consistency checking</p>
+        </div>
+        <div className="bg-white/5 border border-white/10 rounded-xl p-6 text-center">
+          <XCircle className="w-8 h-8 text-red-400/50 mx-auto mb-3" />
+          <p className="text-white/60 font-semibold">Gradescope</p>
+          <p className="text-white/25 text-sm mt-1">No fairness detection</p>
+        </div>
+        <div className="bg-white/5 border border-white/10 rounded-xl p-6 text-center">
+          <XCircle className="w-8 h-8 text-red-400/50 mx-auto mb-3" />
+          <p className="text-white/60 font-semibold">Turnitin</p>
+          <p className="text-white/25 text-sm mt-1">No score validation</p>
+        </div>
       </div>
+      <p className="text-white/20 text-sm mt-10 italic">She needs a copilot, not another grading tool.</p>
     </div>
   </SlideLayout>
 );
@@ -270,132 +295,73 @@ const MarketGapSlide = () => (
   </SlideLayout>
 );
 
-/* ============ NEW: STORYBOARD SLIDE ============ */
-const StoryboardSlide = () => {
-  const panels = [
-    { num: 1, title: "The Setting", desc: "A professor teaches a large multi-section university course. Multiple TAs grade essay assignments across different sections.", icon: <GraduationCap className="w-8 h-8" /> },
-    { num: 2, title: "The Problem Emerges", desc: "Grading inconsistency emerges. Similar-quality essays receive different scores across sections. Students compare grades and question fairness.", icon: <AlertTriangle className="w-8 h-8" /> },
-    { num: 3, title: "The Struggle", desc: "The professor is overwhelmed during a long grading session late at night — buried in papers, running on coffee.", icon: <BookOpen className="w-8 h-8" /> },
-    { num: 4, title: "Existing Tools Fail", desc: "Tools like Canvas, Turnitin, and Gradescope display grades and feedback but cannot detect cross-section grading drift. The professor is frustrated.", icon: <Target className="w-8 h-8" /> },
-    { num: 5, title: "Enter RubricGuard AI", desc: "A supportive grading copilot that assists faculty without replacing their judgment.", icon: <Shield className="w-8 h-8" /> },
-    { num: 6, title: "The Interface", desc: "The grading interface: submission viewer on the left, rubric scoring cards in the center, and live consistency analytics on the right.", icon: <BarChart3 className="w-8 h-8" /> },
-    { num: 7, title: "AI Validates", desc: "The AI validates a score explanation and flags a consistency alert — scoring drift detected across sections.", icon: <Brain className="w-8 h-8" /> },
-    { num: 8, title: "Professor Reviews", desc: "The professor reviews the alert, adjusts or confirms the score. Faculty remains fully in control of every decision.", icon: <UserCheck className="w-8 h-8" /> },
-    { num: 9, title: "Alignment Validated", desc: "Grades finalized with an 'Alignment Validated' summary. The professor feels confident and relieved.", icon: <Award className="w-8 h-8" /> },
-  ];
+/* ═══════════════════════ ACT 2: THE SOLUTION ═══════════════════════ */
 
-  return (
-    <SlideLayout>
-      <div className="absolute top-20 left-40 w-[400px] h-[400px] bg-blue-500/6 rounded-full blur-[100px]" />
-      <div className="absolute bottom-20 right-20 w-[300px] h-[300px] bg-cyan-500/6 rounded-full blur-[80px]" />
-      <div className="absolute inset-0 flex flex-col justify-center items-center px-24">
-        <SectionLabel text="User Journey" color="blue" />
-        <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-5 mb-10">
-          From frustration to <span className="text-blue-400">confidence</span>
-        </h2>
-
-        <div className="grid grid-cols-3 gap-5 max-w-[1600px]">
-          {panels.map((p) => (
-            <div key={p.num} className={`relative rounded-xl border p-5 transition-all ${
-              p.num === 5 ? "bg-blue-500/10 border-blue-400/30" : p.num === 9 ? "bg-green-500/8 border-green-400/25" : "bg-white/[0.04] border-white/10"
-            }`}>
-              {/* Number badge */}
-              <div className={`absolute -top-3 -left-2 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-                p.num <= 4 ? "bg-red-400/20 text-red-400 border border-red-400/30" :
-                p.num <= 6 ? "bg-blue-400/20 text-blue-400 border border-blue-400/30" :
-                "bg-green-400/20 text-green-400 border border-green-400/30"
-              }`}>
-                {p.num}
-              </div>
-
-              <div className="flex items-start gap-3 mt-1">
-                <div className={`shrink-0 ${
-                  p.num <= 4 ? "text-red-400/50" : p.num <= 6 ? "text-blue-400/50" : "text-green-400/50"
-                }`}>
-                  {p.icon}
-                </div>
-                <div>
-                  <p className="text-white/90 font-semibold text-sm mb-1">{p.title}</p>
-                  <p className="text-white/40 text-xs leading-relaxed">{p.desc}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <p className="text-white/20 text-sm mt-8 italic">
-          RubricGuard AI supports human judgment — it does not replace it.
-        </p>
-      </div>
-    </SlideLayout>
-  );
-};
-
-const SolutionOverviewSlide = () => (
+const SolutionRevealSlide = () => (
   <SlideLayout bg="blue">
     <div className="absolute top-20 right-60 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px]" />
     <div className="absolute bottom-20 left-20 w-[300px] h-[300px] bg-cyan-500/8 rounded-full blur-[80px]" />
     <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-32">
-      <SectionLabel text="Solution Space" color="blue" />
+      <SectionLabel text="Enter RubricGuard" color="blue" />
       <h2 className="text-[64px] font-serif font-bold text-white leading-tight mt-6">
-        Meet <span className="text-blue-400">RubricGuard</span> AI
+        What if every score was <span className="text-blue-400">defensible</span>?
       </h2>
       <p className="text-[24px] text-white/40 mt-4 max-w-[900px]">
-        The first AI-powered grading quality assurance engine that validates every score, checks every justification, and flags every inconsistency — in real time.
+        An AI copilot that validates every justification, detects fairness violations across students, and gives professors real-time visibility into grading quality — without replacing human judgment.
       </p>
       <div className="grid grid-cols-4 gap-8 mt-16 max-w-[1500px]">
         <FeatureIcon icon={<FileCheck className="w-10 h-10" />} title="Evidence-Based Scoring" desc="Attach specific text excerpts as evidence for each rubric criterion" />
         <FeatureIcon icon={<Brain className="w-10 h-10" />} title="AI Validation" desc="Every justification validated against highlighted evidence in real time" />
-        <FeatureIcon icon={<Scale className="w-10 h-10" />} title="Fairness Detection" desc="Cross-student scoring consistency flagged when similar answers get different scores" />
-        <FeatureIcon icon={<BarChart3 className="w-10 h-10" />} title="Live Analytics" desc="Session-level validity rate, score distribution, and fairness alerts" />
+        <FeatureIcon icon={<Scale className="w-10 h-10" />} title="Fairness Detection" desc="Pairwise comparison flags similar answers with different scores" />
+        <FeatureIcon icon={<BarChart3 className="w-10 h-10" />} title="Segment Grades" desc="Cross-grader analytics with per-professor validity rates" />
       </div>
     </div>
   </SlideLayout>
 );
 
-const FeatureWorkspaceSlide = () => (
+const WorkspaceSlide = () => (
   <SlideLayout>
     <div className="absolute inset-0 flex items-center px-24">
       <div className="flex gap-16 items-center w-full">
         <div className="flex-1 max-w-[650px]">
-          <SectionLabel text="Feature" color="blue" />
+          <SectionLabel text="The Workspace" color="blue" />
           <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
-            3-Column Grading Workspace
+            3-Column Grading Interface
           </h2>
           <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
-            A purpose-built interface where submission, rubric, and analytics live side-by-side. Graders highlight evidence directly in the text and attach it to rubric criteria.
+            Prof. Sharma opens RubricGuard and begins grading her 5 students. The workspace shows submission, rubric, and live analytics side-by-side.
           </p>
           <div className="mt-8 space-y-4">
-            <FeatureBullet text="Left panel: Full student submission with text selection" />
-            <FeatureBullet text="Center panel: Rubric criteria with scores, justifications, and AI suggestions" />
-            <FeatureBullet text="Right panel: Live analytics updating with each grading action" />
+            <FeatureBullet text="Left: Full student submission with text selection & highlighting" />
+            <FeatureBullet text="Center: Rubric criteria with scores, justifications, and AI suggestions" />
+            <FeatureBullet text="Right: Live analytics updating with each grading action" />
             <FeatureBullet text="Dual-color highlighting: blue (user evidence) + yellow (AI key quotes)" />
           </div>
         </div>
-        <AppScreenshot label="Grading Workspace — STU001" caption="3-column layout: Submission | Rubric Scoring | Live Analytics" />
+        <AppScreenshot label="Grading Workspace — Prof. Sharma grading STU001" caption="3-column layout: Submission | Rubric Scoring | Live Analytics" />
       </div>
     </div>
   </SlideLayout>
 );
 
-const FeatureValidationSlide = () => (
+const ValidationSlide = () => (
   <SlideLayout>
     <div className="absolute inset-0 flex items-center px-24">
       <div className="flex gap-16 items-center w-full">
-        <AppScreenshot label="AI Validation Badges" caption="Fully Supported · Partially Supported · Not Supported" />
+        <AppScreenshot label="AI Validation in Action" caption="Fully Supported · Partially Supported · Not Supported" />
         <div className="flex-1 max-w-[650px]">
-          <SectionLabel text="Feature" color="green" />
+          <SectionLabel text="AI Validation" color="green" />
           <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
-            Real-Time Justification Validation
+            "Is my justification backed by evidence?"
           </h2>
           <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
-            Each justification is validated against the highlighted evidence by AI. The system checks if the grader's reasoning actually matches what the student wrote.
+            Prof. Sharma scores STU002's Argument Clarity at 12/25 and writes: "Simplistic thesis." She clicks Validate — the AI checks if her highlighted evidence actually supports that deduction.
           </p>
           <div className="mt-8 space-y-4">
-            <FeatureBullet text="Three validation statuses: Fully, Partially, or Not Supported" icon={<CheckCircle2 className="w-5 h-5 text-green-400" />} />
-            <FeatureBullet text="AI reasoning explains WHY the validation status was assigned" icon={<Lightbulb className="w-5 h-5 text-yellow-400" />} />
-            <FeatureBullet text="Suggested refinements help graders improve their justifications" icon={<Zap className="w-5 h-5 text-blue-400" />} />
-            <FeatureBullet text="Key Quotes extracted from submission to highlight relevant evidence" icon={<Eye className="w-5 h-5 text-cyan-400" />} />
+            <FeatureBullet text="✅ Fully Supported — justification matches the evidence" icon={<CheckCircle2 className="w-5 h-5 text-green-400" />} />
+            <FeatureBullet text="⚠️ Partially Supported — some gaps in reasoning" icon={<AlertTriangle className="w-5 h-5 text-yellow-400" />} />
+            <FeatureBullet text="❌ Not Supported — evidence doesn't back the score" icon={<XCircle className="w-5 h-5 text-red-400" />} />
+            <FeatureBullet text="AI extracts Key Quotes and suggests score refinements" icon={<Eye className="w-5 h-5 text-cyan-400" />} />
           </div>
         </div>
       </div>
@@ -403,49 +369,172 @@ const FeatureValidationSlide = () => (
   </SlideLayout>
 );
 
-const FeatureFairnessSlide = () => (
+/* ═══════════════════════ ACT 3: THE MATH ═══════════════════════ */
+
+const ValidityCalcSlide = () => (
+  <SlideLayout>
+    <div className="absolute top-20 right-40 w-[400px] h-[400px] bg-blue-500/8 rounded-full blur-[100px]" />
+    <div className="absolute inset-0 flex items-center px-24">
+      <div className="flex gap-16 items-center w-full">
+        <div className="flex-1 max-w-[750px]">
+          <SectionLabel text="The Math" color="blue" />
+          <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
+            Explanation Validity Rate
+          </h2>
+          <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
+            A single metric that captures grading quality. It measures how well a grader's justifications hold up against AI validation, with a penalty for fairness violations.
+          </p>
+          <div className="mt-8 space-y-5">
+            <CalcStep num="1" label="Count validations" formula="fully_supported / total_validated × 100" example="15 of 20 validations fully supported = 75%" />
+            <CalcStep num="2" label="Fairness penalty" formula="fairness_flags × 2% (capped at 20%)" example="1 fairness flag = 2% penalty" />
+            <CalcStep num="3" label="Final rate" formula="raw_validity − fairness_penalty" example="75% − 2% = 73% validity rate" />
+          </div>
+        </div>
+
+        {/* Visual: Calculation breakdown */}
+        <div className="w-[700px] h-[540px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] rounded-2xl border border-white/15 overflow-hidden flex flex-col shadow-2xl">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
+            <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-400/60" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
+              <div className="w-3 h-3 rounded-full bg-green-400/60" />
+            </div>
+            <span className="text-white/30 text-xs font-mono ml-3">Validity Rate — Prof. Sharma (5 students × 4 criteria)</span>
+          </div>
+          <div className="flex-1 p-6 flex flex-col justify-center">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 rounded-xl bg-green-500/5 border border-green-500/15">
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-green-400" />
+                  <span className="text-white/70 text-sm">Fully Supported</span>
+                </div>
+                <span className="text-green-400 font-bold font-mono text-xl">15</span>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-xl bg-yellow-500/5 border border-yellow-500/15">
+                <div className="flex items-center gap-3">
+                  <AlertTriangle className="w-5 h-5 text-yellow-400" />
+                  <span className="text-white/70 text-sm">Partially Supported</span>
+                </div>
+                <span className="text-yellow-400 font-bold font-mono text-xl">3</span>
+              </div>
+              <div className="flex items-center justify-between p-4 rounded-xl bg-red-500/5 border border-red-500/15">
+                <div className="flex items-center gap-3">
+                  <XCircle className="w-5 h-5 text-red-400" />
+                  <span className="text-white/70 text-sm">Not Supported</span>
+                </div>
+                <span className="text-red-400 font-bold font-mono text-xl">2</span>
+              </div>
+            </div>
+            <div className="mt-5 pt-5 border-t border-white/10">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-white/40 text-xs font-mono">Raw: 15/20 = 75%</span>
+                <span className="text-white/40 text-xs font-mono">Penalty: 1 flag × 2% = 2%</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-white/60 text-sm font-semibold">Final Validity Rate</span>
+                <span className="text-blue-400 text-3xl font-serif font-bold">73%</span>
+              </div>
+              <div className="h-3 bg-white/5 rounded-full overflow-hidden mt-3">
+                <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" style={{ width: "73%" }} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </SlideLayout>
+);
+
+const FairnessDetectionSlide = () => (
   <SlideLayout>
     <div className="absolute top-20 left-40 w-[300px] h-[300px] bg-red-500/6 rounded-full blur-[80px]" />
     <div className="absolute inset-0 flex items-center px-24">
       <div className="flex gap-16 items-center w-full">
         <div className="flex-1 max-w-[650px]">
-          <SectionLabel text="Feature" color="red" />
+          <SectionLabel text="Fairness Engine" color="red" />
           <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
-            Cross-Student Fairness Detection
+            Pairwise Fairness Detection
           </h2>
           <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
-            The system compares answers of similar quality (as assessed by AI) and flags cases where the grader assigned significantly different scores — revealing inconsistencies in rubric application.
+            The AI independently assesses each answer's quality per criterion. When two students receive similar AI assessments but significantly different grader scores, a fairness alert fires.
           </p>
           <div className="mt-8 space-y-4">
-            <FeatureBullet text="AI assesses answer quality independently per criterion" />
-            <FeatureBullet text="Similar-quality answers compared pairwise across students" />
-            <FeatureBullet text="Flags triggered when grader scores differ by >1.5 points on similar work" />
-            <FeatureBullet text="Each flag reduces the Explanation Validity Rate by 3%" />
+            <FeatureBullet text="AI scores each criterion independently (aiSuggestedScore)" />
+            <FeatureBullet text="Compares all student pairs: |aiDiff| ≤ 2 means 'similar quality'" />
+            <FeatureBullet text="If |scoreDiff| > 1.5 on similar quality → flag inconsistency" />
+            <FeatureBullet text="Each flag penalizes Validity Rate by 2% (capped at 20%)" />
+          </div>
+          <div className="mt-6 p-4 bg-white/5 border border-white/10 rounded-xl">
+            <p className="text-white/30 text-xs font-mono">
+              if (|AI_A − AI_B| ≤ 2 && |Score_A − Score_B| &gt; 1.5) → FLAG
+            </p>
           </div>
         </div>
-        <AppScreenshot label="Grading Fairness Alerts" caption="Pairwise comparison: similar AI quality but different grader scores" />
+
+        <div className="w-[700px] h-[500px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] rounded-2xl border border-white/15 overflow-hidden flex flex-col shadow-2xl">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
+            <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-400/60" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
+              <div className="w-3 h-3 rounded-full bg-green-400/60" />
+            </div>
+            <span className="text-white/30 text-xs font-mono ml-3">Fairness Alert — Argument Clarity</span>
+          </div>
+          <div className="flex-1 p-6 flex flex-col justify-center">
+            <div className="space-y-4">
+              <div className="bg-white/[0.04] rounded-xl border border-white/10 p-5">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-white/80 font-semibold text-sm">Argument Clarity</span>
+                  <span className="text-red-400 text-xs font-mono font-bold bg-red-500/10 px-2 py-1 rounded">6 pt gap</span>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between bg-white/[0.03] rounded-lg px-4 py-3 border border-white/[0.06]">
+                    <div>
+                      <span className="text-white/60 text-xs font-mono">STU001</span>
+                      <span className="text-white/30 text-xs ml-2">AI: 22</span>
+                    </div>
+                    <span className="text-white font-bold">18/25</span>
+                  </div>
+                  <div className="flex items-center justify-between bg-white/[0.03] rounded-lg px-4 py-3 border border-white/[0.06]">
+                    <div>
+                      <span className="text-white/60 text-xs font-mono">STU004</span>
+                      <span className="text-white/30 text-xs ml-2">AI: 23</span>
+                    </div>
+                    <span className="text-white font-bold">24/25</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 mt-3">
+                  <AlertTriangle className="w-4 h-4 text-red-400" />
+                  <span className="text-red-400/80 text-xs">AI says similar quality (diff: 1), but scores differ by 6 pts</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </SlideLayout>
 );
 
-const FeatureAnalyticsSlide = () => (
+/* ═══════════════════════ ACT 4: THE BIGGER PICTURE ═══════════════════════ */
+
+const AnalyticsDashSlide = () => (
   <SlideLayout>
     <div className="absolute inset-0 flex items-center px-24">
       <div className="flex gap-16 items-center w-full">
-        <AppScreenshot label="Session Analytics Report" caption="Score Distribution · Heatmap · Criterion Stability · Fairness Alerts" />
+        <AppScreenshot label="Session Analytics — Prof. Sharma" caption="Score Distribution · Heatmap · Criterion Stability · Fairness Alerts" />
         <div className="flex-1 max-w-[650px]">
-          <SectionLabel text="Feature" color="purple" />
+          <SectionLabel text="Session Report" color="purple" />
           <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
-            Comprehensive Analytics Dashboard
+            Grading Session Analytics
           </h2>
           <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
-            After grading, a full session report provides quartile analysis, score timelines, criterion stability metrics, a color-coded heatmap, and a consolidated fairness audit.
+            After grading 5 students, Prof. Sharma reviews her session report: quartile analysis, score timeline, criterion stability, heatmap, and fairness audit — all for her section only.
           </p>
           <div className="mt-8 space-y-4">
             <FeatureBullet text="Score distribution with mean, median, Q1/Q3, and IQR" />
-            <FeatureBullet text="Per-criterion stability showing standard deviation" />
-            <FeatureBullet text="Color-coded heatmap across all students and criteria" />
+            <FeatureBullet text="Per-criterion standard deviation shows scoring stability" />
+            <FeatureBullet text="Color-coded heatmap across all 5 students × 4 criteria" />
             <FeatureBullet text="Consolidated fairness alerts with pairwise comparisons" />
           </div>
         </div>
@@ -454,8 +543,51 @@ const FeatureAnalyticsSlide = () => (
   </SlideLayout>
 );
 
-/* ============ NEW: PROFESSOR TA-TRACKING SLIDE ============ */
-const ProfessorTrackingSlide = () => (
+const SegmentGradesSlide = () => (
+  <SlideLayout>
+    <div className="absolute top-20 left-1/3 w-[500px] h-[400px] bg-blue-500/8 rounded-full blur-[120px]" />
+    <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-24">
+      <SectionLabel text="Full Picture" color="blue" />
+      <h2 className="text-[52px] font-serif font-bold text-white leading-tight mt-6">
+        Segment Grades: <span className="text-blue-400">All 15 Students</span>
+      </h2>
+      <p className="text-[22px] text-white/40 mt-4 max-w-[900px]">
+        The Segment Grades view aggregates all 3 graders, showing per-professor analytics and a complete grade table with validation status dots.
+      </p>
+      <div className="grid grid-cols-3 gap-8 mt-12 max-w-[1400px]">
+        <GraderSummaryCard name="Prof. Sharma" section="Section A" students={5} avgScore={72.4} validityRate={73} fairnessAlerts={1} highlight />
+        <GraderSummaryCard name="Prof. Somani" section="Section B" students={5} avgScore={79.8} validityRate={88} fairnessAlerts={0} />
+        <GraderSummaryCard name="Prof. Raymahesh" section="Section C" students={5} avgScore={75.2} validityRate={65} fairnessAlerts={2} />
+      </div>
+      <div className="mt-10 bg-white/5 border border-white/10 rounded-xl p-5 max-w-[1000px]">
+        <div className="grid grid-cols-7 gap-3 text-xs text-white/40 font-mono mb-3">
+          <span>Student</span><span className="text-center">Arg.</span><span className="text-center">Evidence</span><span className="text-center">Analysis</span><span className="text-center">Writing</span><span className="text-center">Total</span><span className="text-center">Status</span>
+        </div>
+        {[
+          { id: "STU001", scores: [22, 20, 18, 21], dots: ["g", "g", "p", "g"] },
+          { id: "STU002", scores: [12, 10, 8, 14], dots: ["g", "g", "n", "p"] },
+          { id: "STU003", scores: [24, 22, 23, 23], dots: ["g", "g", "g", "g"] },
+        ].map((s) => (
+          <div key={s.id} className="grid grid-cols-7 gap-3 text-sm py-1.5 border-t border-white/5">
+            <span className="text-white/60 font-mono text-xs">{s.id}</span>
+            {s.scores.map((sc, i) => (
+              <span key={i} className={`text-center font-bold text-xs ${sc >= 22 ? "text-green-400" : sc >= 16 ? "text-blue-400" : sc >= 12 ? "text-yellow-400" : "text-red-400"}`}>{sc}</span>
+            ))}
+            <span className="text-center font-bold text-white/80 text-xs">{s.scores.reduce((a, b) => a + b, 0)}</span>
+            <div className="flex justify-center gap-1">
+              {s.dots.map((d, i) => (
+                <span key={i} className={`w-2 h-2 rounded-full ${d === "g" ? "bg-green-400" : d === "p" ? "bg-yellow-400" : "bg-red-400"}`} />
+              ))}
+            </div>
+          </div>
+        ))}
+        <p className="text-white/20 text-[11px] mt-2 text-center italic">Showing 3 of 15 students · Full table available in app</p>
+      </div>
+    </div>
+  </SlideLayout>
+);
+
+const ProfessorViewSlide = () => (
   <SlideLayout>
     <div className="absolute top-20 right-40 w-[400px] h-[400px] bg-purple-500/8 rounded-full blur-[100px]" />
     <div className="absolute inset-0 flex items-center px-24">
@@ -463,20 +595,19 @@ const ProfessorTrackingSlide = () => (
         <div className="flex-1 max-w-[700px]">
           <SectionLabel text="For Professors" color="purple" />
           <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
-            Track TA Grading <span className="text-purple-400">Consistency</span>
+            Cross-Section <span className="text-purple-400">Oversight</span>
           </h2>
           <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
-            Professors get a bird's-eye view of how each TA applies the rubric. Identify drift early, intervene with data, and ensure every section is graded to the same standard.
+            Prof. Sharma can see how Prof. Somani and Prof. Raymahesh are grading their sections. One metric — Explanation Validity Rate — tells the whole story. Drill into fairness alerts and criterion-level heatmaps to identify where calibration is needed.
           </p>
           <div className="mt-8 space-y-4">
-            <FeatureBullet text="Per-TA Explanation Validity Rate — one number to gauge rubric fidelity" icon={<LineChart className="w-5 h-5 text-purple-400" />} />
-            <FeatureBullet text="Cross-section fairness dashboard highlights scoring drift between TAs" icon={<Scale className="w-5 h-5 text-purple-400" />} />
-            <FeatureBullet text="Criterion-level heatmap shows WHERE each TA is lenient or strict" icon={<BarChart3 className="w-5 h-5 text-purple-400" />} />
-            <FeatureBullet text="Session history tracks improvement over time with grading trend lines" icon={<TrendingUp className="w-5 h-5 text-purple-400" />} />
+            <FeatureBullet text="Per-grader validity rates at a glance — one number for rubric fidelity" icon={<LineChart className="w-5 h-5 text-purple-400" />} />
+            <FeatureBullet text="Cross-section fairness dashboard highlights scoring drift between graders" icon={<Scale className="w-5 h-5 text-purple-400" />} />
+            <FeatureBullet text="Criterion-level breakdown shows WHERE each grader is lenient or strict" icon={<BarChart3 className="w-5 h-5 text-purple-400" />} />
+            <FeatureBullet text="Validation breakdown: fully / partially / not supported counts" icon={<TrendingUp className="w-5 h-5 text-purple-400" />} />
           </div>
         </div>
 
-        {/* Visual: TA Comparison Dashboard mockup */}
         <div className="w-[700px] h-[520px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] rounded-2xl border border-white/15 overflow-hidden flex flex-col shadow-2xl">
           <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
             <div className="flex gap-1.5">
@@ -484,25 +615,25 @@ const ProfessorTrackingSlide = () => (
               <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
               <div className="w-3 h-3 rounded-full bg-green-400/60" />
             </div>
-            <span className="text-white/30 text-xs font-mono ml-3">TA Performance Dashboard</span>
+            <span className="text-white/30 text-xs font-mono ml-3">Grader Performance Comparison</span>
           </div>
           <div className="flex-1 p-6">
-            <p className="text-white/50 text-xs font-mono mb-4 uppercase tracking-wider">Explanation Validity Rate by TA</p>
+            <p className="text-white/50 text-xs font-mono mb-4 uppercase tracking-wider">Explanation Validity Rate by Grader</p>
             <div className="space-y-4">
-              <TABar name="TA: M. Chen" section="Section B" rate={92} color="green" />
-              <TABar name="TA: R. Patel" section="Section C" rate={78} color="blue" />
-              <TABar name="TA: J. Kim" section="Section D" rate={54} color="orange" />
+              <TABar name="Prof. Somani" section="Section B" rate={88} color="green" />
+              <TABar name="Prof. Sharma" section="Section A" rate={73} color="blue" />
+              <TABar name="Prof. Raymahesh" section="Section C" rate={65} color="orange" />
             </div>
             <div className="mt-6 pt-5 border-t border-white/10">
               <p className="text-white/50 text-xs font-mono mb-3 uppercase tracking-wider">Flagged Issues</p>
               <div className="space-y-2">
                 <div className="flex items-center gap-2 bg-red-500/5 border border-red-500/15 rounded-lg px-3 py-2">
                   <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
-                  <span className="text-white/60 text-xs">J. Kim: Evidence Use scores 4.2 pts higher than AI assessment avg</span>
+                  <span className="text-white/60 text-xs">Raymahesh: 2 fairness alerts — Evidence Use scores inflated vs AI assessment</span>
                 </div>
                 <div className="flex items-center gap-2 bg-orange-500/5 border border-orange-500/15 rounded-lg px-3 py-2">
                   <AlertTriangle className="w-3.5 h-3.5 text-orange-400" />
-                  <span className="text-white/60 text-xs">R. Patel: 3 unsupported justifications on Critical Analysis</span>
+                  <span className="text-white/60 text-xs">Sharma: 1 fairness alert — Argument Clarity inconsistency on similar submissions</span>
                 </div>
               </div>
             </div>
@@ -513,13 +644,11 @@ const ProfessorTrackingSlide = () => (
   </SlideLayout>
 );
 
-/* ============ NEW: TA IMPROVEMENT SLIDE ============ */
-const TAImprovementSlide = () => (
+const GraderGrowthSlide = () => (
   <SlideLayout>
     <div className="absolute bottom-20 left-40 w-[400px] h-[400px] bg-green-500/6 rounded-full blur-[100px]" />
     <div className="absolute inset-0 flex items-center px-24">
       <div className="flex gap-16 items-center w-full">
-        {/* Visual: TA feedback loop */}
         <div className="w-[700px] h-[520px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] rounded-2xl border border-white/15 overflow-hidden flex flex-col shadow-2xl">
           <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
             <div className="flex gap-1.5">
@@ -527,26 +656,25 @@ const TAImprovementSlide = () => (
               <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
               <div className="w-3 h-3 rounded-full bg-green-400/60" />
             </div>
-            <span className="text-white/30 text-xs font-mono ml-3">TA Growth & Learning</span>
+            <span className="text-white/30 text-xs font-mono ml-3">Grader Growth Trajectory</span>
           </div>
           <div className="flex-1 p-6">
-            <p className="text-white/50 text-xs font-mono mb-4 uppercase tracking-wider">Your Improvement Journey</p>
-            {/* Improvement timeline */}
+            <p className="text-white/50 text-xs font-mono mb-4 uppercase tracking-wider">Improvement Over Time</p>
             <div className="space-y-3">
-              <ImprovementStep week="Week 1" rate={54} label="Initial calibration — many unsupported justifications" status="warning" />
-              <ImprovementStep week="Week 3" rate={71} label="AI refinements adopted — fewer vague explanations" status="improving" />
-              <ImprovementStep week="Week 6" rate={88} label="Strong rubric alignment — consistent, evidence-based scoring" status="good" />
+              <ImprovementStep week="Assignment 1" rate={54} label="Initial calibration — many unsupported justifications" status="warning" />
+              <ImprovementStep week="Assignment 3" rate={71} label="AI refinements adopted — fewer vague explanations" status="improving" />
+              <ImprovementStep week="Assignment 6" rate={88} label="Strong rubric alignment — consistent, evidence-based scoring" status="good" />
             </div>
             <div className="mt-5 pt-4 border-t border-white/10">
-              <p className="text-white/50 text-xs font-mono mb-3 uppercase tracking-wider">AI Coaching Feedback</p>
+              <p className="text-white/50 text-xs font-mono mb-3 uppercase tracking-wider">AI Coaching</p>
               <div className="space-y-2">
                 <div className="flex items-start gap-2 bg-blue-500/5 border border-blue-500/15 rounded-lg px-3 py-2.5">
                   <MessageCircle className="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5" />
-                  <span className="text-white/60 text-xs leading-relaxed">"Your Evidence Use scores improved 34% — you're now citing specific passages rather than summarizing. Keep anchoring deductions to rubric descriptors."</span>
+                  <span className="text-white/60 text-xs leading-relaxed">"Evidence Use improved 34% — citing specific passages instead of summarizing."</span>
                 </div>
                 <div className="flex items-start gap-2 bg-green-500/5 border border-green-500/15 rounded-lg px-3 py-2.5">
                   <CheckCircle2 className="w-3.5 h-3.5 text-green-400 shrink-0 mt-0.5" />
-                  <span className="text-white/60 text-xs leading-relaxed">"Critical Analysis scoring is now within 1.2 pts of AI assessment — excellent calibration."</span>
+                  <span className="text-white/60 text-xs leading-relaxed">"Critical Analysis scoring now within 1.2 pts of AI — excellent calibration."</span>
                 </div>
               </div>
             </div>
@@ -554,18 +682,18 @@ const TAImprovementSlide = () => (
         </div>
 
         <div className="flex-1 max-w-[700px]">
-          <SectionLabel text="For TAs" color="green" />
+          <SectionLabel text="Growth Loop" color="green" />
           <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
-            Learn, Improve, <span className="text-green-400">Grow</span>
+            Every grader gets <span className="text-green-400">better</span>
           </h2>
           <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
-            RubricGuard isn't just a monitoring tool — it's a training system. TAs receive real-time coaching that helps them internalize rubric standards and develop consistent grading habits.
+            RubricGuard isn't just a monitoring tool — it's a training system. Each validation teaches the grader what a well-justified score looks like. Over time, validity rates climb and fairness alerts disappear.
           </p>
           <div className="mt-8 space-y-4">
-            <FeatureBullet text="Real-time AI feedback on every justification — learn as you grade" icon={<Brain className="w-5 h-5 text-green-400" />} />
-            <FeatureBullet text="Suggested refinements teach TAs how to write evidence-based explanations" icon={<Lightbulb className="w-5 h-5 text-green-400" />} />
-            <FeatureBullet text="Validity rate trends show personal improvement over weeks" icon={<TrendingUp className="w-5 h-5 text-green-400" />} />
-            <FeatureBullet text="Fairness alerts highlight blind spots — targeted rubric areas to focus on" icon={<Target className="w-5 h-5 text-green-400" />} />
+            <FeatureBullet text="Real-time AI feedback on every justification" icon={<Brain className="w-5 h-5 text-green-400" />} />
+            <FeatureBullet text="Suggested refinements teach evidence-based reasoning" icon={<Lightbulb className="w-5 h-5 text-green-400" />} />
+            <FeatureBullet text="Validity rate trends show personal growth over assignments" icon={<TrendingUp className="w-5 h-5 text-green-400" />} />
+            <FeatureBullet text="Fairness alerts highlight specific blind spots to focus on" icon={<Target className="w-5 h-5 text-green-400" />} />
           </div>
         </div>
       </div>
@@ -573,26 +701,25 @@ const TAImprovementSlide = () => (
   </SlideLayout>
 );
 
-const ValuePropositionSlide = () => (
+/* ═══════════════════════ ACT 5: THE PAYOFF ═══════════════════════ */
+
+const ValueImpactSlide = () => (
   <SlideLayout bg="blue">
     <div className="absolute top-40 right-40 w-[500px] h-[500px] bg-green-500/6 rounded-full blur-[120px]" />
     <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-32">
-      <SectionLabel text="Customer Value Space" color="green" />
+      <SectionLabel text="Impact" color="green" />
       <h2 className="text-[60px] font-serif font-bold text-white leading-tight mt-6">
         Measurable Impact
       </h2>
-      <p className="text-[22px] text-white/40 mt-4 max-w-[900px]">
-        RubricGuard doesn't just detect problems — it drives behavioral change in grading practice
-      </p>
       <div className="grid grid-cols-3 gap-10 mt-14 max-w-[1400px]">
         <ValueCard icon={<Scale className="w-10 h-10" />} title="Fairness" metric="↓ 85%" desc="Reduction in cross-student scoring inconsistencies through real-time alerts" />
         <ValueCard icon={<CheckCircle2 className="w-10 h-10" />} title="Accountability" metric="100%" desc="Every score backed by evidence. Every justification validated by AI." />
         <ValueCard icon={<TrendingUp className="w-10 h-10" />} title="Efficiency" metric="↓ 40%" desc="Reduction in grade appeal disputes through transparent, defensible grading" />
       </div>
       <div className="grid grid-cols-3 gap-10 mt-8 max-w-[1400px]">
-        <ValueCard icon={<GraduationCap className="w-10 h-10" />} title="Student Trust" metric="↑ 60%" desc="Improvement in perceived grading fairness leading to better learning outcomes" />
-        <ValueCard icon={<DollarSign className="w-10 h-10" />} title="Cost Savings" metric="$1.2M" desc="Estimated annual savings per large university in dispute resolution and regrading" />
-        <ValueCard icon={<Zap className="w-10 h-10" />} title="Quality Signal" metric="74%" desc="Explanation Validity Rate — a single metric for grading quality assurance" />
+        <ValueCard icon={<GraduationCap className="w-10 h-10" />} title="Student Trust" metric="↑ 60%" desc="Improvement in perceived grading fairness and learning outcomes" />
+        <ValueCard icon={<Calculator className="w-10 h-10" />} title="Quality Signal" metric="73%" desc="Explanation Validity Rate — the one metric for grading quality assurance" />
+        <ValueCard icon={<Zap className="w-10 h-10" />} title="Growth" metric="54→88%" desc="Typical grader improvement over 6 weeks of AI-assisted calibration" />
       </div>
     </div>
   </SlideLayout>
@@ -618,19 +745,55 @@ const TechStackSlide = () => (
       <div className="mt-16 flex gap-16 items-center">
         <div className="text-center">
           <p className="text-[48px] font-serif font-bold text-cyan-400">{"<"}1s</p>
-          <p className="text-white/30 text-sm mt-1">AI validation response time</p>
+          <p className="text-white/30 text-sm mt-1">AI validation response</p>
         </div>
         <div className="w-px h-16 bg-white/10" />
         <div className="text-center">
           <p className="text-[48px] font-serif font-bold text-cyan-400">0</p>
-          <p className="text-white/30 text-sm mt-1">API keys required from users</p>
+          <p className="text-white/30 text-sm mt-1">API keys required</p>
         </div>
         <div className="w-px h-16 bg-white/10" />
         <div className="text-center">
-          <p className="text-[48px] font-serif font-bold text-cyan-400">∞</p>
-          <p className="text-white/30 text-sm mt-1">Scalable serverless architecture</p>
+          <p className="text-[48px] font-serif font-bold text-cyan-400">15</p>
+          <p className="text-white/30 text-sm mt-1">Students × 3 graders demo</p>
         </div>
       </div>
+    </div>
+  </SlideLayout>
+);
+
+const DemoFlowSlide = () => (
+  <SlideLayout>
+    <div className="absolute top-20 left-1/3 w-[400px] h-[400px] bg-blue-500/6 rounded-full blur-[100px]" />
+    <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-32">
+      <SectionLabel text="Live Demo" color="blue" />
+      <h2 className="text-[52px] font-serif font-bold text-white leading-tight mt-6">
+        The Flow You'll See
+      </h2>
+      <div className="grid grid-cols-5 gap-4 mt-14 max-w-[1600px]">
+        {[
+          { num: 1, icon: <BookOpen className="w-8 h-8" />, title: "Dashboard", desc: "Assignment overview with progress" },
+          { num: 2, icon: <ClipboardCheck className="w-8 h-8" />, title: "Grading", desc: "3-column workspace for 5 students" },
+          { num: 3, icon: <Brain className="w-8 h-8" />, title: "Validate", desc: "AI checks justifications live" },
+          { num: 4, icon: <BarChart3 className="w-8 h-8" />, title: "Analytics", desc: "Session report with fairness audit" },
+          { num: 5, icon: <Layers className="w-8 h-8" />, title: "Segment Grades", desc: "All 15 students across 3 graders" },
+        ].map((step) => (
+          <div key={step.num} className="relative">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center h-full">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-blue-400/20 text-blue-400 border border-blue-400/30 flex items-center justify-center text-xs font-bold">
+                {step.num}
+              </div>
+              <div className="text-blue-400/60 mx-auto mb-3 flex justify-center mt-2">{step.icon}</div>
+              <p className="text-white/80 font-semibold text-sm">{step.title}</p>
+              <p className="text-white/30 text-xs mt-1">{step.desc}</p>
+            </div>
+            {step.num < 5 && (
+              <ArrowRight className="absolute -right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-400/30 z-10" />
+            )}
+          </div>
+        ))}
+      </div>
+      <p className="text-white/25 text-sm mt-10">Dashboard → Grade 5 students → View Analytics → See Full Segment Grades across all graders</p>
     </div>
   </SlideLayout>
 );
@@ -658,7 +821,7 @@ const ClosingSlide = () => (
   </SlideLayout>
 );
 
-/* ============ REUSABLE COMPONENTS ============ */
+/* ═══════════════════════ REUSABLE COMPONENTS ═══════════════════════ */
 
 const SectionLabel = ({ text, color }: { text: string; color: string }) => {
   const colors: Record<string, string> = {
@@ -701,11 +864,12 @@ const ComparisonRow = ({ label, score, color, desc }: { label: string; score: st
   </div>
 );
 
-const MarketCard = ({ icon, title, subtitle }: { icon: React.ReactNode; title: string; subtitle: string }) => (
-  <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-left">
-    <div className="text-blue-400/60 mb-4">{icon}</div>
-    <p className="text-[36px] font-serif font-bold text-white">{title}</p>
-    <p className="text-white/40 text-sm mt-2 leading-relaxed">{subtitle}</p>
+const StoryCard = ({ icon, name, section, highlight }: { icon: React.ReactNode; name: string; section: string; highlight?: boolean }) => (
+  <div className={`rounded-2xl p-7 border ${highlight ? "bg-blue-500/10 border-blue-400/30" : "bg-white/5 border-white/10"}`}>
+    <div className={`mb-4 ${highlight ? "text-blue-400" : "text-white/40"}`}>{icon}</div>
+    <p className={`text-xl font-semibold ${highlight ? "text-blue-400" : "text-white/80"}`}>{name}</p>
+    <p className="text-white/40 text-sm mt-1">{section}</p>
+    {highlight && <p className="text-blue-400/50 text-xs mt-3 font-mono">← You are here</p>}
   </div>
 );
 
@@ -720,11 +884,7 @@ const CompetitorCard = ({ name, features, gap, isOurs }: { name: string; feature
         </div>
       ))}
     </div>
-    {gap && (
-      <div className="pt-4 border-t border-white/10">
-        <span className="text-red-400/70 text-xs font-mono">✗ {gap}</span>
-      </div>
-    )}
+    {gap && <div className="pt-4 border-t border-white/10"><span className="text-red-400/70 text-xs font-mono">✗ {gap}</span></div>}
   </div>
 );
 
@@ -780,6 +940,38 @@ const TechItem = ({ name, desc }: { name: string; desc: string }) => (
     <p className="text-white/30 text-xs mt-1">{desc}</p>
   </div>
 );
+
+const CalcStep = ({ num, label, formula, example }: { num: string; label: string; formula: string; example: string }) => (
+  <div className="flex items-start gap-4">
+    <div className="w-8 h-8 rounded-full bg-blue-400/20 text-blue-400 border border-blue-400/30 flex items-center justify-center text-sm font-bold shrink-0">{num}</div>
+    <div>
+      <p className="text-white/80 font-semibold text-lg">{label}</p>
+      <p className="text-blue-400/60 text-sm font-mono mt-1">{formula}</p>
+      <p className="text-white/30 text-sm mt-0.5">{example}</p>
+    </div>
+  </div>
+);
+
+const GraderSummaryCard = ({ name, section, students, avgScore, validityRate, fairnessAlerts, highlight }: { name: string; section: string; students: number; avgScore: number; validityRate: number; fairnessAlerts: number; highlight?: boolean }) => {
+  const vColor = validityRate >= 75 ? "text-green-400" : validityRate >= 50 ? "text-yellow-400" : "text-red-400";
+  return (
+    <div className={`rounded-2xl p-7 border ${highlight ? "bg-blue-500/10 border-blue-400/30" : "bg-white/5 border-white/10"}`}>
+      <div className="flex items-center gap-3 mb-4">
+        <GraduationCap className={`w-6 h-6 ${highlight ? "text-blue-400" : "text-white/40"}`} />
+        <div>
+          <p className={`font-semibold ${highlight ? "text-blue-400" : "text-white/80"}`}>{name}</p>
+          <p className="text-white/30 text-xs">{section} · {students} students</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-3 gap-3">
+        <div className="text-center"><p className="text-white font-bold text-lg">{avgScore}</p><p className="text-white/25 text-[10px]">Avg Score</p></div>
+        <div className="text-center"><p className={`font-bold text-lg ${vColor}`}>{validityRate}%</p><p className="text-white/25 text-[10px]">Validity</p></div>
+        <div className="text-center"><p className={`font-bold text-lg ${fairnessAlerts > 0 ? "text-red-400" : "text-green-400"}`}>{fairnessAlerts}</p><p className="text-white/25 text-[10px]">Alerts</p></div>
+      </div>
+      {highlight && <p className="text-blue-400/40 text-[10px] font-mono mt-3 text-center">Your section</p>}
+    </div>
+  );
+};
 
 const TABar = ({ name, section, rate, color }: { name: string; section: string; rate: number; color: string }) => {
   const barColor = color === "green" ? "bg-green-400" : color === "blue" ? "bg-blue-400" : "bg-orange-400";
