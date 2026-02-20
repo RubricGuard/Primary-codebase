@@ -78,6 +78,12 @@ export const studentSubmissions = [
 
 export type ValidationStatus = "not_supported" | "partially_supported" | "fully_supported" | null;
 
+export interface ValidationResult {
+  status: ValidationStatus;
+  reasoning: string;
+  suggestedRefinement: string;
+}
+
 export interface GradingScore {
   criterionId: string;
   score: number | null;
@@ -88,6 +94,7 @@ export interface GradingScore {
   highlightedTexts?: string[];
   validationStatus?: ValidationStatus;
   validationLoading?: boolean;
+  validationResult?: ValidationResult;
 }
 
 export const sampleGradedData: Record<string, GradingScore[]> = {
