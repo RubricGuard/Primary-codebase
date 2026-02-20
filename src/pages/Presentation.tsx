@@ -182,7 +182,7 @@ const ProblemScaleSlide = () => (
       </p>
       <div className="grid grid-cols-3 gap-8 mt-16">
         <ProblemStat icon={<Users className="w-8 h-8" />} stat="8–12%" label="of assignments receive regrade requests — desired ≤ 2% (Product Idea Workbook, Outcome 3)" />
-        <ProblemStat icon={<AlertTriangle className="w-8 h-8" />} stat="10–15pp" label="avg score variance on equivalent-quality work (Product Idea Workbook, Outcome 1)" />
+        <ProblemStat icon={<AlertTriangle className="w-8 h-8" />} stat="10–15%" label="avg score variance on equivalent-quality work (Product Idea Workbook, Outcome 1)" />
         <ProblemStat icon={<Scale className="w-8 h-8" />} stat="70–80%" label="rubric adherence rate vs. ≥ 95% target (Product Idea Workbook, Outcome 2)" />
       </div>
     </div>
@@ -1457,7 +1457,7 @@ const ValueImpactSlide = () => (
         Measurable Impact
       </h2>
       <div className="grid grid-cols-3 gap-10 mt-14 max-w-[1400px]">
-        <ValueCard icon={<Scale className="w-10 h-10" />} title="Score Variance" metric="≤ 3pp" desc="Target score variance for equivalent-quality submissions — down from 10–15 percentage points" />
+        <ValueCard icon={<Scale className="w-10 h-10" />} title="Score Variance" metric="≤ 3%" desc="Target score variance for equivalent-quality submissions — down from 10–15 percentage points" />
         <ValueCard icon={<CheckCircle2 className="w-10 h-10" />} title="Rubric Adherence" metric="≥ 95%" desc="Target rubric adherence rate — up from current 70–80% baseline" />
         <ValueCard icon={<TrendingUp className="w-10 h-10" />} title="Regrade Reduction" metric="↓ to ≤ 2%" desc="Target regrade request rate — down from 8–12% of all assignments" />
       </div>
