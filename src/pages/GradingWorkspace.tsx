@@ -1,7 +1,10 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Shield, ArrowLeft, ChevronLeft, ChevronRight, BarChart3 } from "lucide-react";
-import { studentSubmissions, rubricCriteria, sampleGradedData, type GradingScore } from "@/lib/mockData";
+import { studentSubmissions as allStudents, rubricCriteria, sampleGradedData, type GradingScore } from "@/lib/mockData";
+
+// Only grade the first 5 students (Prof. Sharma's section)
+const studentSubmissions = allStudents.slice(0, 5);
 import SubmissionViewer from "@/components/grading/SubmissionViewer";
 import RubricPanel from "@/components/grading/RubricPanel";
 import LiveAnalytics from "@/components/grading/LiveAnalytics";
