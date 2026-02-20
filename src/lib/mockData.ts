@@ -112,6 +112,76 @@ export const studentSubmissions = [
     section: "Section B",
     content: "Laptop bans in universities have become increasingly popular, but this essay argues that such bans are misguided and counterproductive. While research by Mueller and Oppenheimer (2014) suggests that handwriting notes leads to better conceptual understanding, the practical implications of banning laptops outweigh the cognitive benefits of pen-and-paper note-taking.\n\nThe distraction argument is the strongest case for banning laptops. Sana et al. (2013) found that laptop multitasking reduces not only the user's comprehension but also that of nearby students. This externality effect is real and significant — a 17% reduction in comprehension for bystanders is hard to ignore. However, the solution to distraction is not prohibition but pedagogy. When lectures are engaging and interactive, students are less likely to drift to social media.\n\nFrom an accessibility standpoint, laptop bans create serious equity issues. Many students rely on digital tools for note-taking, especially those with disabilities who use screen readers, speech-to-text software, or specialized input devices. Creating an exemption system forces students to disclose private medical information and marks them as different from their peers, which is fundamentally at odds with inclusive education principles.\n\nThe evidence base for banning laptops is also less robust than commonly believed. Urry et al. (2021) attempted to replicate Mueller and Oppenheimer's findings across multiple universities and found much weaker effects. They concluded that the original study's results may not generalize to diverse classroom settings. Additionally, Fried (2008) found that active learning techniques reduced off-task laptop behavior by over 60%, suggesting that the problem lies in passive lecture formats rather than devices themselves.\n\nRather than banning laptops, universities should invest in training faculty to use active learning strategies, provide guidelines for productive laptop use, and create classroom cultures that promote engagement. The goal should be to make laptops irrelevant as distraction devices by making lectures impossible to ignore.\n\nIn summary, while the distraction concerns are valid, a laptop ban is a blunt tool that creates more problems than it solves. The answer lies in better teaching, not fewer tools.",
   },
+  {
+    id: "STU006",
+    name: "Student 006",
+    submittedAt: formatDate(0, "10:05 AM"),
+    section: "Section C",
+    content: "Laptop bans are a well-intentioned but ultimately flawed response to a real problem. The evidence from Mueller and Oppenheimer (2014) and Sana et al. (2013) is compelling, but a blanket ban ignores the diverse needs of modern students and the evolving nature of pedagogy.",
+  },
+  {
+    id: "STU007",
+    name: "Student 007",
+    submittedAt: formatDate(0, "11:30 AM"),
+    section: "Section A",
+    content: "Universities should absolutely ban laptops in lecture halls. The evidence is clear: laptops hurt learning. Mueller and Oppenheimer proved this in 2014, and Sana et al. showed that laptops distract everyone around the user too. There is no good reason to allow them.",
+  },
+  {
+    id: "STU008",
+    name: "Student 008",
+    submittedAt: formatDate(0, "1:15 PM"),
+    section: "Section B",
+    content: "The laptop ban debate requires nuance. While cognitive science research demonstrates clear downsides to laptop note-taking (Mueller & Oppenheimer, 2014), the accessibility implications of a blanket ban are significant. A tiered approach — combining laptop-free sessions with digital alternatives — offers the best compromise.",
+  },
+  {
+    id: "STU009",
+    name: "Student 009",
+    submittedAt: formatDate(0, "3:45 PM"),
+    section: "Section C",
+    content: "I believe laptops should not be banned because students need them for accessibility reasons. Some students have disabilities and need special software. Also, many students prefer typing because it is faster. The research on handwriting is interesting but not enough to justify taking away students' tools.",
+  },
+  {
+    id: "STU010",
+    name: "Student 010",
+    submittedAt: formatDate(0, "5:00 PM"),
+    section: "Section A",
+    content: "The intersection of cognitive science and educational policy makes the laptop ban debate particularly fascinating. Drawing on Mueller and Oppenheimer (2014), Sana et al. (2013), and Rose & Meyer's (2002) Universal Design for Learning framework, this essay argues that the solution lies not in prohibition but in pedagogical innovation that renders the distraction problem moot.",
+  },
+  {
+    id: "STU011",
+    name: "Student 011",
+    submittedAt: formatDate(0, "6:20 PM"),
+    section: "Section B",
+    content: "Laptops in lectures are a double-edged sword. On one hand, they enable efficient note-taking and accessibility. On the other, research consistently shows they reduce comprehension for both users and bystanders. Universities should adopt a flexible policy that accounts for course type and student needs rather than imposing a one-size-fits-all ban.",
+  },
+  {
+    id: "STU012",
+    name: "Student 012",
+    submittedAt: formatDate(0, "7:10 PM"),
+    section: "Section C",
+    content: "This essay examines the laptop ban debate through the lens of institutional responsibility. Universities have a duty to create optimal learning environments, but they also must respect student autonomy and accommodate diverse learning needs. The tension between these obligations demands a policy response more sophisticated than a simple ban.",
+  },
+  {
+    id: "STU013",
+    name: "Student 013",
+    submittedAt: formatDate(0, "8:30 PM"),
+    section: "Section A",
+    content: "Banning laptops would be unfair to students. Many people learn better with technology and taking away laptops is old-fashioned. Professors should focus on making their lectures more interesting instead of blaming students for being distracted.",
+  },
+  {
+    id: "STU014",
+    name: "Student 014",
+    submittedAt: formatDate(0, "9:00 PM"),
+    section: "Section B",
+    content: "The empirical evidence on laptop use in lectures presents a clear picture: unrestricted laptop use harms both individual and collective learning outcomes. Mueller and Oppenheimer (2014) demonstrated the cognitive superiority of handwriting, while Sana et al. (2013) quantified the externality cost at 17% reduced comprehension for bystanders. However, Urry et al. (2021) complicate this narrative with their large-scale replication failure, and accessibility advocates rightly point out that bans disproportionately burden students with disabilities.",
+  },
+  {
+    id: "STU015",
+    name: "Student 015",
+    submittedAt: formatDate(0, "10:15 PM"),
+    section: "Section C",
+    content: "Universities face a genuine dilemma with laptop policies. The research evidence against unrestricted laptop use is real but contested, the accessibility implications are significant, and student autonomy matters. This essay argues for a research-informed middle path: structured laptop-free periods within courses, combined with training in effective digital note-taking, creating an environment that respects both cognitive science and student diversity.",
+  },
 ];
 
 export type ValidationStatus = "not_supported" | "partially_supported" | "fully_supported" | null;
@@ -719,5 +789,85 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
         ],
       },
     },
+  ],
+
+  // ── STU006 (Section C): Solid essay, decent grading ──
+  STU006: [
+    { criterionId: "arg-clarity", score: 20, explanation: "Clear position against bans with reasonable structure.", validated: false, aiSuggestedScore: 21, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Well-supported assessment.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "evidence-use", score: 19, explanation: "References key studies but integration could be stronger.", validated: false, aiSuggestedScore: 20, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate assessment.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "critical-analysis", score: 18, explanation: "Some engagement with counterarguments but lacks depth.", validated: false, aiSuggestedScore: 19, validationStatus: "partially_supported" as ValidationStatus, validationResult: { status: "partially_supported" as ValidationStatus, reasoning: "Deduction slightly harsh.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "writing-quality", score: 20, explanation: "Clean prose with minor issues.", validated: false, aiSuggestedScore: 21, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Well-justified.", suggestedRefinement: "", keyQuotes: [] } },
+  ],
+
+  // ── STU007 (Section A): Weak essay, grader scored fairly ──
+  STU007: [
+    { criterionId: "arg-clarity", score: 12, explanation: "Simplistic thesis with no qualifications.", validated: false, aiSuggestedScore: 11, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate low score.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "evidence-use", score: 10, explanation: "Names studies but no integration or specific data.", validated: false, aiSuggestedScore: 10, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Well-justified low score.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "critical-analysis", score: 8, explanation: "No counterarguments addressed whatsoever.", validated: false, aiSuggestedScore: 7, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "writing-quality", score: 14, explanation: "Readable but informal and repetitive.", validated: false, aiSuggestedScore: 13, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Fair assessment.", suggestedRefinement: "", keyQuotes: [] } },
+  ],
+
+  // ── STU008 (Section B): Good essay, well-graded ──
+  STU008: [
+    { criterionId: "arg-clarity", score: 22, explanation: "Clear thesis advocating tiered approach with good structure.", validated: false, aiSuggestedScore: 22, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "evidence-use", score: 20, explanation: "Good citation of Mueller & Oppenheimer with context.", validated: false, aiSuggestedScore: 21, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Well-justified.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "critical-analysis", score: 19, explanation: "Acknowledges accessibility but could go deeper.", validated: false, aiSuggestedScore: 20, validationStatus: "partially_supported" as ValidationStatus, validationResult: { status: "partially_supported" as ValidationStatus, reasoning: "Deduction slightly steep.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "writing-quality", score: 22, explanation: "Strong academic tone throughout.", validated: false, aiSuggestedScore: 22, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate.", suggestedRefinement: "", keyQuotes: [] } },
+  ],
+
+  // ── STU009 (Section C): Weak essay, grader inflated scores ──
+  STU009: [
+    { criterionId: "arg-clarity", score: 18, explanation: "Clear position against bans with personal conviction.", validated: false, aiSuggestedScore: 12, validationStatus: "not_supported" as ValidationStatus, validationResult: { status: "not_supported" as ValidationStatus, reasoning: "Score inflated — thesis is informal and unsupported.", suggestedRefinement: "Reassess against rubric criteria.", keyQuotes: [] } },
+    { criterionId: "evidence-use", score: 16, explanation: "References research on handwriting.", validated: false, aiSuggestedScore: 9, validationStatus: "not_supported" as ValidationStatus, validationResult: { status: "not_supported" as ValidationStatus, reasoning: "No specific citations in the text.", suggestedRefinement: "Score should reflect absence of named sources.", keyQuotes: [] } },
+    { criterionId: "critical-analysis", score: 14, explanation: "Considers accessibility perspective.", validated: false, aiSuggestedScore: 10, validationStatus: "partially_supported" as ValidationStatus, validationResult: { status: "partially_supported" as ValidationStatus, reasoning: "Accessibility mention is superficial.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "writing-quality", score: 16, explanation: "Readable informal prose.", validated: false, aiSuggestedScore: 14, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Fair but generous.", suggestedRefinement: "", keyQuotes: [] } },
+  ],
+
+  // ── STU010 (Section A): Excellent essay, well-graded ──
+  STU010: [
+    { criterionId: "arg-clarity", score: 24, explanation: "Sophisticated thesis connecting cognitive science to policy.", validated: false, aiSuggestedScore: 24, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Excellent assessment.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "evidence-use", score: 23, explanation: "Three well-integrated frameworks cited.", validated: false, aiSuggestedScore: 24, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "critical-analysis", score: 24, explanation: "Cross-framework synthesis rare at undergraduate level.", validated: false, aiSuggestedScore: 24, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Well-justified high score.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "writing-quality", score: 23, explanation: "Polished academic prose with sophisticated transitions.", validated: false, aiSuggestedScore: 24, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate.", suggestedRefinement: "", keyQuotes: [] } },
+  ],
+
+  // ── STU011 (Section B): Decent, some partial validations ──
+  STU011: [
+    { criterionId: "arg-clarity", score: 19, explanation: "Double-edged sword framing is clear but not deeply developed.", validated: false, aiSuggestedScore: 19, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "evidence-use", score: 17, explanation: "References research but lacks specific citations.", validated: false, aiSuggestedScore: 18, validationStatus: "partially_supported" as ValidationStatus, validationResult: { status: "partially_supported" as ValidationStatus, reasoning: "Slight underscoring.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "critical-analysis", score: 18, explanation: "Flexible policy argument shows some analytical depth.", validated: false, aiSuggestedScore: 18, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Well-justified.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "writing-quality", score: 20, explanation: "Clean and readable with good structure.", validated: false, aiSuggestedScore: 20, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate.", suggestedRefinement: "", keyQuotes: [] } },
+  ],
+
+  // ── STU012 (Section C): Strong essay, well-graded ──
+  STU012: [
+    { criterionId: "arg-clarity", score: 22, explanation: "Institutional responsibility framing is sophisticated.", validated: false, aiSuggestedScore: 23, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Good assessment.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "evidence-use", score: 20, explanation: "Implicit references to research but could cite more explicitly.", validated: false, aiSuggestedScore: 19, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Reasonable.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "critical-analysis", score: 22, explanation: "Strong tension between autonomy and institutional duty.", validated: false, aiSuggestedScore: 22, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "writing-quality", score: 23, explanation: "Excellent academic register and paragraph cohesion.", validated: false, aiSuggestedScore: 23, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Well-justified.", suggestedRefinement: "", keyQuotes: [] } },
+  ],
+
+  // ── STU013 (Section A): Weak essay, grader was too generous ──
+  STU013: [
+    { criterionId: "arg-clarity", score: 17, explanation: "Has a position but it's vague and unsupported.", validated: false, aiSuggestedScore: 11, validationStatus: "not_supported" as ValidationStatus, validationResult: { status: "not_supported" as ValidationStatus, reasoning: "Score far too high for the quality.", suggestedRefinement: "Reassess — thesis is informal opinion, not academic argument.", keyQuotes: [] } },
+    { criterionId: "evidence-use", score: 14, explanation: "No credible sources cited.", validated: false, aiSuggestedScore: 8, validationStatus: "partially_supported" as ValidationStatus, validationResult: { status: "partially_supported" as ValidationStatus, reasoning: "Score still generous given zero citations.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "critical-analysis", score: 12, explanation: "Dismissive of opposing views.", validated: false, aiSuggestedScore: 9, validationStatus: "partially_supported" as ValidationStatus, validationResult: { status: "partially_supported" as ValidationStatus, reasoning: "Fair direction but score still high.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "writing-quality", score: 15, explanation: "Informal but readable.", validated: false, aiSuggestedScore: 13, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Reasonable.", suggestedRefinement: "", keyQuotes: [] } },
+  ],
+
+  // ── STU014 (Section B): Excellent essay, accurate grading ──
+  STU014: [
+    { criterionId: "arg-clarity", score: 23, explanation: "Nuanced thesis that acknowledges complexity.", validated: false, aiSuggestedScore: 23, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Excellent match.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "evidence-use", score: 24, explanation: "Four well-integrated sources with specific data.", validated: false, aiSuggestedScore: 24, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "critical-analysis", score: 22, explanation: "Strong engagement with replication concerns and accessibility.", validated: false, aiSuggestedScore: 23, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Well-justified.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "writing-quality", score: 23, explanation: "Polished academic writing with effective paragraph structure.", validated: false, aiSuggestedScore: 23, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate.", suggestedRefinement: "", keyQuotes: [] } },
+  ],
+
+  // ── STU015 (Section C): Good essay, mostly well-graded ──
+  STU015: [
+    { criterionId: "arg-clarity", score: 21, explanation: "Clear middle-path thesis well-articulated.", validated: false, aiSuggestedScore: 22, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Good assessment.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "evidence-use", score: 20, explanation: "References research but some claims lack specific citations.", validated: false, aiSuggestedScore: 20, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "critical-analysis", score: 21, explanation: "Balanced analysis acknowledging contested evidence.", validated: false, aiSuggestedScore: 21, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Well-justified.", suggestedRefinement: "", keyQuotes: [] } },
+    { criterionId: "writing-quality", score: 22, explanation: "Strong academic tone with good transitions.", validated: false, aiSuggestedScore: 22, validationStatus: "fully_supported" as ValidationStatus, validationResult: { status: "fully_supported" as ValidationStatus, reasoning: "Accurate.", suggestedRefinement: "", keyQuotes: [] } },
   ],
 };
