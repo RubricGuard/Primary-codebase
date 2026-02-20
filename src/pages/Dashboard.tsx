@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Shield, BookOpen, Users, BarChart3, ClipboardCheck, Calendar, GraduationCap, Zap, TrendingUp, Eye } from "lucide-react";
+import { ArrowRight, Shield, BookOpen, Users, BarChart3, ClipboardCheck, Calendar, GraduationCap, Zap, TrendingUp, Eye, FileText } from "lucide-react";
 import { assignments } from "@/lib/mockData";
 
 const Dashboard = () => {
@@ -44,9 +44,9 @@ const Dashboard = () => {
       </header>
 
       {/* Main */}
-      <main className="relative z-10 flex-1 flex flex-col items-center px-6 pt-20 pb-16">
+      <main className="relative z-10 flex-1 flex flex-col items-center px-6 pt-16 pb-16">
         {/* Hero */}
-        <div className="max-w-2xl w-full text-center mb-16 animate-fade-in">
+        <div className="max-w-2xl w-full text-center mb-14 animate-fade-in">
           <h2 className="font-serif text-5xl font-semibold text-white leading-[1.15] mb-5 tracking-tight">
             Grade with
             <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent"> confidence</span>
@@ -56,36 +56,11 @@ const Dashboard = () => {
           </p>
         </div>
 
-        {/* Stats Row */}
-        <div className="flex items-center gap-8 mb-14 animate-fade-in" style={{ animationDelay: "0.05s" }}>
-          {[
-            { value: "48", label: "Submissions", icon: ClipboardCheck },
-            { value: "3", label: "Sections", icon: Users },
-            { value: "4", label: "Criteria", icon: BarChart3 },
-          ].map(({ value, label, icon: Icon }) => (
-            <div key={label} className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center">
-                <Icon className="w-4.5 h-4.5 text-blue-400" />
-              </div>
-              <div>
-                <p className="text-xl font-semibold text-white">{value}</p>
-                <p className="text-xs text-white/35">{label}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
         {/* Assignment Card */}
-        <button
-          onClick={() => navigate("/grading/bus302-ca1")}
-          className="group max-w-xl w-full rounded-2xl text-left animate-fade-in relative"
-          style={{ animationDelay: "0.1s" }}
-        >
-          {/* Card glow */}
+        <div className="max-w-xl w-full rounded-2xl text-left animate-fade-in relative mb-8" style={{ animationDelay: "0.05s" }}>
           <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-white/[0.12] to-white/[0.04] pointer-events-none" />
-          <div className="absolute -inset-1 rounded-2xl bg-blue-500/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-          <div className="relative bg-white/[0.04] backdrop-blur-sm rounded-2xl border border-white/[0.08] p-7 group-hover:border-white/[0.15] transition-all duration-300">
+          <div className="relative bg-white/[0.04] backdrop-blur-sm rounded-2xl border border-white/[0.08] p-7">
             {/* Top row */}
             <div className="flex items-start justify-between mb-5">
               <div className="flex items-center gap-2.5">
@@ -99,20 +74,35 @@ const Dashboard = () => {
                   </h3>
                 </div>
               </div>
-              <div className="w-10 h-10 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center group-hover:bg-blue-500/20 group-hover:border-blue-500/30 transition-all duration-300">
-                <ArrowRight className="w-4 h-4 text-white/40 group-hover:text-blue-300 group-hover:translate-x-0.5 transition-all duration-200" />
+            </div>
+
+            {/* Dates Row */}
+            <div className="grid grid-cols-2 gap-3 mb-5">
+              <div className="bg-white/[0.03] border border-white/[0.06] rounded-lg px-4 py-3">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-[10px] font-medium text-white/40 uppercase tracking-wider">Assigned</span>
+                </div>
+                <p className="text-sm font-semibold text-white/90">{assignment.assignedDate}</p>
+              </div>
+              <div className="bg-white/[0.03] border border-white/[0.06] rounded-lg px-4 py-3">
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="text-[10px] font-medium text-white/40 uppercase tracking-wider">Due Date</span>
+                </div>
+                <p className="text-sm font-semibold text-white/90">{assignment.dueDate}</p>
               </div>
             </div>
 
             {/* Meta */}
-            <div className="flex items-center gap-5 text-sm text-white/40 mb-6">
-              <span className="flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5" />
-                {assignment.dueDate}
-              </span>
+            <div className="flex items-center gap-5 text-sm text-white/40 mb-5">
               <span className="flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5" />
                 {assignment.sections.length} sections
+              </span>
+              <span className="flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5" />
+                {assignment.totalSubmissions} submissions
               </span>
               <span className="flex items-center gap-1.5">
                 <ClipboardCheck className="w-3.5 h-3.5" />
@@ -149,16 +139,35 @@ const Dashboard = () => {
               />
             </div>
 
-            {/* CTA */}
-            <div className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl py-3 font-medium text-sm group-hover:from-blue-400 group-hover:to-indigo-400 transition-all duration-300 shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/30">
-              Begin Grading Session
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            {/* Action Buttons */}
+            <div className="grid grid-cols-3 gap-3">
+              <button
+                onClick={() => navigate("/grading/bus302-ca1")}
+                className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl py-3 font-medium text-sm hover:from-blue-400 hover:to-indigo-400 transition-all duration-300 shadow-lg shadow-blue-500/20 col-span-1"
+              >
+                Start Grading
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => navigate("/assignment/bus302-ca1")}
+                className="flex items-center justify-center gap-2 bg-white/[0.06] border border-white/[0.1] text-white/80 rounded-xl py-3 font-medium text-sm hover:bg-white/[0.1] transition-all duration-200"
+              >
+                <FileText className="w-4 h-4" />
+                View Assignment
+              </button>
+              <button
+                onClick={() => navigate("/rubrics")}
+                className="flex items-center justify-center gap-2 bg-white/[0.06] border border-white/[0.1] text-white/80 rounded-xl py-3 font-medium text-sm hover:bg-white/[0.1] transition-all duration-200"
+              >
+                <ClipboardCheck className="w-4 h-4" />
+                Rubrics
+              </button>
             </div>
           </div>
-        </button>
+        </div>
 
         {/* Disclaimer */}
-        <p className="mt-14 text-[13px] text-white/25 max-w-sm text-center leading-relaxed animate-fade-in" style={{ animationDelay: "0.2s" }}>
+        <p className="mt-8 text-[13px] text-white/25 max-w-sm text-center leading-relaxed animate-fade-in" style={{ animationDelay: "0.2s" }}>
           Final grading authority remains with the professor. AI provides alignment support only.
         </p>
       </main>

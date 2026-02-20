@@ -1,17 +1,21 @@
+const fmtDate = (daysOffset: number) => {
+  const d = new Date();
+  d.setDate(d.getDate() + daysOffset);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+};
+
 export const assignments = [
   {
     id: "bus302-ca1",
     title: "Case Analysis 1: Strategic Pivot",
     course: "BUS302 — Strategic Management",
-    get dueDate() { 
-      const d = new Date(); 
-      d.setDate(d.getDate() + 7); 
-      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); 
-    },
+    get assignedDate() { return fmtDate(-7); },
+    get dueDate() { return fmtDate(7); },
     totalSubmissions: 48,
     gradedCount: 0,
     sections: ["Section A (Prof. Sharma)", "Section B (TA: M. Chen)", "Section C (TA: R. Patel)"],
     rubricCriteria: 4,
+    description: "Analyze Netflix's strategic pivot from DVD-by-mail to streaming. Evaluate whether the transition was a proactive strategic choice or a reactive response to technological disruption. Consider the role of the subscription-based pricing model in enabling the pivot.",
   },
 ];
 
