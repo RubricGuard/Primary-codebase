@@ -288,7 +288,7 @@ const RubricPanel = ({
         open={!!validationDialogCriterion}
         onOpenChange={(open) => !open && setValidationDialogCriterion(null)}
       >
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <div className="flex items-center justify-between">
               <div>
