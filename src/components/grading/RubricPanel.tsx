@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { Sparkles, Check, X, Quote, Loader2, ShieldCheck, ShieldAlert, ShieldQuestion } from "lucide-react";
 import type { GradingScore, ValidationStatus } from "@/lib/mockData";
 import {
@@ -235,85 +236,79 @@ const RubricPanel = ({
                 )}
               </div>
 
-              {/* AI Validation Panel */}
-              {isValidationActive && (
-                <div className="mx-3 mb-3 animate-fade-in">
-                  <div className="glass-panel rounded-xl p-4 border border-primary/15">
-                    <div className="flex items-center gap-2 mb-2.5">
-                      <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-                        <Sparkles className="w-3.5 h-3.5 text-primary" />
-                      </div>
-                      <span className="text-xs font-semibold text-primary uppercase tracking-wide">
-                        AI Suggestion
-                      </span>
-                      {score?.aiSuggestedScore != null && (
-                        <span className="ml-auto text-xs font-bold text-primary bg-primary/10 rounded-md px-2 py-0.5 border border-primary/15">
-                          Suggested: {score.aiSuggestedScore}/{criterion.maxScore}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-sm text-foreground/75 leading-relaxed mb-3">
-                      {score.aiSuggestion}
-                    </p>
-
-                    {/* Supporting Evidence */}
-                    {score?.aiSupportingEvidence && score.aiSupportingEvidence.length > 0 && (
-                      <div className="mb-4 bg-primary/5 border border-primary/10 rounded-lg p-3">
-                        <div className="flex items-center gap-1.5 mb-2">
-                          <Quote className="w-3 h-3 text-primary/60" />
-                          <span className="text-[10px] font-semibold text-primary/70 uppercase tracking-wide">
-                            Supporting Evidence
-                          </span>
-                        </div>
-                        <div className="space-y-1.5">
-                          {score.aiSupportingEvidence.map((ev, idx) => (
-                            <p key={idx} className="text-xs text-foreground/65 italic leading-relaxed border-l-2 border-primary/20 pl-2">
-                              "{ev}"
-                            </p>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => {
-                          if (score?.aiSuggestedScore != null) {
-                            onScoreChange(criterion.id, "score", score.aiSuggestedScore);
-                          }
-                          onScoreChange(criterion.id, "validated", true);
-                          onToggleValidation(criterion.id);
-                        }}
-                        className="flex items-center gap-1.5 text-xs font-medium bg-primary text-primary-foreground rounded-lg px-3.5 py-2 hover:bg-primary/90 transition-colors"
-                      >
-                        <Check className="w-3.5 h-3.5" />
-                        Accept{score?.aiSuggestedScore != null && score.aiSuggestedScore !== score.score ? ` (${score.aiSuggestedScore}/${criterion.maxScore})` : " Suggestion"}
-                      </button>
-                      <button
-                        onClick={() => {
-                          onScoreChange(criterion.id, "overridden", true);
-                          onToggleValidation(criterion.id);
-                        }}
-                        className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground bg-muted/60 rounded-lg px-3.5 py-2 hover:bg-muted transition-colors"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                        Keep My Score
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Show validation trigger if has suggestion */}
-              {score?.aiSuggestion && !isValidationActive && (
-                <div className="px-5 pb-4">
+              {/* AI Suggestion — collapsible */}
+              {score?.aiSuggestion && (
+                <div className="mx-3 mb-3">
                   <button
                     onClick={() => onToggleValidation(criterion.id)}
-                    className="flex items-center gap-1.5 text-xs font-medium text-primary/70 hover:text-primary transition-colors"
+                    className="w-full flex items-center gap-2 glass-panel rounded-xl px-4 py-2.5 border border-primary/15 hover:bg-primary/5 transition-colors"
                   >
-                    <Sparkles className="w-3.5 h-3.5" />
-                    View AI suggestion
+                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                      <Sparkles className="w-3 h-3 text-primary" />
+                    </div>
+                    <span className="text-xs font-semibold text-primary uppercase tracking-wide">
+                      AI Suggestion
+                    </span>
+                    {score?.aiSuggestedScore != null && (
+                      <span className="text-xs font-bold text-primary bg-primary/10 rounded-md px-2 py-0.5 border border-primary/15">
+                        {score.aiSuggestedScore}/{criterion.maxScore}
+                      </span>
+                    )}
+                    <ChevronDown className={`w-3.5 h-3.5 text-primary/60 ml-auto transition-transform duration-200 ${isValidationActive ? "rotate-180" : ""}`} />
                   </button>
+
+                  {isValidationActive && (
+                    <div className="glass-panel rounded-b-xl border border-t-0 border-primary/15 px-4 py-3 animate-fade-in space-y-3">
+                      <p className="text-sm text-foreground/75 leading-relaxed">
+                        {score.aiSuggestion}
+                      </p>
+
+                      {/* Supporting Evidence */}
+                      {score?.aiSupportingEvidence && score.aiSupportingEvidence.length > 0 && (
+                        <div className="bg-primary/5 border border-primary/10 rounded-lg p-3">
+                          <div className="flex items-center gap-1.5 mb-2">
+                            <Quote className="w-3 h-3 text-primary/60" />
+                            <span className="text-[10px] font-semibold text-primary/70 uppercase tracking-wide">
+                              Supporting Evidence
+                            </span>
+                          </div>
+                          <div className="space-y-1.5">
+                            {score.aiSupportingEvidence.map((ev, idx) => (
+                              <p key={idx} className="text-xs text-foreground/65 italic leading-relaxed border-l-2 border-primary/20 pl-2">
+                                "{ev}"
+                              </p>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => {
+                            if (score?.aiSuggestedScore != null) {
+                              onScoreChange(criterion.id, "score", score.aiSuggestedScore);
+                            }
+                            onScoreChange(criterion.id, "validated", true);
+                            onToggleValidation(criterion.id);
+                          }}
+                          className="flex items-center gap-1.5 text-xs font-medium bg-primary text-primary-foreground rounded-lg px-3.5 py-2 hover:bg-primary/90 transition-colors"
+                        >
+                          <Check className="w-3.5 h-3.5" />
+                          Accept{score?.aiSuggestedScore != null && score.aiSuggestedScore !== score.score ? ` (${score.aiSuggestedScore}/${criterion.maxScore})` : " Suggestion"}
+                        </button>
+                        <button
+                          onClick={() => {
+                            onScoreChange(criterion.id, "overridden", true);
+                            onToggleValidation(criterion.id);
+                          }}
+                          className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground bg-muted/60 rounded-lg px-3.5 py-2 hover:bg-muted transition-colors"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                          Keep My Score
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
