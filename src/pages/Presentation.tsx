@@ -52,8 +52,8 @@ const Presentation = () => {
     <AnalyticsDashSlide key={15} />,
     <AnalyticsHeatmapSlide key={16} />,
     <SegmentGradesSlide key={17} />,
-    <StoryboardSlide key="storyboard" />,
     <SegmentInsightsSlide key={18} />,
+    <StoryboardSlide key="storyboard" />,
     <ProfessorViewSlide key={19} />,
     <GraderGrowthSlide key={20} />,
     <DualHighlightLearningSlide key={21} />,
@@ -807,48 +807,27 @@ const FairnessDetectionSlide = () => (
   </SlideLayout>
 );
 
-const storyboardImages = Object.values(import.meta.glob('@/assets/storyboard/*.png', { eager: true, import: 'default' })) as string[];
+import storyboardTop from "@/assets/storyboard/panels-1-6.png";
+import storyboardBottom from "@/assets/storyboard/panels-7-9.png";
 
 const StoryboardSlide = () => {
-  const panels = [
-    { num: 1, icon: <Shield className="w-7 h-7" />, title: "Launch RubricGuard AI", desc: "Professor opens the RubricGuard AI web app. The Assignment Selection screen loads with available courses and assignments." },
-    { num: 2, icon: <FileText className="w-7 h-7" />, title: "Select Assignment", desc: "Professor selects \"Case Analysis 1 (BUS302).\" The system loads the rubric criteria and the first student submission in grading order." },
-    { num: 3, icon: <Layers className="w-7 h-7" />, title: "Enter Grading Workspace", desc: "The three-column grading interface appears: submission viewer on the left, rubric scoring cards in the center, and live consistency analytics on the right." },
-    { num: 4, icon: <Highlighter className="w-7 h-7" />, title: "Review & Highlight", desc: "Professor reads the student's submission and highlights relevant excerpts to link evidence to a rubric criterion." },
-    { num: 5, icon: <PenLine className="w-7 h-7" />, title: "Score & Justify", desc: "Professor enters a numeric score and written justification for each rubric criterion." },
-    { num: 6, icon: <Brain className="w-7 h-7" />, title: "Validate Justification", desc: "The system analyzes the explanation against the submission text and rubric definition, then displays a validation badge with referenced excerpts and reasoning." },
-    { num: 7, icon: <AlertTriangle className="w-7 h-7" />, title: "Consistency Alert", desc: "If the score deviates from the grading baseline, the system displays a consistency alert with a reference to a previously graded example." },
-    { num: 8, icon: <UserCheck className="w-7 h-7" />, title: "Adjust or Override", desc: "Professor revises the score or overrides the suggestion. The system logs the decision and updates live analytics." },
-    { num: 9, icon: <CheckCircle2 className="w-7 h-7" />, title: "Finalize & Review", desc: "Professor reviews session analytics — aggregated metrics, criterion stability heatmap, score timeline — then clicks \"Finalize Grades\" to lock the session." },
-  ];
-
   return (
     <SlideLayout>
       <div className="absolute top-20 left-1/3 w-[500px] h-[400px] bg-blue-500/6 rounded-full blur-[120px]" />
-      <div className="absolute inset-0 flex flex-col justify-center items-center px-24">
+      <div className="absolute inset-0 flex flex-col items-center pt-8 px-16">
         <SectionLabel text="User Journey" color="blue" />
-        <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-4 mb-8">
+        <h2 className="text-[44px] font-serif font-bold text-white leading-tight mt-3 mb-4">
           Storyboard
         </h2>
-        <div className="grid grid-cols-3 gap-4 max-w-[1500px]">
-          {panels.map((p, i) => (
-            <div key={p.num} className="relative bg-white/[0.04] border border-white/10 rounded-xl overflow-hidden hover:bg-white/[0.06] transition-colors">
-              <div className="h-[100px] overflow-hidden">
-                <img src={storyboardImages[i]} alt={p.title} className="w-full h-full object-cover opacity-60" />
-              </div>
-              <div className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-7 h-7 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400 text-xs font-bold shrink-0">
-                    {p.num}
-                  </div>
-                  <span className="text-white/80 font-semibold text-sm">{p.title}</span>
-                </div>
-                <p className="text-white/40 text-xs leading-relaxed">{p.desc}</p>
-              </div>
-            </div>
-          ))}
+        <div className="w-full max-w-[1400px] space-y-2">
+          <div className="rounded-xl overflow-hidden border border-white/10 bg-white">
+            <img src={storyboardTop} alt="Storyboard panels 1-6" className="w-full h-auto" />
+          </div>
+          <div className="rounded-xl overflow-hidden border border-white/10 bg-white">
+            <img src={storyboardBottom} alt="Storyboard panels 7-9" className="w-full h-auto" />
+          </div>
         </div>
-        <p className="text-white/20 text-sm mt-6 italic">RubricGuard AI supports human judgment — it does not replace it.</p>
+        <p className="text-white/20 text-xs mt-3 italic">RubricGuard AI supports human judgment — it does not replace it.</p>
       </div>
     </SlideLayout>
   );
