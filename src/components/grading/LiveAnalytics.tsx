@@ -315,14 +315,14 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
                       const isClose = deviation <= 2;
                       return (
                         <div key={stu.id} className={`rounded-md px-3 py-2 border ${isClose ? "bg-muted/30 border-border/30" : "bg-destructive/5 border-destructive/20"}`}>
-                          <div className="flex items-center justify-between">
-                            <span className="text-[10px] text-muted-foreground font-medium">{stu.id}</span>
+                          <div className="flex items-center justify-between mb-1">
                             <div className="flex items-center gap-2">
-                              <span className="text-[10px] text-muted-foreground">AI: {stu.aiScore}</span>
-                              <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${isClose ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"}`}>
-                                {isClose ? "within range" : `${deviation}pt off`}
-                              </span>
+                              <span className="text-[10px] text-muted-foreground font-medium">{stu.id}</span>
+                              <span className="text-[10px] text-muted-foreground/60">AI: {stu.aiScore}</span>
                             </div>
+                            <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded shrink-0 ${isClose ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"}`}>
+                              {isClose ? "✓ ok" : `${deviation}pt off`}
+                            </span>
                           </div>
                           <span className={`text-xs font-bold ${isClose ? "text-foreground" : "text-destructive"}`}>{stu.score}/{flag.maxScore}</span>
                         </div>
