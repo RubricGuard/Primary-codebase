@@ -190,7 +190,7 @@ const Dashboard = () => {
                   <Calendar className="w-3.5 h-3.5 text-emerald-400" />
                   <span className="text-[10px] font-medium text-white/40 uppercase tracking-wider">Assigned</span>
                 </div>
-                <p className="text-sm font-semibold text-white/90">Feb 20, 2026</p>
+                <p className="text-sm font-semibold text-white/90">Feb 24, 2026</p>
               </div>
               <div className="bg-white/[0.03] border border-white/[0.06] rounded-lg px-4 py-3">
                 <div className="flex items-center gap-1.5 mb-1">
@@ -208,7 +208,7 @@ const Dashboard = () => {
               </span>
               <span className="flex items-center gap-1.5">
                 <FileText className="w-3.5 h-3.5" />
-                32 submissions
+                10 submissions
               </span>
               <span className="flex items-center gap-1.5">
                 <ClipboardCheck className="w-3.5 h-3.5" />
@@ -218,7 +218,7 @@ const Dashboard = () => {
 
             <div className="flex items-center justify-between text-sm mb-2.5">
               <span className="text-white/35 text-xs">Progress</span>
-              <span className="text-xs font-medium text-white/60">0 of 32</span>
+              <span className="text-xs font-medium text-white/60">0 of 10</span>
             </div>
             <div className="h-1 bg-white/[0.06] rounded-full overflow-hidden mb-6">
               <div className="h-full bg-gradient-to-r from-violet-500 to-purple-400 rounded-full" style={{ width: "1.5%" }} />
