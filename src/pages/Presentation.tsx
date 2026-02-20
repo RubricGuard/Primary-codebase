@@ -744,7 +744,7 @@ const FairnessDetectionSlide = () => (
         <div className="flex-1 max-w-[650px]">
           <SectionLabel text="Fairness Engine" color="red" />
           <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
-            Pairwise Fairness Detection
+            Grading Fairness Alert
           </h2>
           <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
             The AI independently assesses each answer's quality per criterion. When two students receive similar AI assessments but significantly different grader scores, a fairness alert fires.
