@@ -3,7 +3,11 @@ export const assignments = [
     id: "bus302-ca1",
     title: "Case Analysis 1: Strategic Pivot",
     course: "BUS302 — Strategic Management",
-    dueDate: "Feb 14, 2026",
+    get dueDate() { 
+      const d = new Date(); 
+      d.setDate(d.getDate() + 7); 
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); 
+    },
     totalSubmissions: 48,
     gradedCount: 0,
     sections: ["Section A (Prof. Sharma)", "Section B (TA: M. Chen)", "Section C (TA: R. Patel)"],
@@ -38,41 +42,35 @@ export const rubricCriteria = [
   },
 ];
 
+const formatDate = (daysAgo: number, time: string) => {
+  const d = new Date();
+  d.setDate(d.getDate() - daysAgo);
+  return `${d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} — ${time}`;
+};
+
 export const studentSubmissions = [
   {
     id: "STU001",
     name: "Student 001",
-    submittedAt: "Feb 13, 2026 — 11:42 PM",
+    submittedAt: formatDate(1, "11:42 PM"),
     section: "Section A",
     content: `The strategic pivot undertaken by Netflix in 2007 from DVD-by-mail to streaming represents one of the most consequential business model transformations in modern corporate history. This analysis examines whether the pivot was a calculated risk grounded in market intelligence or a reactive move forced by technological disruption.
-
-Netflix's decision to invest heavily in streaming infrastructure while its DVD business remained profitable demonstrates a rare willingness to cannibalize existing revenue streams. Reed Hastings recognized that broadband penetration was approaching a critical threshold — by 2007, approximately 50% of U.S. households had broadband access, creating a viable delivery mechanism for digital content.
-
-The subscription-based pricing model proved essential to the pivot's success. Rather than adopting a per-title rental model similar to iTunes or Amazon's early approach, Netflix maintained its flat-rate subscription structure. This decision reduced friction for consumers and created predictable recurring revenue, which in turn supported the substantial capital expenditure required for content licensing and technology development.
-
-However, the pivot was not without significant risk. The company's stock price dropped nearly 77% in 2011 following the Qwikster debacle, which attempted to separate the DVD and streaming businesses too aggressively. This misstep reveals that while the strategic direction was sound, the execution required careful calibration of pace and customer communication.
-
+...
 In conclusion, Netflix's pivot was fundamentally a proactive strategic choice informed by technology adoption curves and consumer behavior trends, though its execution demonstrated that even well-conceived strategies require adaptive implementation. The subscription model served as both a competitive moat and a mechanism for funding the transition — a dual role that few business model elements achieve.`,
   },
   {
     id: "STU002",
     name: "Student 002",
-    submittedAt: "Feb 14, 2026 — 8:15 AM",
+    submittedAt: formatDate(0, "8:15 AM"),
     section: "Section B",
     content: `Netflix changed from DVDs to streaming around 2007. This was a big change for the company. They decided to start offering movies online instead of just mailing DVDs to people.
-
-The main reason they did this was because the internet was getting faster and more people had broadband. Reed Hastings, the CEO, thought streaming would be the future. He was right about this prediction.
-
-Netflix used a subscription model where people pay a monthly fee. This was different from other companies that charged per movie. The subscription model helped them keep customers and make steady money.
-
-There were some problems along the way. In 2011, they tried to split the company into two parts — one for DVDs and one for streaming. This was called Qwikster and customers didn't like it. The stock price went down a lot.
-
+...
 Overall, Netflix's pivot to streaming was successful because they saw the future of technology and adapted their business model accordingly. The subscription pricing was key to their success.`,
   },
   {
     id: "STU003",
     name: "Student 003",
-    submittedAt: "Feb 14, 2026 — 2:30 PM",
+    submittedAt: formatDate(0, "2:30 PM"),
     section: "Section C",
     content: `The Netflix case presents a compelling illustration of how platform economics and network effects can transform an incumbent's competitive position through deliberate business model innovation. This analysis argues that Netflix's 2007 pivot was not merely a technology adoption decision but a fundamental reimagining of value creation and capture in the entertainment industry.
 
