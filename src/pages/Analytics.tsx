@@ -31,77 +31,47 @@ const quartile = (arr: number[], q: number) => {
 const q1 = quartile(allTotals, 0.25);
 const q3 = quartile(allTotals, 0.75);
 
-const extractCitations = (texts: string[]): string[] => {
-  const patterns = [
-    /([A-Z][a-z]+)\s*(?:&|and)\s*[A-Z][a-z]+(?:'s)?\s*\(\d{4}\)/g,
-    /([A-Z][a-z]+)\s+et\s+al\.?\s*(?:\(\d{4}\))?/g,
-    /([A-Z][a-z]+)(?:'s)?\s*\(\d{4}\)/g,
-    /\(([A-Z][a-z]+),?\s*\d{4}\)/g,
-  ];
-  const found = new Set<string>();
-  texts.forEach((t) => {
-    patterns.forEach((p) => {
-      let m;
-      const regex = new RegExp(p.source, p.flags);
-      while ((m = regex.exec(t)) !== null) found.add(m[1].toLowerCase());
-    });
-  });
-  return [...found];
-};
-
-const extractKeyPhrases = (text: string): string[] => {
-  const phrases = [
-    "well-structured", "well-integrated", "strong thesis", "nuanced",
-    "multiple perspectives", "critical analysis", "counterargument",
-    "accessibility", "equity", "evidence-based", "empirical",
-    "meta-analysis", "replication", "methodology", "peer-reviewed",
-    "data-driven", "quantitative", "credible sources", "integrated",
-  ];
-  return phrases.filter((p) => text.toLowerCase().includes(p));
-};
-
 interface FairnessFlag {
   criterionName: string;
-  studentA: { id: string; score: number; explanation: string };
-  studentB: { id: string; score: number; explanation: string };
-  scoreGap: number;
-  sharedEvidence: string[];
+  maxScore: number;
+  benchmark: { id: string; score: number; aiScore: number };
+  flagged: { id: string; score: number; aiScore: number; explanation: string };
+  deviation: number;
+  direction: "over" | "under";
   reason: string;
 }
 
 const fairnessFlags: FairnessFlag[] = (() => {
   const flags: FairnessFlag[] = [];
   rubricCriteria.forEach((c) => {
-    const studentData = Object.entries(sampleGradedData).map(([id, scores]) => {
-      const s = scores.find((sc) => sc.criterionId === c.id);
-      if (!s || s.score == null) return null;
-      return {
-        id, score: s.score, explanation: s.explanation,
-        citations: extractCitations(s.highlightedTexts || []),
-        phrases: extractKeyPhrases(s.explanation),
-      };
-    }).filter(Boolean) as { id: string; score: number; explanation: string; citations: string[]; phrases: string[] }[];
+    const students = Object.entries(sampleGradedData)
+      .map(([id, scores]) => {
+        const s = scores.find((sc) => sc.criterionId === c.id);
+        if (!s || s.score == null || s.aiSuggestedScore == null) return null;
+        return {
+          id, score: s.score, aiScore: s.aiSuggestedScore,
+          explanation: s.explanation,
+          gap: Math.abs(s.score - s.aiSuggestedScore),
+        };
+      })
+      .filter(Boolean) as { id: string; score: number; aiScore: number; explanation: string; gap: number }[];
 
-    for (let i = 0; i < studentData.length; i++) {
-      for (let j = i + 1; j < studentData.length; j++) {
-        const a = studentData[i]; const b = studentData[j];
-        const sharedCitations = a.citations.filter((c) => b.citations.includes(c));
-        const sharedPhrases = a.phrases.filter((p) => b.phrases.includes(p));
-        const scoreGap = Math.abs(a.score - b.score);
-        if (sharedCitations.length >= 1 && scoreGap > 4 && sharedPhrases.length >= 1) {
-          const lower = a.score < b.score ? a : b;
-          const higher = a.score < b.score ? b : a;
-          const citationNames = sharedCitations.map((c) => c.charAt(0).toUpperCase() + c.slice(1));
-          flags.push({
-            criterionName: c.name,
-            studentA: { id: lower.id, score: lower.score, explanation: lower.explanation },
-            studentB: { id: higher.id, score: higher.score, explanation: higher.explanation },
-            scoreGap, sharedEvidence: citationNames,
-            reason: `Both students cite ${citationNames.join(", ")} with similar evidence quality, yet there is a ${scoreGap}-point scoring gap.`,
-          });
-        }
-      }
-    }
+    if (students.length < 2) return;
+
+    const benchmark = students.reduce((best, s) => (s.gap < best.gap ? s : best));
+
+    students.forEach((s) => {
+      if (s.id === benchmark.id || s.gap <= 4) return;
+      flags.push({
+        criterionName: c.name,
+        maxScore: c.maxScore,
+        benchmark: { id: benchmark.id, score: benchmark.score, aiScore: benchmark.aiScore },
+        flagged: { id: s.id, score: s.score, aiScore: s.aiScore, explanation: s.explanation },
+        deviation: s.gap,
+        direction: s.score > s.aiScore ? "over" : "under",
+        reason: `Grader ${s.score > s.aiScore ? "over-scored" : "under-scored"} by ${s.gap} points vs. AI assessment (${s.aiScore}/${c.maxScore}). Benchmark ${benchmark.id} scored ${benchmark.score}/${c.maxScore} (AI: ${benchmark.aiScore}), showing accurate rubric application.`,
+      });
+    });
   });
   return flags;
 })();
@@ -397,7 +367,7 @@ const Analytics = () => {
             </div>
             <div>
               <h3 className="font-serif font-semibold text-foreground">Grading Fairness Alerts</h3>
-              <p className="text-xs text-muted-foreground">AI-detected scoring inconsistencies between similar submissions</p>
+              <p className="text-xs text-muted-foreground">Scores deviating significantly from AI-assessed quality</p>
             </div>
             {fairnessFlags.length > 0 && (
               <span className="text-xs font-bold bg-destructive/10 text-destructive rounded-full px-2.5 py-0.5 ml-auto">
@@ -419,41 +389,34 @@ const Analytics = () => {
                     <span className="font-semibold text-foreground text-sm">{flag.criterionName}</span>
                     <span className="flex items-center gap-1.5 text-xs font-semibold text-destructive bg-destructive/10 rounded-full px-3 py-1">
                       <AlertTriangle className="w-3 h-3" />
-                      {flag.scoreGap}-point gap
+                      {flag.direction === "over" ? "+" : "−"}{flag.deviation} pts
                     </span>
                   </div>
 
-                  <div className="bg-muted/30 rounded-lg px-3 py-2">
-                    <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">Shared Citations</span>
-                    <div className="flex flex-wrap gap-1.5 mt-1">
-                      {flag.sharedEvidence.map((e) => (
-                        <span key={e} className="text-[11px] bg-primary/10 text-primary rounded-md px-2 py-0.5 font-medium">
-                          {e}
-                        </span>
-                      ))}
+                  <div className="grid grid-cols-2 gap-3">
+                    {/* Benchmark */}
+                    <div className="bg-success/5 border border-success/10 rounded-xl p-3.5">
+                      <span className="text-[10px] text-success font-medium uppercase tracking-wide">Benchmark</span>
+                      <div className="flex items-center justify-between mt-1.5 mb-1">
+                        <span className="text-xs font-medium text-muted-foreground">{flag.benchmark.id}</span>
+                        <span className="text-base font-bold text-success">{flag.benchmark.score}<span className="text-xs font-normal text-muted-foreground">/{flag.maxScore}</span></span>
+                      </div>
+                      <p className="text-[10px] text-muted-foreground">AI: {flag.benchmark.aiScore}/{flag.maxScore}</p>
+                    </div>
+                    {/* Flagged */}
+                    <div className="bg-destructive/5 border border-destructive/10 rounded-xl p-3.5">
+                      <span className="text-[10px] text-destructive font-medium uppercase tracking-wide">{flag.direction === "over" ? "Over-scored" : "Under-scored"}</span>
+                      <div className="flex items-center justify-between mt-1.5 mb-1">
+                        <span className="text-xs font-medium text-muted-foreground">{flag.flagged.id}</span>
+                        <span className="text-base font-bold text-destructive">{flag.flagged.score}<span className="text-xs font-normal text-muted-foreground">/{flag.maxScore}</span></span>
+                      </div>
+                      <p className="text-[10px] text-muted-foreground">AI: {flag.flagged.aiScore}/{flag.maxScore}</p>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-destructive/5 border border-destructive/10 rounded-xl p-3.5">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-medium text-muted-foreground">{flag.studentA.id}</span>
-                        <span className="text-base font-bold text-destructive">{flag.studentA.score}<span className="text-xs font-normal text-muted-foreground">/25</span></span>
-                      </div>
-                      <p className="text-[11px] text-muted-foreground/80 leading-relaxed italic">
-                        "{flag.studentA.explanation.slice(0, 120)}…"
-                      </p>
-                    </div>
-                    <div className="bg-success/5 border border-success/10 rounded-xl p-3.5">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-medium text-muted-foreground">{flag.studentB.id}</span>
-                        <span className="text-base font-bold text-success">{flag.studentB.score}<span className="text-xs font-normal text-muted-foreground">/25</span></span>
-                      </div>
-                      <p className="text-[11px] text-muted-foreground/80 leading-relaxed italic">
-                        "{flag.studentB.explanation.slice(0, 120)}…"
-                      </p>
-                    </div>
-                  </div>
+                  <p className="text-[11px] text-muted-foreground/80 italic leading-relaxed pl-3 border-l-2 border-destructive/20">
+                    "{flag.flagged.explanation.slice(0, 120)}…"
+                  </p>
 
                   <p className="text-xs text-destructive/70 leading-relaxed border-l-2 border-destructive/20 pl-3">
                     {flag.reason}

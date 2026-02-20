@@ -15,134 +15,66 @@ interface Props {
   allScores?: Record<string, GradingScore[]>;
 }
 
-interface SimilarityFlag {
+interface FairnessFlag {
   criterionId: string;
   criterionName: string;
-  studentA: { id: string; score: number; explanation: string };
-  studentB: { id: string; score: number; explanation: string };
-  scoreGap: number;
-  sharedEvidence: string[];
+  maxScore: number;
+  benchmark: { id: string; score: number; aiScore: number };
+  flagged: { id: string; score: number; aiScore: number; explanation: string };
+  deviation: number;
+  direction: "over" | "under";
   reason: string;
 }
 
-/** Extract academic citation patterns (author names with years) from text */
-const extractCitations = (texts: string[]): string[] => {
-  const patterns = [
-    /([A-Z][a-z]+)\s*(?:&|and)\s*[A-Z][a-z]+(?:'s)?\s*\(\d{4}\)/g,
-    /([A-Z][a-z]+)\s+et\s+al\.?\s*(?:\(\d{4}\))?/g,
-    /([A-Z][a-z]+)(?:'s)?\s*\(\d{4}\)/g,
-    /\(([A-Z][a-z]+),?\s*\d{4}\)/g,
-  ];
-  const found = new Set<string>();
-  texts.forEach((t) => {
-    patterns.forEach((p) => {
-      let m;
-      const regex = new RegExp(p.source, p.flags);
-      while ((m = regex.exec(t)) !== null) {
-        found.add(m[1].toLowerCase());
-      }
-    });
-  });
-  return [...found];
-};
-
-/** Extract key academic/topical phrases from justification text */
-const extractKeyPhrases = (text: string): string[] => {
-  const phrases = [
-    "well-structured", "well-integrated", "strong thesis", "nuanced",
-    "multiple perspectives", "critical analysis", "counterargument",
-    "accessibility", "equity", "evidence-based", "empirical",
-    "meta-analysis", "replication", "methodology", "peer-reviewed",
-    "data-driven", "quantitative", "credible sources", "integrated",
-  ];
-  return phrases.filter((p) => text.toLowerCase().includes(p));
-};
-
-/** Detect grading inconsistencies ONLY between similar-quality answers */
-const detectSimilarityFlags = (
+/** Detect grading inconsistencies by comparing grader scores to AI-assessed quality */
+const detectFairnessFlags = (
   allScores: Record<string, GradingScore[]>,
   criteria: Criterion[]
-): SimilarityFlag[] => {
-  const flags: SimilarityFlag[] = [];
-
-  interface StudentCriterionData {
-    id: string;
-    score: number;
-    explanation: string;
-    citations: string[];
-    phrases: string[];
-    highlightedTexts: string[];
-  }
+): FairnessFlag[] => {
+  const flags: FairnessFlag[] = [];
 
   criteria.forEach((c) => {
-    const studentData: StudentCriterionData[] = [];
-    Object.entries(allScores).forEach(([id, scores]) => {
-      const s = scores.find((sc) => sc.criterionId === c.id);
-      if (!s || s.score == null) return;
-      studentData.push({
-        id,
-        score: s.score,
-        explanation: s.explanation,
-        citations: extractCitations(s.highlightedTexts || []),
-        phrases: extractKeyPhrases(s.explanation),
-        highlightedTexts: s.highlightedTexts || [],
+    const students = Object.entries(allScores)
+      .map(([id, scores]) => {
+        const s = scores.find((sc) => sc.criterionId === c.id);
+        if (!s || s.score == null || s.aiSuggestedScore == null) return null;
+        return {
+          id,
+          score: s.score,
+          aiScore: s.aiSuggestedScore,
+          explanation: s.explanation,
+          gap: Math.abs(s.score - s.aiSuggestedScore),
+        };
+      })
+      .filter(Boolean) as { id: string; score: number; aiScore: number; explanation: string; gap: number }[];
+
+    if (students.length < 2) return;
+
+    // Benchmark = student with smallest gap (most accurate grading)
+    const benchmark = students.reduce((best, s) => (s.gap < best.gap ? s : best));
+
+    // Flag each student with deviation > 4 points from AI assessment
+    students.forEach((s) => {
+      if (s.id === benchmark.id || s.gap <= 4) return;
+      flags.push({
+        criterionId: c.id,
+        criterionName: c.name,
+        maxScore: c.maxScore,
+        benchmark: { id: benchmark.id, score: benchmark.score, aiScore: benchmark.aiScore },
+        flagged: { id: s.id, score: s.score, aiScore: s.aiScore, explanation: s.explanation },
+        deviation: s.gap,
+        direction: s.score > s.aiScore ? "over" : "under",
+        reason: `Grader ${s.score > s.aiScore ? "over-scored" : "under-scored"} by ${s.gap} points vs. AI assessment (${s.aiScore}/${c.maxScore}). Benchmark ${benchmark.id} scored ${benchmark.score}/${c.maxScore} (AI: ${benchmark.aiScore}), showing accurate rubric application.`,
       });
     });
-
-    // Compare all pairs
-    for (let i = 0; i < studentData.length; i++) {
-      for (let j = i + 1; j < studentData.length; j++) {
-        const a = studentData[i];
-        const b = studentData[j];
-
-        // Find shared citations between highlighted texts
-        const sharedCitations = a.citations.filter((c: string) =>
-          b.citations.includes(c)
-        );
-
-        // Find shared quality descriptors in justifications
-        const sharedPhrases = a.phrases.filter((p: string) =>
-          b.phrases.includes(p)
-        );
-
-        const scoreGap = Math.abs(a.score - b.score);
-
-        // Only flag if:
-        // 1. They share at least 1 citation (similar evidence base)
-        // 2. Score gap is significant (> 4 points)
-        // 3. Both justifications use similar quality language (grader praised both)
-        const hasSimilarEvidence = sharedCitations.length >= 1;
-        const hasSignificantGap = scoreGap > 4;
-        const hasSimilarPraise = sharedPhrases.length >= 1;
-
-        if (hasSimilarEvidence && hasSignificantGap && hasSimilarPraise) {
-          const lower = a.score < b.score ? a : b;
-          const higher = a.score < b.score ? b : a;
-
-          const citationNames = sharedCitations.map(
-            (c: string) => c.charAt(0).toUpperCase() + c.slice(1)
-          );
-
-          flags.push({
-            criterionId: c.id,
-            criterionName: c.name,
-            studentA: { id: lower.id, score: lower.score, explanation: lower.explanation },
-            studentB: { id: higher.id, score: higher.score, explanation: higher.explanation },
-            scoreGap,
-            sharedEvidence: citationNames,
-            reason: `Both students cite ${citationNames.join(", ")} and your justifications describe similar evidence quality, yet there is a ${scoreGap}-point scoring gap.`,
-          });
-        }
-      }
-    }
   });
 
   return flags;
 };
 
 const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }: Props) => {
-  // Smart similarity-based consistency flags (computed first, used below)
-  const similarityFlags = allScores ? detectSimilarityFlags(allScores, criteria) : [];
+  // Fairness flags: compare grader scores to AI-assessed quality per criterion
+  const similarityFlags = allScores ? detectFairnessFlags(allScores, criteria) : [];
 
   // Validation status summary
   const statusCounts = {
@@ -284,43 +216,44 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
               <span className="text-sm font-medium text-destructive">Grading Fairness Alert</span>
             </div>
             <p className="text-[11px] text-muted-foreground mb-3">
-              Similar answers received significantly different scores. This may indicate inconsistent rubric application.
+              Some scores deviate significantly from AI-assessed quality. The benchmark shows accurate rubric application for comparison.
             </p>
             <div className="space-y-3">
               {similarityFlags.map((flag, idx) => (
                 <div key={idx} className="bg-card rounded-lg border border-border/40 p-3 space-y-2.5">
-                  <span className="text-xs font-semibold text-foreground block">
-                    {flag.criterionName}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-foreground">{flag.criterionName}</span>
+                    <span className="text-[10px] font-semibold text-destructive bg-destructive/10 rounded px-1.5 py-0.5">
+                      {flag.direction === "over" ? "+" : "−"}{flag.deviation} pts
+                    </span>
+                  </div>
 
-                  {/* Shared evidence */}
-                  <div className="bg-muted/50 rounded-md px-2.5 py-1.5">
-                    <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">Shared Citations</span>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {flag.sharedEvidence.map((e) => (
-                        <span key={e} className="text-[10px] bg-primary/10 text-primary rounded px-1.5 py-0.5 font-medium">
-                          {e}
-                        </span>
-                      ))}
+                  {/* Benchmark — correct grading */}
+                  <div className="bg-success/5 rounded-md px-2.5 py-1.5 border border-success/10">
+                    <span className="text-[10px] text-success font-medium uppercase tracking-wide">Benchmark</span>
+                    <div className="flex items-center justify-between mt-1">
+                      <span className="text-xs text-muted-foreground">{flag.benchmark.id}</span>
+                      <span className="text-xs">
+                        <span className="font-bold text-success">{flag.benchmark.score}/{flag.maxScore}</span>
+                        <span className="text-muted-foreground ml-1">(AI: {flag.benchmark.aiScore})</span>
+                      </span>
                     </div>
                   </div>
 
-                  {/* Score comparison */}
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-muted-foreground">{flag.studentA.id}</span>
-                      <span className="text-xs font-bold text-destructive">{flag.studentA.score}/25</span>
-                    </div>
-                    <p className="text-[10px] text-muted-foreground/80 italic leading-tight pl-2 border-l-2 border-destructive/20">
-                      "{flag.studentA.explanation.slice(0, 80)}…"
-                    </p>
-
+                  {/* Flagged student */}
+                  <div className="bg-destructive/5 rounded-md px-2.5 py-1.5 border border-destructive/10">
+                    <span className="text-[10px] text-destructive font-medium uppercase tracking-wide">
+                      {flag.direction === "over" ? "Over-scored" : "Under-scored"}
+                    </span>
                     <div className="flex items-center justify-between mt-1">
-                      <span className="text-xs text-muted-foreground">{flag.studentB.id}</span>
-                      <span className="text-xs font-bold text-success">{flag.studentB.score}/25</span>
+                      <span className="text-xs text-muted-foreground">{flag.flagged.id}</span>
+                      <span className="text-xs">
+                        <span className="font-bold text-destructive">{flag.flagged.score}/{flag.maxScore}</span>
+                        <span className="text-muted-foreground ml-1">(AI: {flag.flagged.aiScore})</span>
+                      </span>
                     </div>
-                    <p className="text-[10px] text-muted-foreground/80 italic leading-tight pl-2 border-l-2 border-success/20">
-                      "{flag.studentB.explanation.slice(0, 80)}…"
+                    <p className="text-[10px] text-muted-foreground/80 italic leading-tight mt-1.5 pl-2 border-l-2 border-destructive/20">
+                      "{flag.flagged.explanation.slice(0, 80)}…"
                     </p>
                   </div>
 
@@ -329,7 +262,7 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
                     <div className="flex items-center gap-1.5">
                       <AlertTriangle className="w-3 h-3 text-destructive shrink-0" />
                       <span className="text-[10px] text-destructive/90 font-medium leading-tight">
-                        {flag.scoreGap}-point gap for similar evidence — review for rubric alignment
+                        {flag.deviation}-point deviation — review for rubric alignment
                       </span>
                     </div>
                   </div>
