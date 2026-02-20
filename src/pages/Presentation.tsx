@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { Shield, ChevronLeft, ChevronRight, Maximize, AlertTriangle, CheckCircle2, Scale, TrendingUp, Brain, BarChart3, Users, Target, Zap, ArrowRight, GraduationCap, FileCheck, Eye, Lightbulb, BookOpen, UserCheck, Award, ClipboardCheck, MessageCircle, LineChart, Coffee, XCircle, Calculator, Layers } from "lucide-react";
+import { Shield, ChevronLeft, ChevronRight, Maximize, AlertTriangle, CheckCircle2, Scale, TrendingUp, Brain, BarChart3, Users, Target, Zap, ArrowRight, GraduationCap, FileCheck, Eye, Lightbulb, BookOpen, UserCheck, Award, ClipboardCheck, MessageCircle, LineChart, Coffee, XCircle, Calculator, Layers, Sparkles, PenLine, CircleDot } from "lucide-react";
 
-const TOTAL_SLIDES = 23;
+const TOTAL_SLIDES = 28;
 
 const Presentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -41,20 +41,25 @@ const Presentation = () => {
     <MarketGapSlide key={6} />,
     <SolutionRevealSlide key={7} />,
     <WorkspaceSlide key={8} />,
-    <ValidationSlide key={9} />,
-    <ValidityCalcSlide key={10} />,
-    <FairnessDetectionSlide key={11} />,
-    <AnalyticsDashSlide key={12} />,
-    <SegmentGradesSlide key={13} />,
-    <ProfessorViewSlide key={14} />,
-    <GraderGrowthSlide key={15} />,
-    <DualHighlightLearningSlide key={16} />,
-    <TACalibrationSlide key={17} />,
-    <InstitutionalLearningSlide key={18} />,
-    <ValueImpactSlide key={19} />,
-    <TechStackSlide key={20} />,
-    <DemoFlowSlide key={21} />,
-    <ClosingSlide key={22} />,
+    <AISuggestionsSlide key={9} />,
+    <ValidationSlide key={10} />,
+    <ValidationFeedbackSlide key={11} />,
+    <ValidityCalcSlide key={12} />,
+    <LiveAnalyticsDeepSlide key={13} />,
+    <FairnessDetectionSlide key={14} />,
+    <AnalyticsDashSlide key={15} />,
+    <AnalyticsHeatmapSlide key={16} />,
+    <SegmentGradesSlide key={17} />,
+    <SegmentInsightsSlide key={18} />,
+    <ProfessorViewSlide key={19} />,
+    <GraderGrowthSlide key={20} />,
+    <DualHighlightLearningSlide key={21} />,
+    <TACalibrationSlide key={22} />,
+    <InstitutionalLearningSlide key={23} />,
+    <ValueImpactSlide key={24} />,
+    <TechStackSlide key={25} />,
+    <DemoFlowSlide key={26} />,
+    <ClosingSlide key={27} />,
   ];
 
   return (
@@ -347,11 +352,122 @@ const WorkspaceSlide = () => (
   </SlideLayout>
 );
 
+const AISuggestionsSlide = () => (
+  <SlideLayout>
+    <div className="absolute top-20 right-40 w-[400px] h-[400px] bg-blue-500/8 rounded-full blur-[100px]" />
+    <div className="absolute inset-0 flex items-center px-24">
+      <div className="flex gap-16 items-center w-full">
+        <div className="flex-1 max-w-[650px]">
+          <SectionLabel text="AI Suggestions" color="blue" />
+          <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
+            Every score <span className="text-blue-400">evaluated against AI</span>
+          </h2>
+          <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
+            For each rubric criterion, the AI independently reads the submission and generates a suggested score with detailed reasoning. The grader's score is compared against this AI baseline — not to override, but to illuminate.
+          </p>
+          <div className="mt-8 space-y-4">
+            <FeatureBullet text="AI reads the full submission and scores each criterion independently" icon={<Brain className="w-5 h-5 text-blue-400" />} />
+            <FeatureBullet text="Suggested score shown as a collapsible bar (e.g., 'AI SUGGESTION 24/25')" icon={<Sparkles className="w-5 h-5 text-blue-400" />} />
+            <FeatureBullet text="Expand to see AI's detailed reasoning and supporting evidence quotes" icon={<FileCheck className="w-5 h-5 text-blue-400" />} />
+            <FeatureBullet text="'Accept' adopts AI score, or 'Keep My Score' to stay with yours" icon={<CheckCircle2 className="w-5 h-5 text-blue-400" />} />
+          </div>
+        </div>
+        <div className="w-[720px] h-[540px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] rounded-2xl border border-white/15 overflow-hidden flex flex-col shadow-2xl">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
+            <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full bg-red-400/60" /><div className="w-3 h-3 rounded-full bg-yellow-400/60" /><div className="w-3 h-3 rounded-full bg-green-400/60" /></div>
+            <span className="text-white/30 text-xs font-mono ml-3">Rubric Panel — Argument Clarity</span>
+          </div>
+          <div className="flex-1 p-5 overflow-hidden">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <p className="text-white/80 font-semibold text-lg">Argument Clarity</p>
+                <p className="text-white/30 text-xs">Strength and clarity of the central thesis</p>
+              </div>
+              <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-1.5">
+                <CheckCircle2 className="w-4 h-4 text-green-400" />
+                <span className="text-green-400 text-xs font-semibold">Fully Supported</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-white/40 text-sm">Score:</span>
+              <div className="bg-white/10 border border-white/15 rounded-lg px-3 py-1 text-white font-bold">22</div>
+              <span className="text-white/30 text-sm">/ 25</span>
+            </div>
+            <div className="bg-blue-500/5 border border-blue-500/15 rounded-lg p-3 mb-3">
+              <p className="text-blue-400/60 text-[10px] font-mono uppercase mb-1">Selected Evidence (2)</p>
+              <p className="text-white/50 text-xs italic">"Universities should implement a carefully structured laptop policy rather than an outright ban."</p>
+            </div>
+            <div className="bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-400/25 rounded-xl p-4 mt-2">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-4 h-4 text-blue-400" />
+                <span className="text-blue-400 font-semibold text-sm">AI SUGGESTION</span>
+                <span className="bg-blue-400/20 text-blue-300 text-xs font-bold px-2 py-0.5 rounded-md">24/25</span>
+              </div>
+              <p className="text-white/50 text-xs leading-relaxed mb-2">The 3-mark deduction seems harsh — the student's thesis progressively narrows from general to specific policy. This refinement is argumentative sophistication, not weakness.</p>
+              <div className="bg-white/[0.04] rounded-lg p-2 mb-2">
+                <p className="text-white/30 text-[10px] font-mono mb-1">SUPPORTING EVIDENCE</p>
+                <p className="text-white/45 text-[11px] italic">"The most effective approach is a structured middle ground: designated 'laptop-free' zones..."</p>
+              </div>
+              <div className="flex gap-3">
+                <div className="flex items-center gap-1.5 bg-blue-400/20 rounded-lg px-4 py-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-300" />
+                  <span className="text-blue-300 text-xs font-semibold">Accept (24/25)</span>
+                </div>
+                <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-lg px-4 py-2">
+                  <XCircle className="w-3.5 h-3.5 text-white/40" />
+                  <span className="text-white/40 text-xs font-semibold">Keep My Score</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </SlideLayout>
+);
+
 const ValidationSlide = () => (
   <SlideLayout>
     <div className="absolute inset-0 flex items-center px-24">
       <div className="flex gap-16 items-center w-full">
-        <AppScreenshot label="AI Validation in Action" caption="Fully Supported · Partially Supported · Not Supported" />
+        <div className="w-[720px] h-[540px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] rounded-2xl border border-white/15 overflow-hidden flex flex-col shadow-2xl">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
+            <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full bg-red-400/60" /><div className="w-3 h-3 rounded-full bg-yellow-400/60" /><div className="w-3 h-3 rounded-full bg-green-400/60" /></div>
+            <span className="text-white/30 text-xs font-mono ml-3">AI Validation — How It Works</span>
+          </div>
+          <div className="flex-1 p-6 flex flex-col justify-center">
+            <p className="text-white/50 text-xs font-mono mb-5 uppercase tracking-wider">Validation Pipeline</p>
+            <div className="space-y-3">
+              <div className="flex items-center gap-4 bg-blue-500/5 border border-blue-500/15 rounded-xl px-5 py-4">
+                <div className="w-8 h-8 rounded-full bg-blue-400/20 flex items-center justify-center text-blue-400 text-sm font-bold">1</div>
+                <div className="flex-1">
+                  <p className="text-white/70 text-sm font-semibold">Grader highlights evidence & writes justification</p>
+                  <p className="text-white/30 text-xs mt-0.5">Text selected from submission → attached to criterion</p>
+                </div>
+                <PenLine className="w-5 h-5 text-blue-400/50" />
+              </div>
+              <div className="flex items-center gap-4 bg-purple-500/5 border border-purple-500/15 rounded-xl px-5 py-4">
+                <div className="w-8 h-8 rounded-full bg-purple-400/20 flex items-center justify-center text-purple-400 text-sm font-bold">2</div>
+                <div className="flex-1">
+                  <p className="text-white/70 text-sm font-semibold">AI cross-checks evidence × justification × rubric</p>
+                  <p className="text-white/30 text-xs mt-0.5">Does the highlighted text support the stated reasoning?</p>
+                </div>
+                <Brain className="w-5 h-5 text-purple-400/50" />
+              </div>
+              <div className="flex items-center gap-4 bg-green-500/5 border border-green-500/15 rounded-xl px-5 py-4">
+                <div className="w-8 h-8 rounded-full bg-green-400/20 flex items-center justify-center text-green-400 text-sm font-bold">3</div>
+                <div className="flex-1">
+                  <p className="text-white/70 text-sm font-semibold">Verdict returned: Fully / Partially / Not Supported</p>
+                  <p className="text-white/30 text-xs mt-0.5">Plus key quotes + suggested refinements for improvement</p>
+                </div>
+                <CheckCircle2 className="w-5 h-5 text-green-400/50" />
+              </div>
+            </div>
+            <div className="mt-4 bg-white/[0.03] border border-white/10 rounded-lg p-3 text-center">
+              <p className="text-white/25 text-xs italic">AI validates the grader's work — it never assigns the grade itself</p>
+            </div>
+          </div>
+        </div>
         <div className="flex-1 max-w-[650px]">
           <SectionLabel text="AI Validation" color="green" />
           <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
@@ -365,6 +481,65 @@ const ValidationSlide = () => (
             <FeatureBullet text="⚠️ Partially Supported — some gaps in reasoning" icon={<AlertTriangle className="w-5 h-5 text-yellow-400" />} />
             <FeatureBullet text="❌ Not Supported — evidence doesn't back the score" icon={<XCircle className="w-5 h-5 text-red-400" />} />
             <FeatureBullet text="AI extracts Key Quotes and suggests score refinements" icon={<Eye className="w-5 h-5 text-cyan-400" />} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </SlideLayout>
+);
+
+const ValidationFeedbackSlide = () => (
+  <SlideLayout>
+    <div className="absolute bottom-20 left-40 w-[400px] h-[400px] bg-green-500/6 rounded-full blur-[100px]" />
+    <div className="absolute inset-0 flex items-center px-24">
+      <div className="flex gap-16 items-center w-full">
+        <div className="flex-1 max-w-[650px]">
+          <SectionLabel text="Feedback Loop" color="green" />
+          <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
+            AI feedback that <span className="text-green-400">teaches</span>, not just judges
+          </h2>
+          <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
+            When you click a validation status badge, a detailed dialog opens with the AI's full reasoning — including which evidence it found relevant, what gaps it identified, and specific suggestions for strengthening the justification.
+          </p>
+          <div className="mt-8 space-y-4">
+            <FeatureBullet text="Referenced submission evidence shown with exact quotes" icon={<FileCheck className="w-5 h-5 text-green-400" />} />
+            <FeatureBullet text="Detailed AI reasoning explains why support level was assigned" icon={<Brain className="w-5 h-5 text-green-400" />} />
+            <FeatureBullet text="Suggested refinements help graders write stronger justifications" icon={<Lightbulb className="w-5 h-5 text-green-400" />} />
+            <FeatureBullet text="Key Quotes highlight the most criterion-relevant passages" icon={<Eye className="w-5 h-5 text-green-400" />} />
+          </div>
+        </div>
+        <div className="w-[720px] h-[540px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] rounded-2xl border border-white/15 overflow-hidden flex flex-col shadow-2xl">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
+            <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full bg-red-400/60" /><div className="w-3 h-3 rounded-full bg-yellow-400/60" /><div className="w-3 h-3 rounded-full bg-green-400/60" /></div>
+            <span className="text-white/30 text-xs font-mono ml-3">Validation Feedback — Evidence Use</span>
+          </div>
+          <div className="flex-1 p-5 overflow-hidden">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-3 py-1.5 flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-yellow-400" />
+                <span className="text-yellow-400 text-xs font-semibold">Partially Supported</span>
+              </div>
+              <span className="text-white/30 text-sm ml-2">Evidence Use · STU002</span>
+            </div>
+            <div className="space-y-3">
+              <div className="bg-white/[0.04] border border-white/10 rounded-lg p-3">
+                <p className="text-white/30 text-[10px] font-mono uppercase mb-1.5">Your Evidence</p>
+                <p className="text-white/50 text-xs italic leading-relaxed">"Mueller & Oppenheimer (2014) found that longhand notes produce better conceptual learning outcomes."</p>
+              </div>
+              <div className="bg-white/[0.04] border border-white/10 rounded-lg p-3">
+                <p className="text-white/30 text-[10px] font-mono uppercase mb-1.5">AI Reasoning</p>
+                <p className="text-white/60 text-xs leading-relaxed">Your justification mentions 'limited sources' but the student cites 4 peer-reviewed papers. The issue is depth of engagement, not quantity. Consider specifying <span className="text-yellow-400">which</span> sources lack critical analysis.</p>
+              </div>
+              <div className="bg-green-500/5 border border-green-500/15 rounded-lg p-3">
+                <p className="text-green-400/60 text-[10px] font-mono uppercase mb-1.5">Suggested Refinement</p>
+                <p className="text-white/50 text-xs leading-relaxed">"While the student cites Mueller & Oppenheimer, the discussion <span className="text-green-400">doesn't address methodological limitations</span> raised by Morehead et al. (2019), suggesting surface-level engagement rather than critical integration."</p>
+              </div>
+              <div className="bg-blue-500/5 border border-blue-500/15 rounded-lg p-3">
+                <p className="text-blue-400/60 text-[10px] font-mono uppercase mb-1.5">Key Quotes Found</p>
+                <p className="text-white/45 text-[11px] italic">"Sana, Weston, and Cepeda (2013) found that laptop multitaskers perform 11% worse..."</p>
+                <p className="text-white/45 text-[11px] italic mt-1">"Morehead et al. noted that the ecological validity of lab-based studies..."</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -440,6 +615,106 @@ const ValidityCalcSlide = () => (
               <div className="h-3 bg-white/5 rounded-full overflow-hidden mt-3">
                 <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" style={{ width: "74%" }} />
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </SlideLayout>
+);
+
+const LiveAnalyticsDeepSlide = () => (
+  <SlideLayout>
+    <div className="absolute top-20 left-40 w-[400px] h-[400px] bg-cyan-500/8 rounded-full blur-[100px]" />
+    <div className="absolute inset-0 flex items-center px-24">
+      <div className="flex gap-16 items-center w-full">
+        {/* Inline mockup of Live Analytics panel */}
+        <div className="w-[660px] h-[560px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] rounded-2xl border border-white/15 overflow-hidden flex flex-col shadow-2xl">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
+            <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full bg-red-400/60" /><div className="w-3 h-3 rounded-full bg-yellow-400/60" /><div className="w-3 h-3 rounded-full bg-green-400/60" /></div>
+            <span className="text-white/30 text-xs font-mono ml-3">Live Analytics — Right Panel</span>
+          </div>
+          <div className="flex-1 p-5 space-y-4 overflow-hidden">
+            {/* Session Progress */}
+            <div className="bg-white/[0.04] rounded-xl border border-white/10 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Zap className="w-4 h-4 text-blue-400" />
+                <span className="text-white/70 text-sm font-semibold">Session Progress</span>
+                <span className="ml-auto text-white/80 font-bold text-sm">5/5</span>
+              </div>
+              <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" style={{ width: "100%" }} />
+              </div>
+            </div>
+            {/* Validation Quality */}
+            <div className="bg-white/[0.04] rounded-xl border border-white/10 p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <CheckCircle2 className="w-4 h-4 text-green-400" />
+                <span className="text-white/70 text-sm font-semibold">Validation Quality</span>
+              </div>
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between"><div className="flex items-center gap-2"><CircleDot className="w-3 h-3 text-green-400" /><span className="text-white/50 text-xs">Fully Supported</span></div><span className="text-green-400 text-xs font-bold">4</span></div>
+                <div className="flex items-center justify-between"><div className="flex items-center gap-2"><CircleDot className="w-3 h-3 text-yellow-400" /><span className="text-white/50 text-xs">Partially Supported</span></div><span className="text-yellow-400 text-xs font-bold">0</span></div>
+                <div className="flex items-center justify-between"><div className="flex items-center gap-2"><CircleDot className="w-3 h-3 text-red-400" /><span className="text-white/50 text-xs">Not Supported</span></div><span className="text-red-400 text-xs font-bold">0</span></div>
+              </div>
+            </div>
+            {/* Explanation Validity Rate */}
+            <div className="bg-white/[0.04] rounded-xl border border-white/10 p-4">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-blue-400" />
+                  <span className="text-white/70 text-sm font-semibold">Explanation Validity Rate</span>
+                </div>
+                <span className="text-green-400 font-bold text-lg">75%</span>
+              </div>
+              <p className="text-white/30 text-[10px] font-mono mb-2">17/20 valid · 10 fairness alerts</p>
+              <p className="text-white/25 text-[10px] font-mono">85% − 10% = 75% (17/20 valid − 10 flags × 1%)</p>
+              <div className="h-2 bg-white/5 rounded-full overflow-hidden mt-2">
+                <div className="h-full bg-green-400 rounded-full" style={{ width: "75%" }} />
+              </div>
+            </div>
+            {/* Validity Rate Trend mini */}
+            <div className="bg-white/[0.04] rounded-xl border border-white/10 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <LineChart className="w-4 h-4 text-blue-400" />
+                <span className="text-white/70 text-sm font-semibold">Validity Rate Trend</span>
+              </div>
+              <div className="flex items-end gap-2 h-10">
+                {[100, 65, 78, 80, 75].map((v, i) => (
+                  <div key={i} className="flex-1 flex flex-col items-center">
+                    <div className={`w-full rounded-sm ${v >= 75 ? "bg-green-400/60" : v >= 50 ? "bg-yellow-400/60" : "bg-red-400/60"}`} style={{ height: `${v * 0.4}px` }} />
+                    <span className="text-white/20 text-[8px] mt-1">S0{i + 1}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex-1 max-w-[700px]">
+          <SectionLabel text="Live Dashboard" color="cyan" />
+          <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
+            Real-time analytics that <span className="text-cyan-400">update as you grade</span>
+          </h2>
+          <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
+            The right panel of the workspace is a live dashboard — every score, validation, and fairness check updates instantly. You never leave the grading flow to check your consistency.
+          </p>
+          <div className="mt-8 space-y-5">
+            <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+              <p className="text-cyan-400 font-semibold text-sm mb-1">Session Progress</p>
+              <p className="text-white/40 text-xs">Tracks how many students have been fully graded in this session</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+              <p className="text-cyan-400 font-semibold text-sm mb-1">Validation Quality</p>
+              <p className="text-white/40 text-xs">Breakdown of Fully / Partially / Not Supported across all validated criteria</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+              <p className="text-cyan-400 font-semibold text-sm mb-1">Explanation Validity Rate</p>
+              <p className="text-white/40 text-xs">The headline metric: raw validity minus fairness penalty. Shows formula breakdown in real time.</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+              <p className="text-cyan-400 font-semibold text-sm mb-1">Validity Rate Trend</p>
+              <p className="text-white/40 text-xs">Line chart plotting cumulative validity after each student — spot drift instantly</p>
             </div>
           </div>
         </div>
@@ -546,6 +821,106 @@ const AnalyticsDashSlide = () => (
   </SlideLayout>
 );
 
+const AnalyticsHeatmapSlide = () => (
+  <SlideLayout>
+    <div className="absolute bottom-20 right-40 w-[400px] h-[400px] bg-purple-500/6 rounded-full blur-[100px]" />
+    <div className="absolute inset-0 flex items-center px-24">
+      <div className="flex gap-16 items-center w-full">
+        <div className="flex-1 max-w-[650px]">
+          <SectionLabel text="Deep Dive" color="purple" />
+          <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
+            Heatmap, Timeline & <span className="text-purple-400">Stability</span>
+          </h2>
+          <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
+            The analytics page goes beyond averages. Three visual tools reveal exactly where and how your grading quality varies — per student, per criterion, and across time.
+          </p>
+          <div className="mt-8 space-y-5">
+            <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+              <p className="text-purple-400 font-semibold text-sm mb-1">Score Timeline</p>
+              <p className="text-white/40 text-xs">Area chart showing total scores across grading sequence. Reveals fatigue effects — are you getting stricter or more lenient as you grade?</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+              <p className="text-purple-400 font-semibold text-sm mb-1">Criterion Stability</p>
+              <p className="text-white/40 text-xs">Bar chart of standard deviation per criterion. High variance on "Critical Analysis" but low on "Writing Quality" tells you exactly where you're inconsistent.</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+              <p className="text-purple-400 font-semibold text-sm mb-1">Criterion Heatmap</p>
+              <p className="text-white/40 text-xs">Student × Criterion matrix, color-coded. Patterns jump out: systematic low scores, criterion-specific blind spots, outlier students.</p>
+            </div>
+            <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+              <p className="text-purple-400 font-semibold text-sm mb-1">Grading Fairness Alerts</p>
+              <p className="text-white/40 text-xs">Aggregated pairwise comparisons showing every flagged pair with point gaps and AI baselines. 10 alerts means 10 student pairs where similar quality got different scores.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-[720px] h-[560px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] rounded-2xl border border-white/15 overflow-hidden flex flex-col shadow-2xl">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
+            <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full bg-red-400/60" /><div className="w-3 h-3 rounded-full bg-yellow-400/60" /><div className="w-3 h-3 rounded-full bg-green-400/60" /></div>
+            <span className="text-white/30 text-xs font-mono ml-3">Analytics — Criterion Heatmap</span>
+          </div>
+          <div className="flex-1 p-5">
+            <p className="text-white/50 text-xs font-mono mb-4 uppercase tracking-wider">Score Heatmap — All Students × All Criteria</p>
+            <div className="space-y-1">
+              <div className="grid grid-cols-5 gap-1 text-[10px] text-white/30 font-mono mb-1">
+                <span></span><span className="text-center">Arg.</span><span className="text-center">Evidence</span><span className="text-center">Analysis</span><span className="text-center">Writing</span>
+              </div>
+              {[
+                { id: "STU001", scores: [22, 19, 21, 23], total: 85 },
+                { id: "STU002", scores: [22, 21, 8, 15], total: 66 },
+                { id: "STU003", scores: [24, 24, 25, 24], total: 97 },
+                { id: "STU004", scores: [21, 23, 20, 22], total: 86 },
+                { id: "STU005", scores: [16, 22, 19, 21], total: 78 },
+              ].map((s) => (
+                <div key={s.id} className="grid grid-cols-5 gap-1 items-center">
+                  <span className="text-white/50 text-[10px] font-mono">{s.id}</span>
+                  {s.scores.map((sc, i) => (
+                    <div key={i} className={`text-center py-2 rounded text-[11px] font-bold ${
+                      sc >= 23 ? "bg-green-400/30 text-green-300" :
+                      sc >= 20 ? "bg-green-400/15 text-green-400/70" :
+                      sc >= 16 ? "bg-yellow-400/15 text-yellow-400/70" :
+                      sc >= 12 ? "bg-orange-400/15 text-orange-400/70" :
+                      "bg-red-400/20 text-red-400/70"
+                    }`}>{sc}</div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div className="flex items-center gap-3 mt-4 justify-center">
+              <div className="flex items-center gap-1"><div className="w-3 h-2 rounded-sm bg-red-400/20" /><span className="text-white/20 text-[9px]">{"<12"}</span></div>
+              <div className="flex items-center gap-1"><div className="w-3 h-2 rounded-sm bg-orange-400/15" /><span className="text-white/20 text-[9px]">12-15</span></div>
+              <div className="flex items-center gap-1"><div className="w-3 h-2 rounded-sm bg-yellow-400/15" /><span className="text-white/20 text-[9px]">16-19</span></div>
+              <div className="flex items-center gap-1"><div className="w-3 h-2 rounded-sm bg-green-400/15" /><span className="text-white/20 text-[9px]">20-22</span></div>
+              <div className="flex items-center gap-1"><div className="w-3 h-2 rounded-sm bg-green-400/30" /><span className="text-white/20 text-[9px]">23+</span></div>
+            </div>
+
+            <div className="mt-5 pt-4 border-t border-white/10">
+              <p className="text-white/50 text-xs font-mono mb-3 uppercase tracking-wider">Criterion Stability (Std Dev)</p>
+              <div className="grid grid-cols-4 gap-3">
+                {[
+                  { name: "Arg. Clarity", sd: 2.9, color: "bg-blue-400" },
+                  { name: "Evidence", sd: 1.9, color: "bg-green-400" },
+                  { name: "Analysis", sd: 6.2, color: "bg-red-400" },
+                  { name: "Writing", sd: 3.5, color: "bg-yellow-400" },
+                ].map((c) => (
+                  <div key={c.name} className="text-center">
+                    <div className="h-16 flex items-end justify-center mb-1">
+                      <div className={`w-8 rounded-t ${c.color}/60`} style={{ height: `${c.sd * 10}px` }} />
+                    </div>
+                    <p className="text-white/40 text-[9px]">{c.name}</p>
+                    <p className="text-white/60 text-[10px] font-bold">{c.sd}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-red-400/50 text-[10px] text-center mt-2 italic">⚠ Critical Analysis has highest variance (6.2) — inconsistent scoring</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </SlideLayout>
+);
+
 const SegmentGradesSlide = () => (
   <SlideLayout>
     <div className="absolute top-20 left-1/3 w-[500px] h-[400px] bg-blue-500/8 rounded-full blur-[120px]" />
@@ -585,6 +960,97 @@ const SegmentGradesSlide = () => (
           </div>
         ))}
         <p className="text-white/20 text-[11px] mt-2 text-center italic">Showing 3 of 15 students · Full table available in app</p>
+      </div>
+    </div>
+  </SlideLayout>
+);
+
+const SegmentInsightsSlide = () => (
+  <SlideLayout>
+    <div className="absolute top-20 right-40 w-[400px] h-[400px] bg-blue-500/8 rounded-full blur-[100px]" />
+    <div className="absolute inset-0 flex items-center px-24">
+      <div className="flex gap-16 items-center w-full">
+        {/* Inline mockup of Segment Grades detail */}
+        <div className="w-[720px] h-[560px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] rounded-2xl border border-white/15 overflow-hidden flex flex-col shadow-2xl">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
+            <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full bg-red-400/60" /><div className="w-3 h-3 rounded-full bg-yellow-400/60" /><div className="w-3 h-3 rounded-full bg-green-400/60" /></div>
+            <span className="text-white/30 text-xs font-mono ml-3">Segment Grades — Prof. Sharma Detail</span>
+          </div>
+          <div className="flex-1 p-5 overflow-hidden">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <GraduationCap className="w-6 h-6 text-blue-400" />
+                <div>
+                  <p className="text-white/80 font-semibold">Prof. Sharma</p>
+                  <p className="text-white/30 text-xs">Section A · 5 students · Avg: 82.4/100</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <span className="bg-red-500/10 border border-red-500/20 text-red-400 text-xs px-2 py-1 rounded-md font-semibold">10 alerts</span>
+                <span className="bg-green-500/10 border border-green-500/20 text-green-400 text-xs px-2 py-1 rounded-md font-semibold">85% validity</span>
+              </div>
+            </div>
+
+            {/* Validity Rate Trend Chart */}
+            <div className="bg-white/[0.03] rounded-xl border border-white/10 p-4 mb-4">
+              <p className="text-white/50 text-xs font-mono mb-3">Validity Rate Trend — Prof. Sharma</p>
+              <div className="flex items-end gap-1 h-12">
+                {[100, 65, 78, 80, 75].map((v, i) => (
+                  <div key={i} className="flex-1 flex flex-col items-center">
+                    <div className="w-2 h-2 rounded-full bg-blue-400 mb-1" style={{ marginBottom: `${v * 0.1}px` }} />
+                    <span className="text-white/20 text-[8px]">S0{i + 1}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="h-px bg-white/5 mt-1" />
+              <p className="text-white/20 text-[9px] text-center mt-1">Cumulative validity rate after each graded student</p>
+            </div>
+
+            {/* Score Table */}
+            <div className="bg-white/[0.03] rounded-xl border border-white/10 p-3">
+              <div className="grid grid-cols-7 gap-2 text-[10px] text-white/30 font-mono mb-2">
+                <span>Student</span><span className="text-center">Arg.</span><span className="text-center">Evidence</span><span className="text-center">Analysis</span><span className="text-center">Writing</span><span className="text-center">Total</span><span className="text-center">Status</span>
+              </div>
+              {[
+                { id: "STU001", s: [22, 19, 21, 23], dots: "ggpg" },
+                { id: "STU002", s: [22, 21, 8, 15], dots: "ggnp" },
+                { id: "STU003", s: [24, 24, 25, 24], dots: "gggg" },
+                { id: "STU004", s: [21, 23, 20, 22], dots: "gggg" },
+                { id: "STU005", s: [16, 22, 19, 21], dots: "pgpg" },
+              ].map((r) => (
+                <div key={r.id} className="grid grid-cols-7 gap-2 text-[10px] py-1 border-t border-white/5">
+                  <span className="text-white/50 font-mono">{r.id}</span>
+                  {r.s.map((sc, i) => (
+                    <span key={i} className={`text-center font-bold ${sc >= 22 ? "text-green-400" : sc >= 16 ? "text-blue-400" : sc >= 10 ? "text-yellow-400" : "text-red-400"}`}>{sc}</span>
+                  ))}
+                  <span className="text-center font-bold text-white/70">{r.s.reduce((a, b) => a + b, 0)}</span>
+                  <div className="flex justify-center gap-0.5">
+                    {r.dots.split("").map((d, i) => (
+                      <span key={i} className={`w-1.5 h-1.5 rounded-full ${d === "g" ? "bg-green-400" : d === "p" ? "bg-yellow-400" : "bg-red-400"}`} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex-1 max-w-[700px]">
+          <SectionLabel text="Segment Insights" color="blue" />
+          <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
+            Per-grader deep dive with <span className="text-blue-400">actionable insights</span>
+          </h2>
+          <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
+            Each professor's section in the Segment Grades view includes a validity trend chart, full score table with per-criterion colors, and validation status dots — making it instantly clear where each grader excels or struggles.
+          </p>
+          <div className="mt-8 space-y-4">
+            <FeatureBullet text="Validity Rate Trend per grader — spot who's drifting over time" icon={<LineChart className="w-5 h-5 text-blue-400" />} />
+            <FeatureBullet text="Score table with color-coded cells — green (22+), blue (16-21), yellow (10-15), red (<10)" icon={<BarChart3 className="w-5 h-5 text-blue-400" />} />
+            <FeatureBullet text="Status dots per criterion: green = fully supported, yellow = partial, red = not supported" icon={<CircleDot className="w-5 h-5 text-blue-400" />} />
+            <FeatureBullet text="Fairness alert count & validity rate badges for at-a-glance comparison" icon={<AlertTriangle className="w-5 h-5 text-blue-400" />} />
+            <FeatureBullet text="Cross-section comparison: Are all 3 professors grading to the same standard?" icon={<Users className="w-5 h-5 text-blue-400" />} />
+          </div>
+        </div>
       </div>
     </div>
   </SlideLayout>
