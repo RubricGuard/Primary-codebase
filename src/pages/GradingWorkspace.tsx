@@ -27,6 +27,7 @@ const GradingWorkspace = () => {
 
   const [activeValidation, setActiveValidation] = useState<string | null>("arg-clarity");
   const [pendingHighlight, setPendingHighlight] = useState<string | null>(null);
+  const [focusedCriterion, setFocusedCriterion] = useState<string | null>(null);
 
   const currentScores = scores[student.id] || [];
   const totalScore = currentScores.reduce((sum, s) => sum + (s.score || 0), 0);
@@ -119,10 +120,11 @@ const GradingWorkspace = () => {
     s.every((sc) => sc.score !== null)
   ).length;
 
-  // Collect all AI-highlighted quotes for the current student
-  const aiHighlightedQuotes = currentScores
-    .flatMap((s) => s.validationResult?.keyQuotes || [])
-    .filter((q) => student.content.includes(q));
+  // Show AI highlights only for the focused criterion
+  const aiHighlightedQuotes = focusedCriterion
+    ? (currentScores.find((s) => s.criterionId === focusedCriterion)?.validationResult?.keyQuotes || [])
+        .filter((q) => student.content.includes(q))
+    : [];
 
   return (
     <div className="h-screen flex flex-col bg-gradient-to-br from-white via-blue-50/30 to-slate-50/40 overflow-hidden">
@@ -214,6 +216,8 @@ const GradingWorkspace = () => {
             pendingHighlight={pendingHighlight}
             onAttachHighlight={handleAttachHighlight}
             onValidateJustification={handleValidateJustification}
+            focusedCriterion={focusedCriterion}
+            onFocusCriterion={(id) => setFocusedCriterion(focusedCriterion === id ? null : id)}
           />
         </div>
 
