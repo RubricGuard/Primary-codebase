@@ -124,31 +124,47 @@ const RubricPanel = ({
                 </div>
 
                 {/* Highlighted Evidence */}
-                {score?.highlightedText && (
+                {score?.highlightedTexts && score.highlightedTexts.length > 0 && (
                   <div className="mb-3 bg-primary/5 border border-primary/10 rounded-lg p-3">
-                    <div className="flex items-center gap-1.5 mb-1.5">
+                    <div className="flex items-center gap-1.5 mb-2">
                       <Quote className="w-3.5 h-3.5 text-primary/60" />
                       <span className="text-xs font-semibold text-primary/70 uppercase tracking-wide">
-                        Selected Evidence
+                        Selected Evidence ({score.highlightedTexts.length})
                       </span>
                       <button
                         onClick={() => {
-                          onScoreChange(criterion.id, "highlightedText", undefined);
+                          onScoreChange(criterion.id, "highlightedTexts", []);
                           onScoreChange(criterion.id, "validationStatus", null);
                         }}
-                        className="ml-auto text-muted-foreground hover:text-destructive transition-colors"
+                        className="ml-auto text-xs text-muted-foreground hover:text-destructive transition-colors"
                       >
-                        <X className="w-3.5 h-3.5" />
+                        Clear all
                       </button>
                     </div>
-                    <p className="text-sm text-foreground/70 leading-relaxed italic line-clamp-4">
-                      "{score.highlightedText}"
-                    </p>
+                    <div className="space-y-2">
+                      {score.highlightedTexts.map((ht, idx) => (
+                        <div key={idx} className="flex items-start gap-2 group">
+                          <p className="flex-1 text-sm text-foreground/70 leading-relaxed italic line-clamp-3">
+                            "{ht}"
+                          </p>
+                          <button
+                            onClick={() => {
+                              const updated = score.highlightedTexts!.filter((_, i) => i !== idx);
+                              onScoreChange(criterion.id, "highlightedTexts", updated);
+                              if (updated.length === 0) onScoreChange(criterion.id, "validationStatus", null);
+                            }}
+                            className="mt-0.5 opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-all"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
 
                 {/* Attach highlight button */}
-                {pendingHighlight && !score?.highlightedText && (
+                {pendingHighlight && (
                   <button
                     onClick={() => onAttachHighlight(criterion.id)}
                     className="mb-3 flex items-center gap-1.5 text-xs font-medium text-primary bg-primary/5 hover:bg-primary/10 border border-primary/15 rounded-lg px-3 py-2 transition-colors w-full justify-center"
@@ -168,7 +184,7 @@ const RubricPanel = ({
                 />
 
                 {/* Validate button */}
-                {score?.highlightedText && score?.explanation && !score?.validationLoading && (
+                {score?.highlightedTexts && score.highlightedTexts.length > 0 && score?.explanation && !score?.validationLoading && (
                   <button
                     onClick={() => onValidateJustification(criterion.id)}
                     className="mt-2 flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 transition-colors"

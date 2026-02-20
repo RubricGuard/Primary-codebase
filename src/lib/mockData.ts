@@ -109,7 +109,7 @@ export interface GradingScore {
   validated: boolean;
   aiSuggestion?: string;
   overridden?: boolean;
-  highlightedText?: string;
+  highlightedTexts?: string[];
   validationStatus?: ValidationStatus;
   validationLoading?: boolean;
 }

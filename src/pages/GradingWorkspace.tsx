@@ -48,15 +48,17 @@ const GradingWorkspace = () => {
 
   const handleAttachHighlight = useCallback((criterionId: string) => {
     if (!pendingHighlight) return;
-    updateScore(criterionId, "highlightedText", pendingHighlight);
+    const scoreData = currentScores.find((s) => s.criterionId === criterionId);
+    const existing = scoreData?.highlightedTexts || [];
+    updateScore(criterionId, "highlightedTexts", [...existing, pendingHighlight]);
     updateScore(criterionId, "validationStatus", null);
     setPendingHighlight(null);
-  }, [pendingHighlight]);
+  }, [pendingHighlight, currentScores]);
 
   const handleValidateJustification = useCallback(async (criterionId: string) => {
     const scoreData = currentScores.find((s) => s.criterionId === criterionId);
     const criterion = rubricCriteria.find((c) => c.id === criterionId);
-    if (!scoreData?.highlightedText || !scoreData?.explanation || !criterion) return;
+    if (!scoreData?.highlightedTexts?.length || !scoreData?.explanation || !criterion) return;
 
     updateScore(criterionId, "validationLoading", true);
 
@@ -70,7 +72,7 @@ const GradingWorkspace = () => {
             Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           },
           body: JSON.stringify({
-            highlightedText: scoreData.highlightedText,
+            highlightedText: scoreData.highlightedTexts.join("\n\n---\n\n"),
             justification: scoreData.explanation,
             criterionName: criterion.name,
             criterionDescription: criterion.description,
