@@ -1,5 +1,13 @@
+import { useState } from "react";
 import { Sparkles, Check, X, Quote, Loader2, ShieldCheck, ShieldAlert, ShieldQuestion } from "lucide-react";
 import type { GradingScore, ValidationStatus } from "@/lib/mockData";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 interface Criterion {
   id: string;
@@ -20,21 +28,24 @@ interface Props {
   onValidateJustification: (criterionId: string) => void;
 }
 
-const statusConfig: Record<string, { label: string; icon: typeof ShieldCheck; className: string }> = {
+const statusConfig: Record<string, { label: string; icon: typeof ShieldCheck; className: string; badgeClass: string }> = {
   fully_supported: {
     label: "Fully Supported",
     icon: ShieldCheck,
     className: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
+    badgeClass: "bg-emerald-50 text-emerald-600 border border-emerald-200",
   },
   partially_supported: {
     label: "Partially Supported",
     icon: ShieldQuestion,
     className: "bg-amber-500/10 text-amber-600 border-amber-500/20",
+    badgeClass: "bg-amber-50 text-amber-600 border border-amber-200",
   },
   not_supported: {
     label: "Not Supported",
     icon: ShieldAlert,
     className: "bg-destructive/10 text-destructive border-destructive/20",
+    badgeClass: "bg-red-50 text-destructive border border-red-200",
   },
 };
 
@@ -49,6 +60,18 @@ const RubricPanel = ({
   onAttachHighlight,
   onValidateJustification,
 }: Props) => {
+  const [validationDialogCriterion, setValidationDialogCriterion] = useState<string | null>(null);
+
+  const dialogScore = validationDialogCriterion
+    ? scores.find((s) => s.criterionId === validationDialogCriterion)
+    : null;
+  const dialogCriterion = validationDialogCriterion
+    ? criteria.find((c) => c.id === validationDialogCriterion)
+    : null;
+  const dialogStatus = dialogScore?.validationResult?.status
+    ? statusConfig[dialogScore.validationResult.status]
+    : null;
+
   return (
     <div className="p-6">
       <div className="mb-5">
@@ -91,10 +114,13 @@ const RubricPanel = ({
                       </span>
                     )}
                     {statusInfo && !score?.validationLoading && (
-                      <span className={`flex items-center gap-1 text-xs font-medium rounded-md px-2 py-0.5 border ${statusInfo.className}`}>
+                      <button
+                        onClick={() => setValidationDialogCriterion(criterion.id)}
+                        className={`flex items-center gap-1 text-xs font-medium rounded-md px-2 py-0.5 border cursor-pointer hover:opacity-80 transition-opacity ${statusInfo.className}`}
+                      >
                         <statusInfo.icon className="w-3 h-3" />
                         {statusInfo.label}
-                      </span>
+                      </button>
                     )}
                     {score?.validated && (
                       <span className="flex items-center gap-1 text-xs font-medium text-success bg-success-light rounded-md px-2 py-0.5">
@@ -135,6 +161,7 @@ const RubricPanel = ({
                         onClick={() => {
                           onScoreChange(criterion.id, "highlightedTexts", []);
                           onScoreChange(criterion.id, "validationStatus", null);
+                          onScoreChange(criterion.id, "validationResult", undefined);
                         }}
                         className="ml-auto text-xs text-muted-foreground hover:text-destructive transition-colors"
                       >
@@ -151,7 +178,10 @@ const RubricPanel = ({
                             onClick={() => {
                               const updated = score.highlightedTexts!.filter((_, i) => i !== idx);
                               onScoreChange(criterion.id, "highlightedTexts", updated);
-                              if (updated.length === 0) onScoreChange(criterion.id, "validationStatus", null);
+                              if (updated.length === 0) {
+                                onScoreChange(criterion.id, "validationStatus", null);
+                                onScoreChange(criterion.id, "validationResult", undefined);
+                              }
                             }}
                             className="mt-0.5 opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-all"
                           >
@@ -252,6 +282,68 @@ const RubricPanel = ({
           );
         })}
       </div>
+
+      {/* Validation Details Dialog */}
+      <Dialog
+        open={!!validationDialogCriterion}
+        onOpenChange={(open) => !open && setValidationDialogCriterion(null)}
+      >
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <DialogTitle className="font-serif text-lg">AI Validation Details</DialogTitle>
+                <p className="text-sm text-muted-foreground mt-0.5">{dialogCriterion?.name}</p>
+              </div>
+              {dialogStatus && (
+                <span className={`flex items-center gap-1 text-xs font-semibold rounded-full px-3 py-1 ${dialogStatus.badgeClass}`}>
+                  {dialogStatus.label}
+                </span>
+              )}
+            </div>
+          </DialogHeader>
+
+          <div className="space-y-5 pt-2">
+            {/* Referenced Submission Excerpt */}
+            <div>
+              <h4 className="font-semibold text-sm text-foreground mb-2">Referenced Submission Excerpt</h4>
+              <div className="border-l-[3px] border-muted-foreground/20 bg-muted/30 rounded-r-lg px-4 py-3">
+                {dialogScore?.highlightedTexts?.map((ht, i) => (
+                  <p key={i} className="text-sm text-foreground/70 italic leading-relaxed mb-2 last:mb-0">
+                    "{ht}"
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            {/* Reasoning */}
+            <div>
+              <h4 className="font-semibold text-sm text-foreground mb-2">Reasoning</h4>
+              <p className="text-sm text-foreground/75 leading-relaxed">
+                {dialogScore?.validationResult?.reasoning}
+              </p>
+            </div>
+
+            {/* Suggested Refinement */}
+            <div>
+              <h4 className="font-semibold text-sm text-foreground mb-2">Suggested Refinement</h4>
+              <div className="border-l-[3px] border-warning bg-warning-light rounded-r-lg px-4 py-3">
+                <p className="text-sm text-foreground/75 leading-relaxed">
+                  {dialogScore?.validationResult?.suggestedRefinement}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-end pt-2">
+            <DialogClose asChild>
+              <button className="text-sm font-medium bg-primary text-primary-foreground rounded-lg px-5 py-2 hover:bg-primary/90 transition-colors">
+                Close
+              </button>
+            </DialogClose>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

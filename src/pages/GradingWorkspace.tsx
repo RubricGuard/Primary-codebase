@@ -91,6 +91,11 @@ const GradingWorkspace = () => {
 
       const result = await resp.json();
       updateScore(criterionId, "validationStatus", result.status);
+      updateScore(criterionId, "validationResult", {
+        status: result.status,
+        reasoning: result.reasoning,
+        suggestedRefinement: result.suggestedRefinement,
+      });
       updateScore(criterionId, "validationLoading", false);
 
       const labels: Record<string, string> = {

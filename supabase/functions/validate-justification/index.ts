@@ -68,10 +68,14 @@ Evaluate whether the justification is supported by the highlighted evidence.`;
                     },
                     reasoning: {
                       type: "string",
-                      description: "Brief explanation of why this status was chosen (1-2 sentences)",
+                      description: "Explain why this status was chosen — reference specific parts of the highlighted evidence and the justification (2-3 sentences)",
+                    },
+                    suggestedRefinement: {
+                      type: "string",
+                      description: "Suggest how the grader could improve their justification to better align with the evidence and rubric criterion (1-2 sentences)",
                     },
                   },
-                  required: ["status", "reasoning"],
+                  required: ["status", "reasoning", "suggestedRefinement"],
                   additionalProperties: false,
                 },
               },
