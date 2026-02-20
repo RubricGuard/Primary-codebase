@@ -178,9 +178,9 @@ const ProblemScaleSlide = () => (
         Every semester, professors grade thousands of essays with no systematic way to ensure consistency, fairness, or evidence-based justification.
       </p>
       <div className="grid grid-cols-3 gap-8 mt-16">
-        <ProblemStat icon={<Users className="w-8 h-8" />} stat="73%" label="of students report perceived grading inconsistency across sections" />
-        <ProblemStat icon={<AlertTriangle className="w-8 h-8" />} stat="$2.3B" label="spent annually on grade appeals and dispute resolution in US universities" />
-        <ProblemStat icon={<Scale className="w-8 h-8" />} stat="38%" label="score variance on identical essays graded by different instructors" />
+        <ProblemStat icon={<Users className="w-8 h-8" />} stat="8–12%" label="of assignments receive regrade requests — desired target is ≤ 2%" />
+        <ProblemStat icon={<AlertTriangle className="w-8 h-8" />} stat="10–15pp" label="average score variance across equivalent-quality submissions" />
+        <ProblemStat icon={<Scale className="w-8 h-8" />} stat="70–80%" label="rubric adherence rate — well below the ≥ 95% target" />
       </div>
     </div>
   </SlideLayout>
@@ -1387,14 +1387,14 @@ const ValueImpactSlide = () => (
         Measurable Impact
       </h2>
       <div className="grid grid-cols-3 gap-10 mt-14 max-w-[1400px]">
-        <ValueCard icon={<Scale className="w-10 h-10" />} title="Fairness" metric="↑ 85%" desc="Improvement in cross-student scoring consistency through real-time drift alerts" />
-        <ValueCard icon={<CheckCircle2 className="w-10 h-10" />} title="Accountability" metric="100%" desc="Every score backed by evidence. Every justification validated by AI." />
-        <ValueCard icon={<TrendingUp className="w-10 h-10" />} title="Efficiency" metric="↓ 40%" desc="Reduction in grade appeal disputes through transparent, defensible grading" />
+        <ValueCard icon={<Scale className="w-10 h-10" />} title="Score Variance" metric="≤ 3pp" desc="Target score variance for equivalent-quality submissions — down from 10–15 percentage points" />
+        <ValueCard icon={<CheckCircle2 className="w-10 h-10" />} title="Rubric Adherence" metric="≥ 95%" desc="Target rubric adherence rate — up from current 70–80% baseline" />
+        <ValueCard icon={<TrendingUp className="w-10 h-10" />} title="Regrade Reduction" metric="↓ to ≤ 2%" desc="Target regrade request rate — down from 8–12% of all assignments" />
       </div>
       <div className="grid grid-cols-3 gap-10 mt-8 max-w-[1400px]">
-        <ValueCard icon={<GraduationCap className="w-10 h-10" />} title="Student Trust" metric="↑ 60%" desc="Improvement in perceived grading fairness and learning outcomes" />
-        <ValueCard icon={<Calculator className="w-10 h-10" />} title="Quality Signal" metric="74%" desc="Explanation Validity Rate — the one metric for grading quality assurance" />
-        <ValueCard icon={<Zap className="w-10 h-10" />} title="Growth" metric="54→88%" desc="Typical grader improvement over 6 weeks of AI-assisted calibration" />
+        <ValueCard icon={<GraduationCap className="w-10 h-10" />} title="Faculty Time Saved" metric="9–22.5M hrs" desc="Estimated annual excess faculty time spent on regrade requests across 1M US professors" />
+        <ValueCard icon={<Calculator className="w-10 h-10" />} title="Scale of Impact" metric="54–90M" desc="Excess regrade requests eliminated annually across US postsecondary institutions" />
+        <ValueCard icon={<Zap className="w-10 h-10" />} title="Target Market" metric="72K+" desc="Professors in large, collaborative-grading, high-subjectivity courses — our beachhead segment" />
       </div>
     </div>
   </SlideLayout>
