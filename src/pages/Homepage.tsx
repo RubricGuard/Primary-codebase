@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Shield, BookOpen, Users, BarChart3, ClipboardCheck, Calendar, GraduationCap, Zap, TrendingUp, Eye, FileText } from "lucide-react";
+import { ChevronRight, Shield, BookOpen, Users, BarChart3, ClipboardCheck, Calendar, GraduationCap, Zap, TrendingUp, Eye, FileText } from "lucide-react";
 import { assignments } from "@/lib/mockData";
 
-const Dashboard = () => {
+const Homepage = () => {
   const navigate = useNavigate();
   const assignment = assignments[0];
 
@@ -146,7 +146,7 @@ const Dashboard = () => {
                 className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-xl py-3 font-medium text-sm hover:from-blue-400 hover:to-indigo-400 transition-all duration-300 shadow-lg shadow-blue-500/20 col-span-1"
               >
                 Start Grading
-                <ArrowRight className="w-4 h-4" />
+                <ChevronRight className="w-4 h-4" />
               </button>
               <button
                 onClick={() => navigate("/assignment/bus302-ca1")}
@@ -239,4 +239,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Homepage;
