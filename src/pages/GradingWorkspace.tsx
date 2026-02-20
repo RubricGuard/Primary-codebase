@@ -45,7 +45,7 @@ const GradingWorkspace = () => {
   ).length;
 
   return (
-    <div className="h-screen flex flex-col bg-background overflow-hidden">
+    <div className="h-screen flex flex-col bg-gradient-to-br from-white via-blue-50/30 to-slate-50/40 overflow-hidden">
       {/* Header */}
       <header className="border-b border-border/60 bg-card/60 backdrop-blur-sm flex-shrink-0">
         <div className="px-5 py-3 flex items-center justify-between">
