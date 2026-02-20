@@ -187,6 +187,14 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
             </span>
             <span className={`font-semibold text-sm ${validityTextColor}`}>{explanationValidityRate}%</span>
           </div>
+          {allValidationCounts.total > 0 && (
+            <p className="text-[10px] text-muted-foreground font-mono mb-2">
+              {Math.round(rawValidityPct)}%{fairnessPenalty > 0 ? ` − ${fairnessPenalty}%` : ""} = {explanationValidityRate}%
+              <span className="ml-1 text-muted-foreground/60">
+                ({allValidationCounts.valid}/{allValidationCounts.total} valid{fairnessPenalty > 0 ? ` · ${similarityFlags.length} flag${similarityFlags.length > 1 ? "s" : ""} × 2%` : ""})
+              </span>
+            </p>
+          )}
           <div className="h-2 bg-muted rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full transition-all duration-500 ${validityBarColor}`}
