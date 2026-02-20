@@ -3,8 +3,11 @@ import { Shield, ArrowLeft, FileCheck, TrendingUp, Sparkles, CheckCircle, Scale,
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
 import { studentSubmissions, rubricCriteria, sampleGradedData } from "@/lib/mockData";
 
-// ── Compute total scores per student ──
-const studentTotals = studentSubmissions.map((s) => {
+// ── Only show the 5 students graded in this session (STU001–STU005) ──
+const gradedStudentIds = ["STU001", "STU002", "STU003", "STU004", "STU005"];
+const gradedSubmissions = studentSubmissions.filter((s) => gradedStudentIds.includes(s.id));
+
+const studentTotals = gradedSubmissions.map((s) => {
   const scores = sampleGradedData[s.id] || [];
   const total = scores.reduce((sum, sc) => sum + (sc.score || 0), 0);
   return { id: s.id, total };
@@ -46,6 +49,7 @@ const fairnessFlags: FairnessFlag[] = (() => {
   const flags: FairnessFlag[] = [];
   rubricCriteria.forEach((c) => {
     const students = Object.entries(sampleGradedData)
+      .filter(([id]) => gradedStudentIds.includes(id))
       .map(([id, scores]) => {
         const s = scores.find((sc) => sc.criterionId === c.id);
         if (!s || s.score == null || s.aiSuggestedScore == null) return null;
@@ -77,8 +81,8 @@ const fairnessFlags: FairnessFlag[] = (() => {
 const scoreTimeline = studentTotals.map((s) => ({ submission: s.id, score: s.total }));
 
 const criterionStability = rubricCriteria.map((c) => {
-  const scores = Object.values(sampleGradedData)
-    .map((ss) => ss.find((s) => s.criterionId === c.id)?.score)
+  const scores = gradedStudentIds
+    .map((id) => sampleGradedData[id]?.find((s) => s.criterionId === c.id)?.score)
     .filter((s) => s != null) as number[];
   const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
   const variance = Math.sqrt(scores.reduce((sum, s) => sum + (s - avg) ** 2, 0) / scores.length);
