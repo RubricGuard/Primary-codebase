@@ -36,7 +36,11 @@ const AssignmentDetail = () => {
             <span className="text-sm text-blue-400/80 font-medium">{assignment.course}</span>
           </div>
           <h1 className="font-serif text-3xl font-semibold text-white mb-4">{assignment.title}</h1>
-          <p className="text-white/45 leading-relaxed max-w-2xl">{assignment.description}</p>
+          <div className="text-white/45 leading-relaxed max-w-2xl space-y-3">
+            {assignment.description.split("\n\n").map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
         </div>
 
         {/* Date & Info Cards */}

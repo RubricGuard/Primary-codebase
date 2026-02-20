@@ -7,7 +7,7 @@ const fmtDate = (daysOffset: number) => {
 export const assignments = [
   {
     id: "bus302-ca1",
-    title: "Case Analysis 1: Strategic Pivot",
+    title: "Case Analysis 1: Netflix's Strategic Pivot — From DVD-by-Mail to Streaming Dominance",
     course: "BUS302 — Strategic Management",
     get assignedDate() { return fmtDate(-7); },
     get dueDate() { return fmtDate(7); },
@@ -15,7 +15,19 @@ export const assignments = [
     gradedCount: 0,
     sections: ["Section A (Prof. Sharma)", "Section B (TA: M. Chen)", "Section C (TA: R. Patel)"],
     rubricCriteria: 4,
-    description: "Analyze Netflix's strategic pivot from DVD-by-mail to streaming. Evaluate whether the transition was a proactive strategic choice or a reactive response to technological disruption. Consider the role of the subscription-based pricing model in enabling the pivot.",
+    description: `In 2007, Netflix began its historic transition from a DVD-by-mail rental service to an internet streaming platform — a move that would redefine the entertainment industry. Your task is to critically analyze this strategic pivot using frameworks from the course (e.g., Christensen's Disruptive Innovation Theory, Porter's Five Forces, Strategic Ambidexterity).
+
+Your analysis should address the following questions:
+
+1. Was Netflix's pivot a proactive strategic choice driven by market intelligence and technology adoption forecasts, or a reactive response to competitive threats from Apple (iTunes), Amazon, and emerging digital distribution platforms?
+
+2. How did the flat-rate subscription pricing model serve as a strategic enabler during the transition? Consider its role in reducing consumer decision fatigue, generating predictable cash flow for content investment, and creating switching costs through personalization algorithms.
+
+3. Evaluate the Qwikster debacle of 2011. Was this a strategic misstep that contradicts the narrative of a well-planned pivot, or evidence that even sound strategies require adaptive implementation?
+
+4. Discuss how platform economics and network effects transformed Netflix's competitive position. How did the near-zero marginal cost of serving additional streaming customers alter the company's cost structure?
+
+Your essay should be 1,500–2,000 words, use at least 5 credible sources (academic or industry), and demonstrate both analytical depth and clear academic writing.`,
   },
 ];
 
