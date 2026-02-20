@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Shield, ArrowLeft, Users, BarChart3, AlertTriangle, CheckCircle2, TrendingUp, Scale, GraduationCap } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 import { studentSubmissions, rubricCriteria, sampleGradedData, type GradingScore, type ValidationStatus } from "@/lib/mockData";
 
 // Grader definitions
@@ -230,6 +231,78 @@ const SegmentGrades = () => {
                 </span>
               </div>
             </div>
+
+            {/* Validity Rate Trend */}
+            {(() => {
+              const trendData: { name: string; rate: number }[] = [];
+              let cumValid = 0;
+              let cumTotal = 0;
+
+              g.studentScores.forEach((s, sIdx) => {
+                const hasAny = s.scores.some((sc) => sc.validationStatus);
+                if (!hasAny) return;
+
+                s.scores.forEach((sc) => {
+                  if (sc.validationStatus) {
+                    cumTotal++;
+                    if (sc.validationStatus === "fully_supported") cumValid++;
+                  }
+                });
+
+                // Cumulative fairness flags up to this student
+                const gradedSoFar = g.studentScores.slice(0, sIdx + 1);
+                let flagCount = 0;
+                rubricCriteria.forEach((c) => {
+                  const stuData = gradedSoFar
+                    .map((st) => {
+                      const sc = st.scores.find((x) => x.criterionId === c.id);
+                      if (!sc || sc.score == null || sc.aiSuggestedScore == null) return null;
+                      return { score: sc.score, aiScore: sc.aiSuggestedScore };
+                    })
+                    .filter(Boolean) as { score: number; aiScore: number }[];
+                  for (let i = 0; i < stuData.length; i++) {
+                    for (let j = i + 1; j < stuData.length; j++) {
+                      if (Math.abs(stuData[i].aiScore - stuData[j].aiScore) <= AI_SIMILARITY_THRESHOLD && Math.abs(stuData[i].score - stuData[j].score) > SCORE_DIFF_THRESHOLD) {
+                        flagCount++;
+                      }
+                    }
+                  }
+                });
+
+                const raw = cumTotal > 0 ? (cumValid / cumTotal) * 100 : 100;
+                const penalty = Math.min(flagCount * 2, 20);
+                const rate = Math.max(0, Math.round(raw - penalty));
+                trendData.push({ name: s.id.replace("STU0", "S").replace("STU", "S"), rate });
+              });
+
+              if (trendData.length < 2) return null;
+
+              return (
+                <div className="mb-5 bg-muted/10 rounded-xl border border-border/30 p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <TrendingUp className="w-3.5 h-3.5 text-primary" />
+                    <span className="text-xs font-medium text-foreground">Validity Rate Trend — {g.name}</span>
+                  </div>
+                  <div className="h-[130px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={trendData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                        <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }} axisLine={false} tickLine={false} />
+                        <YAxis domain={[0, 100]} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }} axisLine={false} tickLine={false} />
+                        <ReferenceLine y={75} stroke="hsl(var(--success))" strokeDasharray="3 3" strokeOpacity={0.4} />
+                        <ReferenceLine y={50} stroke="hsl(var(--warning))" strokeDasharray="3 3" strokeOpacity={0.3} />
+                        <Tooltip
+                          contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: 8, fontSize: 12 }}
+                          labelStyle={{ color: 'hsl(var(--foreground))' }}
+                          formatter={(value: number) => [`${value}%`, 'Validity']}
+                        />
+                        <Line type="monotone" dataKey="rate" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: 'hsl(var(--primary))', r: 3 }} activeDot={{ r: 5 }} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <p className="text-[10px] text-muted-foreground mt-1 text-center">Cumulative validity rate after each graded student</p>
+                </div>
+              );
+            })()}
 
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
