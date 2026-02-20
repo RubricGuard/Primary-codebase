@@ -103,10 +103,11 @@ const Analytics = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Background with layered gradients */}
-      <div className="fixed inset-0 bg-gradient-to-br from-background via-secondary/30 to-primary/5" />
-      <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-primary/8 via-transparent to-transparent rounded-full blur-3xl" />
-      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-success/5 via-transparent to-transparent rounded-full blur-3xl" />
+      {/* Background with layered gradients + blue tinge */}
+      <div className="fixed inset-0 bg-gradient-to-br from-background via-primary/[0.06] to-primary/[0.12]" />
+      <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-primary/15 via-primary/5 to-transparent rounded-full blur-3xl" />
+      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-primary/8 via-transparent to-transparent rounded-full blur-3xl" />
+      <div className="fixed top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-primary/[0.04] to-transparent rounded-full blur-3xl" />
 
       {/* Header */}
       <header className="relative z-10 border-b border-border/40 bg-card/70 backdrop-blur-xl">
