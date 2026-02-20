@@ -178,8 +178,8 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     },
     {
       criterionId: "evidence-use",
-      score: 18,
-      explanation: "Cites Mueller & Oppenheimer, Sana et al., Waterfield & West, and the Urry meta-analysis. Evidence is well-integrated. Deducted 7 marks: the student fails to include any primary data or original analysis, relying entirely on secondary sources without critically evaluating their methodologies.",
+      score: 19,
+      explanation: "Cites Mueller & Oppenheimer, Sana et al., Waterfield & West, and the Urry meta-analysis. Evidence is well-integrated. Deducted 6 marks: the student fails to include any primary data or original analysis, relying entirely on secondary sources without critically evaluating their methodologies.",
       validated: false,
       aiSuggestion: "The 7-mark deduction for 'no primary data' is disproportionate — undergraduate argumentative essays are not expected to include original research. The rubric criterion is about quality, relevance, and integration of sources, all of which are strong here.",
       aiSuggestedScore: 22,
@@ -431,7 +431,7 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "critical-analysis",
       score: 25,
-      explanation: "Exceptional depth. Distinguishes lab vs. real-world findings, applies UDL framework to the exemption problem, and reframes the core issue as pedagogical rather than technological. No marks deducted — this represents the highest standard of undergraduate critical analysis.",
+      explanation: "Exceptional depth and nuanced reasoning. Distinguishes lab vs. real-world findings, applies UDL framework to the exemption problem, and reframes the core issue as pedagogical rather than technological. No marks deducted — this represents the highest standard of undergraduate critical analysis.",
       validated: false,
       aiSuggestion: "Perfect score is well-deserved. The student synthesizes across three distinct analytical frameworks (cognitive science, UDL, and active learning pedagogy) — this cross-framework synthesis is rare at the undergraduate level and fully justifies 25/25.",
       aiSuggestedScore: 25,
@@ -550,7 +550,7 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "critical-analysis",
       score: 20,
-      explanation: "Good engagement with multiple perspectives including distraction externalities, accessibility, and research limitations. Deducted 5 marks: the analysis of the 'secondhand smoke' metaphor is borrowed from public health discourse without original critical evaluation, and the essay doesn't sufficiently challenge its own position.",
+      explanation: "Good and nuanced engagement with multiple perspectives including distraction externalities, accessibility, and research limitations. Deducted 5 marks: the analysis of the 'secondhand smoke' metaphor is borrowed from public health discourse without original critical evaluation, and the essay doesn't sufficiently challenge its own position.",
       validated: false,
       aiSuggestion: "The 5-mark deduction is somewhat harsh. Using the 'secondhand smoke' analogy demonstrates analytical sophistication in drawing cross-domain parallels. The self-critique concern is valid but the student does acknowledge limitations of the partial restriction model implicitly. A score of 22 would be more appropriate.",
       aiSuggestedScore: 22,
@@ -561,7 +561,7 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       ],
       highlightedTexts: [
         "This 'second-hand distraction' effect transforms laptop use from a personal choice into a collective problem, much like secondhand smoke in public health policy.",
-        "the research base is less conclusive than it initially appears. The large-scale replication by Urry et al. (2021) found substantially weaker effects",
+        "the research base is less conclusive than it initially appears. The large-scale replication by Urry et al. (2021) found substantially weaker effects than Mueller and Oppenheimer reported",
       ],
       validationStatus: "fully_supported",
       validationResult: {
@@ -666,7 +666,7 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "critical-analysis",
       score: 19,
-      explanation: "Good engagement with counterarguments, especially around accessibility and research limitations. Deducted 6 marks: the analysis of active learning as an alternative is presented more as assertion than analysis — the student claims pedagogy solves distraction without critically examining why many professors haven't adopted these techniques. Also misses the economic and institutional barriers to pedagogical reform.",
+      explanation: "Good but insufficiently nuanced engagement with counterarguments, especially around accessibility and research limitations. Deducted 6 marks: the analysis of active learning as an alternative is presented more as assertion than analysis — the student claims pedagogy solves distraction without critically examining why many professors haven't adopted these techniques. Also misses the economic and institutional barriers to pedagogical reform.",
       validated: false,
       aiSuggestion: "The 6-mark deduction is slightly harsh but has merit. The student does present active learning as a panacea without examining implementation barriers. However, the engagement with Urry et al.'s replication and the accessibility argument shows analytical depth. A score of 20–21 might be more appropriate.",
       aiSuggestedScore: 21,
@@ -677,7 +677,7 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       ],
       highlightedTexts: [
         "the solution to distraction is not prohibition but pedagogy. When lectures are engaging and interactive, students are less likely to drift to social media.",
-        "They concluded that the original study's results may not generalize to diverse classroom settings.",
+        "Urry et al. (2021) attempted to replicate Mueller and Oppenheimer's findings across multiple universities and found much weaker effects.",
       ],
       validationStatus: "fully_supported",
       validationResult: {
