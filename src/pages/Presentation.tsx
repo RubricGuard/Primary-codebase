@@ -1499,8 +1499,8 @@ const TechStackSlide = () => (
         </div>
         <div className="w-px h-16 bg-white/10" />
         <div className="text-center">
-          <p className="text-[48px] font-serif font-bold text-cyan-400">15</p>
-          <p className="text-white/30 text-sm mt-1">Students × 3 graders demo</p>
+          <p className="text-[48px] font-serif font-bold text-cyan-400">100%</p>
+          <p className="text-white/30 text-sm mt-1">Cloud-native deployment</p>
         </div>
       </div>
     </div>
