@@ -227,6 +227,7 @@ const GradingWorkspace = () => {
             criteria={rubricCriteria}
             gradedCount={gradedStudents}
             totalCount={studentSubmissions.length}
+            allScores={scores}
           />
         </div>
       </div>
