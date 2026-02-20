@@ -103,7 +103,10 @@ const RubricPanel = ({ criteria, scores, activeValidation, onScoreChange, onTogg
                     </p>
                     <div className="flex items-center gap-2">
                       <button
-                        onClick={() => onScoreChange(criterion.id, "validated", true)}
+                        onClick={() => {
+                          onScoreChange(criterion.id, "validated", true);
+                          onToggleValidation(criterion.id);
+                        }}
                         className="flex items-center gap-1.5 text-xs font-medium bg-primary text-primary-foreground rounded-lg px-3.5 py-2 hover:bg-primary/90 transition-colors"
                       >
                         <Check className="w-3.5 h-3.5" />
