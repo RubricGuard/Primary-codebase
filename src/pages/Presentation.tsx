@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Shield, ChevronLeft, ChevronRight, Maximize, AlertTriangle, CheckCircle2, Scale, TrendingUp, Brain, BarChart3, Users, Target, Zap, ArrowRight, GraduationCap, FileCheck, Eye, Lightbulb, BookOpen, UserCheck, Award, ClipboardCheck, MessageCircle, LineChart, Coffee, XCircle, Calculator, Layers, Sparkles, PenLine, CircleDot } from "lucide-react";
+import gradingWorkspaceScreenshot from "@/assets/screenshots/grading-workspace.png";
 
 const TOTAL_SLIDES = 28;
 
@@ -346,7 +347,17 @@ const WorkspaceSlide = () => (
             <FeatureBullet text="Dual-color highlighting: blue (user evidence) + yellow (AI key quotes)" />
           </div>
         </div>
-        <AppScreenshot label="Grading Workspace — Prof. Sharma grading STU001" caption="3-column layout: Submission | Rubric Scoring | Live Analytics" />
+        <div className="w-[700px] h-[500px] rounded-2xl border border-white/15 overflow-hidden shadow-2xl flex flex-col">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
+            <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-400/60" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
+              <div className="w-3 h-3 rounded-full bg-green-400/60" />
+            </div>
+            <span className="text-white/30 text-xs font-mono ml-3">Grading Workspace — Prof. Sharma grading STU001</span>
+          </div>
+          <img src={gradingWorkspaceScreenshot} alt="RubricGuard 3-column grading workspace showing submission, rubric scoring, and live analytics" className="flex-1 object-cover object-top" />
+        </div>
       </div>
     </div>
   </SlideLayout>
