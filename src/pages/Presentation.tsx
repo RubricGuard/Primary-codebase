@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Shield, ChevronLeft, ChevronRight, Maximize, AlertTriangle, CheckCircle2, Scale, TrendingUp, Brain, BarChart3, Users, Target, Zap, ArrowRight, GraduationCap, FileCheck, Eye, Lightbulb, BookOpen, UserCheck, Award, ClipboardCheck, MessageCircle, LineChart, Coffee, XCircle, Calculator, Layers } from "lucide-react";
 
-const TOTAL_SLIDES = 20;
+const TOTAL_SLIDES = 23;
 
 const Presentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -48,10 +48,13 @@ const Presentation = () => {
     <SegmentGradesSlide key={13} />,
     <ProfessorViewSlide key={14} />,
     <GraderGrowthSlide key={15} />,
-    <ValueImpactSlide key={16} />,
-    <TechStackSlide key={17} />,
-    <DemoFlowSlide key={18} />,
-    <ClosingSlide key={19} />,
+    <DualHighlightLearningSlide key={16} />,
+    <TACalibrationSlide key={17} />,
+    <InstitutionalLearningSlide key={18} />,
+    <ValueImpactSlide key={19} />,
+    <TechStackSlide key={20} />,
+    <DemoFlowSlide key={21} />,
+    <ClosingSlide key={22} />,
   ];
 
   return (
@@ -697,6 +700,212 @@ const GraderGrowthSlide = () => (
           </div>
         </div>
       </div>
+    </div>
+  </SlideLayout>
+);
+
+/* ═══════════════════════ ACT 4b: GRADER LEARNING & CALIBRATION ═══════════════════════ */
+
+const DualHighlightLearningSlide = () => (
+  <SlideLayout>
+    <div className="absolute top-20 right-40 w-[400px] h-[400px] bg-cyan-500/8 rounded-full blur-[100px]" />
+    <div className="absolute inset-0 flex items-center px-24">
+      <div className="flex gap-16 items-center w-full">
+        <div className="flex-1 max-w-[700px]">
+          <SectionLabel text="Learning Tool" color="cyan" />
+          <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
+            Dual Highlighting as a <span className="text-cyan-400">Teaching Moment</span>
+          </h2>
+          <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
+            When your blue highlights don't overlap with the AI's yellow key quotes, that gap becomes a learning signal. Over time, graders internalize what "strong evidence" looks like.
+          </p>
+          <div className="mt-8 space-y-4">
+            <FeatureBullet text="Blue = what YOU thought was important" icon={<Eye className="w-5 h-5 text-blue-400" />} />
+            <FeatureBullet text="Yellow = what the AI identified as most relevant to the criterion" icon={<Lightbulb className="w-5 h-5 text-yellow-400" />} />
+            <FeatureBullet text="Overlap = strong alignment between grader and rubric intent" icon={<CheckCircle2 className="w-5 h-5 text-green-400" />} />
+            <FeatureBullet text="Gap = a blind spot worth examining — not a mistake, a growth edge" icon={<Target className="w-5 h-5 text-cyan-400" />} />
+          </div>
+        </div>
+
+        <div className="w-[700px] h-[520px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] rounded-2xl border border-white/15 overflow-hidden flex flex-col shadow-2xl">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
+            <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-400/60" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
+              <div className="w-3 h-3 rounded-full bg-green-400/60" />
+            </div>
+            <span className="text-white/30 text-xs font-mono ml-3">Submission Viewer — Highlight Comparison</span>
+          </div>
+          <div className="flex-1 p-6 space-y-4">
+            <p className="text-white/50 text-xs font-mono mb-2 uppercase tracking-wider">Evidence Use — STU003</p>
+            <div className="space-y-3">
+              <div className="bg-blue-500/10 border-l-4 border-blue-400 rounded-r-lg px-4 py-3">
+                <p className="text-white/30 text-[10px] font-mono mb-1">YOUR HIGHLIGHT</p>
+                <p className="text-white/60 text-sm italic">"Mueller & Oppenheimer (2014) showed that longhand notes improve conceptual understanding..."</p>
+              </div>
+              <div className="bg-yellow-500/10 border-l-4 border-yellow-400 rounded-r-lg px-4 py-3">
+                <p className="text-white/30 text-[10px] font-mono mb-1">AI KEY QUOTE</p>
+                <p className="text-white/60 text-sm italic">"However, the study's lab conditions may not generalize to real lecture settings, as noted by Morehead et al. (2019)..."</p>
+              </div>
+              <div className="bg-cyan-500/5 border border-cyan-500/20 rounded-lg px-4 py-3 mt-4">
+                <div className="flex items-start gap-2">
+                  <Lightbulb className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                  <p className="text-white/50 text-xs leading-relaxed">
+                    <span className="text-cyan-400 font-semibold">Learning insight:</span> You highlighted the supporting evidence but missed the counter-argument. For "Critical Analysis," the AI flagged the passage that challenges the student's thesis — recognizing nuance is key.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 mt-3">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-sm bg-blue-400/60" />
+                <span className="text-white/30 text-[10px]">Your evidence</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-sm bg-yellow-400/60" />
+                <span className="text-white/30 text-[10px]">AI key quotes</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-sm bg-green-400/40" />
+                <span className="text-white/30 text-[10px]">Overlap</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </SlideLayout>
+);
+
+const TACalibrationSlide = () => (
+  <SlideLayout>
+    <div className="absolute bottom-20 left-40 w-[400px] h-[400px] bg-purple-500/6 rounded-full blur-[100px]" />
+    <div className="absolute inset-0 flex items-center px-24">
+      <div className="flex gap-16 items-center w-full">
+        <div className="w-[700px] h-[520px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] rounded-2xl border border-white/15 overflow-hidden flex flex-col shadow-2xl">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 bg-white/5">
+            <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-400/60" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
+              <div className="w-3 h-3 rounded-full bg-green-400/60" />
+            </div>
+            <span className="text-white/30 text-xs font-mono ml-3">New TA Onboarding Journey</span>
+          </div>
+          <div className="flex-1 p-6">
+            <p className="text-white/50 text-xs font-mono mb-4 uppercase tracking-wider">First-Time Grader Calibration</p>
+            <div className="space-y-3">
+              <div className="flex items-center gap-4 bg-red-500/5 border border-red-500/15 rounded-lg px-4 py-3">
+                <div className="w-10 h-10 rounded-full bg-red-400/20 flex items-center justify-center text-red-400 text-sm font-bold">1</div>
+                <div className="flex-1">
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70 text-sm font-medium">First Essay</span>
+                    <span className="text-red-400 text-sm font-bold">42%</span>
+                  </div>
+                  <p className="text-white/30 text-xs mt-0.5">"Good essay" — no evidence cited, vague justification</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 bg-yellow-500/5 border border-yellow-500/15 rounded-lg px-4 py-3">
+                <div className="w-10 h-10 rounded-full bg-yellow-400/20 flex items-center justify-center text-yellow-400 text-sm font-bold">3</div>
+                <div className="flex-1">
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70 text-sm font-medium">Third Essay</span>
+                    <span className="text-yellow-400 text-sm font-bold">68%</span>
+                  </div>
+                  <p className="text-white/30 text-xs mt-0.5">Citing passages, but missing counter-arguments</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 bg-green-500/5 border border-green-500/15 rounded-lg px-4 py-3">
+                <div className="w-10 h-10 rounded-full bg-green-400/20 flex items-center justify-center text-green-400 text-sm font-bold">5</div>
+                <div className="flex-1">
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/70 text-sm font-medium">Fifth Essay</span>
+                    <span className="text-green-400 text-sm font-bold">91%</span>
+                  </div>
+                  <p className="text-white/30 text-xs mt-0.5">Evidence-rich, rubric-aligned, defensible scores</p>
+                </div>
+              </div>
+            </div>
+            <div className="mt-5 pt-4 border-t border-white/10">
+              <p className="text-white/50 text-xs font-mono mb-2 uppercase tracking-wider">Time to Competency</p>
+              <div className="flex items-center gap-3">
+                <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-red-400 via-yellow-400 to-green-400 rounded-full" style={{ width: "100%" }} />
+                </div>
+                <span className="text-white/40 text-xs font-mono">5 essays</span>
+              </div>
+              <p className="text-white/25 text-[11px] mt-2">Traditional calibration takes weeks of meetings. RubricGuard does it in one grading session.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex-1 max-w-[700px]">
+          <SectionLabel text="TA Training" color="purple" />
+          <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-6">
+            New TAs calibrate in <span className="text-purple-400">5 essays</span>, not 5 weeks
+          </h2>
+          <p className="text-[20px] text-white/50 mt-6 leading-relaxed">
+            Traditional TA onboarding relies on calibration meetings, sample grading sessions, and senior oversight. RubricGuard provides instant, per-justification feedback that accelerates learning by 10×.
+          </p>
+          <div className="mt-8 space-y-4">
+            <FeatureBullet text="Every 'Not Supported' verdict is a micro-lesson in rubric interpretation" icon={<Brain className="w-5 h-5 text-purple-400" />} />
+            <FeatureBullet text="AI key quotes model what 'good evidence' looks like for each criterion" icon={<Eye className="w-5 h-5 text-purple-400" />} />
+            <FeatureBullet text="Validity rate trend gives TAs a personal progress metric to track" icon={<TrendingUp className="w-5 h-5 text-purple-400" />} />
+            <FeatureBullet text="Reduces supervisory burden — professors can verify TA quality remotely" icon={<UserCheck className="w-5 h-5 text-purple-400" />} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </SlideLayout>
+);
+
+const InstitutionalLearningSlide = () => (
+  <SlideLayout bg="blue">
+    <div className="absolute top-20 left-40 w-[500px] h-[500px] bg-green-500/8 rounded-full blur-[120px]" />
+    <div className="absolute bottom-20 right-40 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[80px]" />
+    <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-32">
+      <SectionLabel text="Culture Shift" color="green" />
+      <h2 className="text-[56px] font-serif font-bold text-white leading-tight mt-6 max-w-[1200px]">
+        From grading <span className="text-red-400">anxiety</span> to grading <span className="text-green-400">mastery</span>
+      </h2>
+      <p className="text-[22px] text-white/40 mt-4 max-w-[900px]">
+        RubricGuard transforms grading from a dreaded chore into a skill that visibly improves — with metrics to prove it.
+      </p>
+      <div className="grid grid-cols-3 gap-8 mt-14 max-w-[1400px]">
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-7 text-left">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-xl bg-red-400/10 border border-red-400/20 flex items-center justify-center">
+              <Coffee className="w-6 h-6 text-red-400" />
+            </div>
+            <span className="text-white/60 font-semibold">Before</span>
+          </div>
+          <div className="space-y-3 mt-2">
+            <p className="text-white/40 text-sm flex items-start gap-2"><XCircle className="w-4 h-4 text-red-400/60 shrink-0 mt-0.5" /> "Am I being fair? I can't tell."</p>
+            <p className="text-white/40 text-sm flex items-start gap-2"><XCircle className="w-4 h-4 text-red-400/60 shrink-0 mt-0.5" /> Grading quality invisible to everyone</p>
+            <p className="text-white/40 text-sm flex items-start gap-2"><XCircle className="w-4 h-4 text-red-400/60 shrink-0 mt-0.5" /> New TAs learn by trial and error</p>
+            <p className="text-white/40 text-sm flex items-start gap-2"><XCircle className="w-4 h-4 text-red-400/60 shrink-0 mt-0.5" /> Appeals feel adversarial</p>
+          </div>
+        </div>
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-7 flex flex-col items-center justify-center">
+          <ArrowRight className="w-12 h-12 text-blue-400/40 mb-4" />
+          <p className="text-white/50 font-serif text-2xl font-bold">RubricGuard</p>
+          <p className="text-blue-400/50 text-sm mt-2 font-mono">The transformation</p>
+        </div>
+        <div className="bg-green-500/5 border border-green-500/20 rounded-2xl p-7 text-left">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-xl bg-green-400/10 border border-green-400/20 flex items-center justify-center">
+              <Award className="w-6 h-6 text-green-400" />
+            </div>
+            <span className="text-green-400 font-semibold">After</span>
+          </div>
+          <div className="space-y-3 mt-2">
+            <p className="text-white/50 text-sm flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-green-400/60 shrink-0 mt-0.5" /> "My validity rate proves I'm consistent"</p>
+            <p className="text-white/50 text-sm flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-green-400/60 shrink-0 mt-0.5" /> Every grader's quality is measurable</p>
+            <p className="text-white/50 text-sm flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-green-400/60 shrink-0 mt-0.5" /> TAs calibrate in one session</p>
+            <p className="text-white/50 text-sm flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-green-400/60 shrink-0 mt-0.5" /> Evidence-backed scores end disputes</p>
+          </div>
+        </div>
+      </div>
+      <p className="text-white/20 text-sm mt-10 italic">"The best graders aren't born — they're built, one validated justification at a time."</p>
     </div>
   </SlideLayout>
 );
