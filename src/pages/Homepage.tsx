@@ -52,7 +52,7 @@ const Homepage = () => {
             <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent"> confidence</span>
           </h2>
           <p className="text-white/45 text-lg leading-relaxed max-w-lg mx-auto">
-            Select an assignment to begin. Real-time alignment analytics ensure every score is consistent and defensible.
+            Every score justified, every justification validated, every student graded fairly.
           </p>
 
           {/* Feature highlights */}
