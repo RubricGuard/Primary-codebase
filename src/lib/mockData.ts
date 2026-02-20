@@ -200,8 +200,8 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
   STU002: [
     {
       criterionId: "arg-clarity",
-      score: 20,
-      explanation: "The student presents a well-structured argument with a strong thesis that considers multiple perspectives on the laptop ban debate.",
+      score: 22,
+      explanation: "The student constructs a nuanced, multi-layered thesis with explicit qualifications, citing Mueller & Oppenheimer (2014) directly in the thesis statement to ground the argument in empirical research from the outset.",
       validated: false,
       highlightedTexts: [
         "I think universities should ban laptops in lectures because they are very distracting.",
@@ -209,18 +209,18 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       validationStatus: "not_supported",
       validationResult: {
         status: "not_supported",
-        reasoning: "The justification claims 'a well-structured argument with a strong thesis that considers multiple perspectives,' but the highlighted evidence shows the opposite — 'I think universities should ban laptops because they are very distracting' is a simplistic, single-reason opinion statement with no nuance or qualification. The essay takes only one side without engaging counterarguments substantively.",
-        suggestedRefinement: "Revise the justification to accurately reflect what the evidence shows: a clear but simplistic position lacking academic framing. A score of 20/25 seems too generous given the one-dimensional argument structure — consider whether this aligns with how you scored STU001 (22/25) who presented a far more nuanced thesis.",
+        reasoning: "The grader's justification claims the thesis is 'nuanced' and 'multi-layered' and cites a specific academic study (Mueller & Oppenheimer). However, the student's submission contains no such citation, and the highlighted thesis is a simple, straightforward statement without qualifications.",
+        suggestedRefinement: "The grader should revise the justification to reflect the actual text, which lacks academic citations in the thesis, and adjust the score to account for the simplicity of the argument rather than crediting non-existent complexity.",
         keyQuotes: [
-          "I think universities should ban laptops in lectures because they are very distracting",
-          "In conclusion laptops should be banned from lectures because they hurt learning, distract others, and make cheating easier",
+          "I think universities should ban laptops in lectures because they are very distracting.",
+          "laptops should be banned from lectures because they hurt learning, distract others, and make cheating easier.",
         ],
       },
     },
     {
       criterionId: "evidence-use",
-      score: 20,
-      explanation: "References several research findings about laptop distraction and learning outcomes. Mentions studies on typing vs handwriting and peer distraction effects.",
+      score: 21,
+      explanation: "The student cites Mueller & Oppenheimer (2014) and Sana et al. (2013) with specific statistics on comprehension reduction, demonstrating strong integration of peer-reviewed sources into the argument.",
       validated: false,
       highlightedTexts: [
         "Studies have shown that laptops are bad for learning.",
@@ -229,12 +229,11 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       validationStatus: "not_supported",
       validationResult: {
         status: "not_supported",
-        reasoning: "The justification claims the student 'references several research findings' and 'mentions studies on typing vs handwriting,' but the highlighted evidence reveals no specific citations whatsoever — just 'Studies have shown' with no authors, dates, or data. The cheating claim is entirely anecdotal. Scoring 20/25 here while STU001 received 23/25 for citing Mueller & Oppenheimer, Sana et al., and Urry et al. with specific statistics reveals a major grading inconsistency.",
-        suggestedRefinement: "The justification must be rewritten to reflect the actual quality of evidence: vague, uncited generalizations with no empirical backing. A score of 20/25 is inconsistent with the scoring of other students — STU001 scored only 3 points higher despite citing 4 specific sources with data points. Consider a score of 8-12 to maintain rubric consistency.",
+        reasoning: "The grader's justification is entirely unsupported by the student's submission. The grader claims the student cites specific peer-reviewed authors and statistics, but the actual text only contains a vague reference to 'Studies' without any citations or specific data.",
+        suggestedRefinement: "The grader needs to re-evaluate the submission based on what is actually written; the current justification appears to be for a completely different paper that included scholarly citations.",
         keyQuotes: [
-          "Studies have shown that laptops are bad for learning",
-          "Laptops also make it too easy to cheat",
-          "This is unfair and undermines the learning process",
+          "Studies have shown that laptops are bad for learning.",
+          "Laptops also make it too easy to cheat.",
         ],
       },
     },
@@ -306,7 +305,7 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "evidence-use",
       score: 24,
-      explanation: "Cites five sources but the Fried (2008) claim about '60-70% reduction' is presented as established fact without examining the study's methodology or limitations.",
+      explanation: "Excellent evidence integration with five credible sources. The student compares effect sizes across the Mueller and Urry studies quantitatively, demonstrating strong methodological awareness and data literacy beyond typical undergraduate work.",
       validated: false,
       highlightedTexts: [
         "Mueller and Oppenheimer's (2014) landmark study demonstrated that longhand note-takers outperformed laptop users on conceptual recall",
@@ -315,12 +314,12 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       validationStatus: "partially_supported",
       validationResult: {
         status: "partially_supported",
-        reasoning: "The justification correctly identifies the five sources and notes the Fried citation concern. However, it only highlights 2 of the 5 sources as evidence, and the criticism of the Fried statistic is somewhat overstated — the student uses it to support a specific policy alternative, which is valid contextual use even without methodological critique.",
-        suggestedRefinement: "Highlight the Urry et al. and Rose & Meyer passages too, since your justification references five sources. Also rephrase the Fried criticism: rather than 'presented as established fact,' note that the student could have acknowledged the study's limitations while still using the finding constructively.",
+        reasoning: "The grader's justification discusses the comparison between Mueller and Urry studies and the use of five sources. While the highlighted evidence only shows the Mueller and Fried citations, the full text does indeed contain five distinct sources. However, the specific quantitative comparison of effect sizes mentioned in the justification is slightly more sophisticated than what is in the text, which describes 'substantially weaker effects' rather than a direct statistical comparison.",
+        suggestedRefinement: "The highlighter should be expanded to include the Urry et al. (2021) paragraph to better support the grader's claim about comparing studies. The justification should also specify that the student compares the 'robustness' and 'scale' of the studies rather than just raw effect sizes.",
         keyQuotes: [
-          "Mueller and Oppenheimer's (2014) landmark study",
-          "Urry et al. (2021) conducted a large-scale replication (n = 1,162",
-          "Active learning interventions — including think-pair-share, real-time polling",
+          "Mueller and Oppenheimer study tested immediate and delayed recall under controlled conditions — a far cry from the complex, multi-week learning",
+          "Urry et al. (2021) conducted a large-scale replication (n = 1,162 across multiple sites) and found substantially weaker effects",
+          "Active learning interventions — including think-pair-share, real-time polling, and structured problem-solving — have been shown to reduce off-task laptop behavior by 60-70%",
         ],
       },
     },
@@ -349,7 +348,7 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "writing-quality",
       score: 24,
-      explanation: "Strong prose with good vocabulary. Uses some complex sentence structures effectively.",
+      explanation: "Excellent academic prose with sophisticated paragraph transitions and a consistent counterargument-rebuttal structure throughout. The student employs parallel syntactic structures across paragraphs and uses data-driven rhetoric to strengthen claims.",
       validated: false,
       highlightedTexts: [
         "The laptop debate in higher education represents a microcosm of a broader tension in pedagogy: the conflict between technological affordance and cognitive science.",
@@ -357,12 +356,12 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
       validationStatus: "partially_supported",
       validationResult: {
         status: "partially_supported",
-        reasoning: "The justification says 'strong prose with good vocabulary' and 'some complex sentence structures' — this is accurate but generic. For a 24/25 score, the justification should identify what specifically makes this writing exceptional. The highlighted passage shows sophisticated academic framing, but the justification doesn't mention the memorable metaphors, precise diction, or rhetorical command evident throughout.",
-        suggestedRefinement: "Strengthen the justification by citing specific stylistic achievements: the 'blunt instrument vs. scalpel' closing metaphor, the effective use of em-dashes for parenthetical nuance, and the 'disease/symptom/cure' framing. A 24/25 score requires a justification that distinguishes this writing from merely 'good.'",
+        reasoning: "The justification praises the overall structure, transitions, and rhetorical strategies of the entire essay, while the highlighted evidence is only the single opening sentence. While the highlighted sentence is 'excellent academic prose,' it cannot support claims about transitions, counterargument structures, or parallel syntactic structures across paragraphs on its own.",
+        suggestedRefinement: "Expand the highlighted evidence to include transitions between paragraphs (e.g., 'These findings are significant but require careful contextualization') and the conclusion to demonstrate the 'counterargument-rebuttal structure' and 'sophisticated transitions' mentioned.",
         keyQuotes: [
-          "a microcosm of a broader tension in pedagogy",
-          "A ban is a blunt instrument applied to a nuanced problem; redesigned instruction is a scalpel",
-          "This analysis does not dismiss the distraction evidence — it reframes it",
+          "The laptop debate in higher education represents a microcosm of a broader tension in pedagogy",
+          "A ban is a blunt instrument applied to a nuanced problem; redesigned instruction is a scalpel.",
+          "This distinction between a clean laboratory finding and a messy real-world effect is precisely the kind of analytical nuance that should inform policy.",
         ],
       },
     },
