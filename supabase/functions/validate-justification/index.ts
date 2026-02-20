@@ -12,7 +12,7 @@ serve(async (req) => {
   }
 
   try {
-    const { highlightedText, justification, criterionName, criterionDescription, maxScore, score } = await req.json();
+    const { highlightedText, justification, criterionName, criterionDescription, maxScore, score, fullSubmission } = await req.json();
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
@@ -27,7 +27,9 @@ You must respond with a JSON object using the tool provided. Evaluate the alignm
 Determine one of three statuses:
 - "fully_supported": The justification clearly references and is well-supported by the highlighted evidence
 - "partially_supported": The justification has some connection to the evidence but is incomplete or makes claims not fully backed by the highlight
-- "not_supported": The justification does not align with or is contradicted by the highlighted evidence`;
+- "not_supported": The justification does not align with or is contradicted by the highlighted evidence
+
+Additionally, identify 1-3 SHORT exact quotes (5-20 words each) from the full student submission that are most relevant to this criterion and the grader's justification. These quotes must be EXACT substrings of the submission text.`;
 
     const userPrompt = `Rubric Criterion: "${criterionName}" — ${criterionDescription} (Score: ${score}/${maxScore})
 
@@ -37,7 +39,10 @@ Highlighted Evidence from Student Submission:
 Grader's Justification:
 "${justification}"
 
-Evaluate whether the justification is supported by the highlighted evidence.`;
+Full Student Submission:
+"${fullSubmission}"
+
+Evaluate whether the justification is supported by the highlighted evidence. Also identify key quotes from the full submission relevant to this criterion.`;
 
     const response = await fetch(
       "https://ai.gateway.lovable.dev/v1/chat/completions",
@@ -74,8 +79,13 @@ Evaluate whether the justification is supported by the highlighted evidence.`;
                       type: "string",
                       description: "Suggest how the grader could improve their justification to better align with the evidence and rubric criterion (1-2 sentences)",
                     },
+                    keyQuotes: {
+                      type: "array",
+                      items: { type: "string" },
+                      description: "1-3 short exact quotes (5-20 words each) from the full student submission that are most relevant to this rubric criterion. Must be exact substrings of the submission.",
+                    },
                   },
-                  required: ["status", "reasoning", "suggestedRefinement"],
+                  required: ["status", "reasoning", "suggestedRefinement", "keyQuotes"],
                   additionalProperties: false,
                 },
               },
