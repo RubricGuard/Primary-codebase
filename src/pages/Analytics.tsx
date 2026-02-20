@@ -19,7 +19,7 @@ const Analytics = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/40 to-indigo-50/30">
       {/* Header */}
       <header className="border-b border-border/60 bg-card/60 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">

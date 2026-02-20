@@ -6,56 +6,56 @@
 
 @layer base {
   :root {
-    --background: 40 20% 96%;
-    --foreground: 220 20% 18%;
+    --background: 0 0% 100%;
+    --foreground: 220 25% 16%;
 
-    --card: 40 25% 99%;
-    --card-foreground: 220 20% 18%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 16%;
 
-    --popover: 40 25% 99%;
-    --popover-foreground: 220 20% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 16%;
 
-    --primary: 213 40% 52%;
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 15% 92%;
-    --secondary-foreground: 220 20% 30%;
+    --secondary: 214 95% 96%;
+    --secondary-foreground: 217 50% 35%;
 
-    --muted: 40 12% 90%;
-    --muted-foreground: 220 10% 45%;
+    --muted: 214 30% 96%;
+    --muted-foreground: 220 12% 50%;
 
-    --accent: 213 35% 94%;
-    --accent-foreground: 213 40% 40%;
+    --accent: 214 95% 96%;
+    --accent-foreground: 217 70% 45%;
 
-    --destructive: 0 65% 55%;
+    --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 12% 88%;
-    --input: 220 12% 88%;
-    --ring: 213 40% 52%;
+    --border: 214 20% 92%;
+    --input: 214 20% 92%;
+    --ring: 217 91% 60%;
 
     --radius: 0.625rem;
 
-    --sidebar-background: 40 20% 97%;
+    --sidebar-background: 214 95% 98%;
     --sidebar-foreground: 220 20% 30%;
-    --sidebar-primary: 213 40% 52%;
+    --sidebar-primary: 217 91% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 213 35% 94%;
-    --sidebar-accent-foreground: 213 40% 40%;
-    --sidebar-border: 220 12% 90%;
-    --sidebar-ring: 213 40% 52%;
+    --sidebar-accent: 214 95% 96%;
+    --sidebar-accent-foreground: 217 70% 45%;
+    --sidebar-border: 214 20% 92%;
+    --sidebar-ring: 217 91% 60%;
 
     /* Custom tokens */
-    --surface-elevated: 40 25% 99%;
-    --surface-overlay: 40 20% 97%;
-    --text-dim: 220 10% 55%;
-    --accent-glow: 213 40% 52%;
-    --success: 152 45% 45%;
-    --success-light: 152 40% 94%;
-    --warning: 38 80% 55%;
-    --warning-light: 38 70% 94%;
-    --info: 213 40% 52%;
-    --info-light: 213 35% 94%;
+    --surface-elevated: 0 0% 100%;
+    --surface-overlay: 214 95% 98%;
+    --text-dim: 220 12% 55%;
+    --accent-glow: 217 91% 60%;
+    --success: 152 55% 42%;
+    --success-light: 152 50% 95%;
+    --warning: 38 92% 50%;
+    --warning-light: 38 80% 95%;
+    --info: 217 91% 60%;
+    --info-light: 214 95% 96%;
   }
 }
 

@@ -7,7 +7,7 @@ const Dashboard = () => {
   const assignment = assignments[0];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50/40 to-indigo-50/30 flex flex-col">
       {/* Header */}
       <header className="border-b border-border/60 bg-card/60 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
