@@ -1,4 +1,5 @@
 import { Activity, TrendingUp, CheckCircle2, AlertTriangle, Scale } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 import type { GradingScore } from "@/lib/mockData";
 
 interface Criterion {
@@ -209,6 +210,83 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
             </p>
           )}
         </div>
+
+        {/* Validity Rate Trend */}
+        {allScores && (() => {
+          const studentIds = Object.keys(allScores);
+          const trendData: { name: string; rate: number }[] = [];
+          let cumValid = 0;
+          let cumTotal = 0;
+          let cumFlags = 0;
+
+          studentIds.forEach((sid, idx) => {
+            const sScores = allScores[sid];
+            const hasAny = sScores.some((s) => s.validationStatus);
+            if (!hasAny) return;
+
+            sScores.forEach((s) => {
+              if (s.validationStatus) {
+                cumTotal++;
+                if (s.validationStatus === "fully_supported") cumValid++;
+              }
+            });
+
+            // Count new fairness flags up to this student
+            const gradedSoFar = studentIds.slice(0, idx + 1);
+            let flagCount = 0;
+            criteria.forEach((c) => {
+              const stuData = gradedSoFar
+                .map((id) => {
+                  const sc = allScores[id]?.find((s) => s.criterionId === c.id);
+                  if (!sc || sc.score == null || sc.aiSuggestedScore == null) return null;
+                  return { score: sc.score, aiScore: sc.aiSuggestedScore };
+                })
+                .filter(Boolean) as { score: number; aiScore: number }[];
+              for (let i = 0; i < stuData.length; i++) {
+                for (let j = i + 1; j < stuData.length; j++) {
+                  if (Math.abs(stuData[i].aiScore - stuData[j].aiScore) <= 2 && Math.abs(stuData[i].score - stuData[j].score) > 1.5) {
+                    flagCount++;
+                  }
+                }
+              }
+            });
+            cumFlags = flagCount;
+
+            const raw = cumTotal > 0 ? (cumValid / cumTotal) * 100 : 100;
+            const penalty = Math.min(cumFlags * 2, 20);
+            const rate = Math.max(0, Math.round(raw - penalty));
+
+            trendData.push({ name: sid.replace("STU0", "S"), rate });
+          });
+
+          if (trendData.length < 2) return null;
+
+          return (
+            <div className="bg-card rounded-xl border border-border/40 shadow-soft p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <TrendingUp className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-foreground">Validity Rate Trend</span>
+              </div>
+              <div className="h-[140px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={trendData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                    <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }} axisLine={false} tickLine={false} />
+                    <YAxis domain={[0, 100]} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }} axisLine={false} tickLine={false} />
+                    <ReferenceLine y={75} stroke="hsl(var(--success))" strokeDasharray="3 3" strokeOpacity={0.4} />
+                    <ReferenceLine y={50} stroke="hsl(var(--warning))" strokeDasharray="3 3" strokeOpacity={0.3} />
+                    <Tooltip
+                      contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: 8, fontSize: 12 }}
+                      labelStyle={{ color: 'hsl(var(--foreground))' }}
+                      formatter={(value: number) => [`${value}%`, 'Validity']}
+                    />
+                    <Line type="monotone" dataKey="rate" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: 'hsl(var(--primary))', r: 3 }} activeDot={{ r: 5 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+              <p className="text-[10px] text-muted-foreground mt-1 text-center">Cumulative validity rate after each student</p>
+            </div>
+          );
+        })()}
 
         {/* Cross-Student Grading Fairness */}
         {similarityFlags.length > 0 && (
