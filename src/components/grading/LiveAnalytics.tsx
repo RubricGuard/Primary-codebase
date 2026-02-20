@@ -19,14 +19,15 @@ interface FairnessFlag {
   criterionId: string;
   criterionName: string;
   maxScore: number;
-  benchmark: { id: string; score: number; aiScore: number };
-  flagged: { id: string; score: number; aiScore: number; explanation: string };
-  deviation: number;
-  direction: "over" | "under";
-  reason: string;
+  studentA: { id: string; score: number; aiScore: number };
+  studentB: { id: string; score: number; aiScore: number };
+  scoreDiff: number;
 }
 
-/** Detect grading inconsistencies by comparing grader scores to AI-assessed quality */
+const AI_SIMILARITY_THRESHOLD = 2;
+const SCORE_DIFF_THRESHOLD = 1.5;
+
+/** Detect grading inconsistencies: similar answers (by AI score) with different grader scores */
 const detectFairnessFlags = (
   allScores: Record<string, GradingScore[]>,
   criteria: Criterion[]
@@ -38,35 +39,28 @@ const detectFairnessFlags = (
       .map(([id, scores]) => {
         const s = scores.find((sc) => sc.criterionId === c.id);
         if (!s || s.score == null || s.aiSuggestedScore == null) return null;
-        return {
-          id,
-          score: s.score,
-          aiScore: s.aiSuggestedScore,
-          explanation: s.explanation,
-          gap: Math.abs(s.score - s.aiSuggestedScore),
-        };
+        return { id, score: s.score, aiScore: s.aiSuggestedScore };
       })
-      .filter(Boolean) as { id: string; score: number; aiScore: number; explanation: string; gap: number }[];
+      .filter(Boolean) as { id: string; score: number; aiScore: number }[];
 
-    if (students.length < 2) return;
+    for (let i = 0; i < students.length; i++) {
+      for (let j = i + 1; j < students.length; j++) {
+        const a = students[i], b = students[j];
+        const aiDiff = Math.abs(a.aiScore - b.aiScore);
+        const scoreDiff = Math.abs(a.score - b.score);
 
-    // Benchmark = student with smallest gap (most accurate grading)
-    const benchmark = students.reduce((best, s) => (s.gap < best.gap ? s : best));
-
-    // Flag each student with deviation > 4 points from AI assessment
-    students.forEach((s) => {
-      if (s.id === benchmark.id || s.gap <= 4) return;
-      flags.push({
-        criterionId: c.id,
-        criterionName: c.name,
-        maxScore: c.maxScore,
-        benchmark: { id: benchmark.id, score: benchmark.score, aiScore: benchmark.aiScore },
-        flagged: { id: s.id, score: s.score, aiScore: s.aiScore, explanation: s.explanation },
-        deviation: s.gap,
-        direction: s.score > s.aiScore ? "over" : "under",
-        reason: `Grader ${s.score > s.aiScore ? "over-scored" : "under-scored"} by ${s.gap} points vs. AI assessment (${s.aiScore}/${c.maxScore}). Benchmark ${benchmark.id} scored ${benchmark.score}/${c.maxScore} (AI: ${benchmark.aiScore}), showing accurate rubric application.`,
-      });
-    });
+        if (aiDiff <= AI_SIMILARITY_THRESHOLD && scoreDiff > SCORE_DIFF_THRESHOLD) {
+          flags.push({
+            criterionId: c.id,
+            criterionName: c.name,
+            maxScore: c.maxScore,
+            studentA: a.score >= b.score ? a : b,
+            studentB: a.score >= b.score ? b : a,
+            scoreDiff: parseFloat(scoreDiff.toFixed(1)),
+          });
+        }
+      }
+    }
   });
 
   return flags;
@@ -104,7 +98,7 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
   const rawValidityPct = allValidationCounts.total > 0
     ? (allValidationCounts.valid / allValidationCounts.total) * 100
     : 100;
-  const fairnessPenalty = similarityFlags.length * 8; // each fairness flag costs 8%
+  const fairnessPenalty = similarityFlags.length * 3; // each fairness flag costs 3%
   const explanationValidityRate = Math.max(0, Math.round(rawValidityPct - fairnessPenalty));
 
   const validityBarColor =
@@ -216,7 +210,7 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
               <span className="text-sm font-medium text-destructive">Grading Fairness Alert</span>
             </div>
             <p className="text-[11px] text-muted-foreground mb-3">
-              Some scores deviate significantly from AI-assessed quality. The benchmark shows accurate rubric application for comparison.
+              Similar-quality answers (per AI assessment) received significantly different scores from the grader.
             </p>
             <div className="space-y-3">
               {similarityFlags.map((flag, idx) => (
@@ -224,47 +218,34 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-foreground">{flag.criterionName}</span>
                     <span className="text-[10px] font-semibold text-destructive bg-destructive/10 rounded px-1.5 py-0.5">
-                      {flag.direction === "over" ? "+" : "−"}{flag.deviation} pts
+                      {flag.scoreDiff} pt gap
                     </span>
                   </div>
 
-                  {/* Benchmark — correct grading */}
-                  <div className="bg-success/5 rounded-md px-2.5 py-1.5 border border-success/10">
-                    <span className="text-[10px] text-success font-medium uppercase tracking-wide">Benchmark</span>
-                    <div className="flex items-center justify-between mt-1">
-                      <span className="text-xs text-muted-foreground">{flag.benchmark.id}</span>
-                      <span className="text-xs">
-                        <span className="font-bold text-success">{flag.benchmark.score}/{flag.maxScore}</span>
-                        <span className="text-muted-foreground ml-1">(AI: {flag.benchmark.aiScore})</span>
-                      </span>
+                  {/* Side-by-side student comparison */}
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="bg-muted/30 rounded-md px-2.5 py-1.5 border border-border/30">
+                      <span className="text-[10px] text-muted-foreground font-medium">{flag.studentA.id}</span>
+                      <div className="flex items-center justify-between mt-1">
+                        <span className="text-xs font-bold text-foreground">{flag.studentA.score}/{flag.maxScore}</span>
+                        <span className="text-[10px] text-muted-foreground">AI: {flag.studentA.aiScore}</span>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Flagged student */}
-                  <div className="bg-destructive/5 rounded-md px-2.5 py-1.5 border border-destructive/10">
-                    <span className="text-[10px] text-destructive font-medium uppercase tracking-wide">
-                      {flag.direction === "over" ? "Over-scored" : "Under-scored"}
-                    </span>
-                    <div className="flex items-center justify-between mt-1">
-                      <span className="text-xs text-muted-foreground">{flag.flagged.id}</span>
-                      <span className="text-xs">
-                        <span className="font-bold text-destructive">{flag.flagged.score}/{flag.maxScore}</span>
-                        <span className="text-muted-foreground ml-1">(AI: {flag.flagged.aiScore})</span>
-                      </span>
+                    <div className="bg-muted/30 rounded-md px-2.5 py-1.5 border border-border/30">
+                      <span className="text-[10px] text-muted-foreground font-medium">{flag.studentB.id}</span>
+                      <div className="flex items-center justify-between mt-1">
+                        <span className="text-xs font-bold text-foreground">{flag.studentB.score}/{flag.maxScore}</span>
+                        <span className="text-[10px] text-muted-foreground">AI: {flag.studentB.aiScore}</span>
+                      </div>
                     </div>
-                    <p className="text-[10px] text-muted-foreground/80 italic leading-tight mt-1.5 pl-2 border-l-2 border-destructive/20">
-                      "{flag.flagged.explanation.slice(0, 80)}…"
-                    </p>
                   </div>
 
                   {/* Gap indicator */}
-                  <div className="pt-1.5 border-t border-border/30">
-                    <div className="flex items-center gap-1.5">
-                      <AlertTriangle className="w-3 h-3 text-destructive shrink-0" />
-                      <span className="text-[10px] text-destructive/90 font-medium leading-tight">
-                        {flag.deviation}-point deviation — review for rubric alignment
-                      </span>
-                    </div>
+                  <div className="flex items-center gap-1.5">
+                    <AlertTriangle className="w-3 h-3 text-destructive shrink-0" />
+                    <span className="text-[10px] text-destructive/90 font-medium leading-tight">
+                      AI says similar quality, but scores differ by {flag.scoreDiff} pts
+                    </span>
                   </div>
                 </div>
               ))}

@@ -34,12 +34,13 @@ const q3 = quartile(allTotals, 0.75);
 interface FairnessFlag {
   criterionName: string;
   maxScore: number;
-  benchmark: { id: string; score: number; aiScore: number };
-  flagged: { id: string; score: number; aiScore: number; explanation: string };
-  deviation: number;
-  direction: "over" | "under";
-  reason: string;
+  studentA: { id: string; score: number; aiScore: number };
+  studentB: { id: string; score: number; aiScore: number };
+  scoreDiff: number;
 }
+
+const AI_SIMILARITY_THRESHOLD = 2;
+const SCORE_DIFF_THRESHOLD = 1.5;
 
 const fairnessFlags: FairnessFlag[] = (() => {
   const flags: FairnessFlag[] = [];
@@ -48,30 +49,27 @@ const fairnessFlags: FairnessFlag[] = (() => {
       .map(([id, scores]) => {
         const s = scores.find((sc) => sc.criterionId === c.id);
         if (!s || s.score == null || s.aiSuggestedScore == null) return null;
-        return {
-          id, score: s.score, aiScore: s.aiSuggestedScore,
-          explanation: s.explanation,
-          gap: Math.abs(s.score - s.aiSuggestedScore),
-        };
+        return { id, score: s.score, aiScore: s.aiSuggestedScore };
       })
-      .filter(Boolean) as { id: string; score: number; aiScore: number; explanation: string; gap: number }[];
+      .filter(Boolean) as { id: string; score: number; aiScore: number }[];
 
-    if (students.length < 2) return;
+    for (let i = 0; i < students.length; i++) {
+      for (let j = i + 1; j < students.length; j++) {
+        const a = students[i], b = students[j];
+        const aiDiff = Math.abs(a.aiScore - b.aiScore);
+        const scoreDiff = Math.abs(a.score - b.score);
 
-    const benchmark = students.reduce((best, s) => (s.gap < best.gap ? s : best));
-
-    students.forEach((s) => {
-      if (s.id === benchmark.id || s.gap <= 4) return;
-      flags.push({
-        criterionName: c.name,
-        maxScore: c.maxScore,
-        benchmark: { id: benchmark.id, score: benchmark.score, aiScore: benchmark.aiScore },
-        flagged: { id: s.id, score: s.score, aiScore: s.aiScore, explanation: s.explanation },
-        deviation: s.gap,
-        direction: s.score > s.aiScore ? "over" : "under",
-        reason: `Grader ${s.score > s.aiScore ? "over-scored" : "under-scored"} by ${s.gap} points vs. AI assessment (${s.aiScore}/${c.maxScore}). Benchmark ${benchmark.id} scored ${benchmark.score}/${c.maxScore} (AI: ${benchmark.aiScore}), showing accurate rubric application.`,
-      });
-    });
+        if (aiDiff <= AI_SIMILARITY_THRESHOLD && scoreDiff > SCORE_DIFF_THRESHOLD) {
+          flags.push({
+            criterionName: c.name,
+            maxScore: c.maxScore,
+            studentA: a.score >= b.score ? a : b,
+            studentB: a.score >= b.score ? b : a,
+            scoreDiff: parseFloat(scoreDiff.toFixed(1)),
+          });
+        }
+      }
+    }
   });
   return flags;
 })();
@@ -389,38 +387,30 @@ const Analytics = () => {
                     <span className="font-semibold text-foreground text-sm">{flag.criterionName}</span>
                     <span className="flex items-center gap-1.5 text-xs font-semibold text-destructive bg-destructive/10 rounded-full px-3 py-1">
                       <AlertTriangle className="w-3 h-3" />
-                      {flag.direction === "over" ? "+" : "−"}{flag.deviation} pts
+                      {flag.scoreDiff} pt gap
                     </span>
                   </div>
 
+                  <p className="text-xs text-muted-foreground">
+                    AI assesses both answers as similar quality, but grader scores differ by {flag.scoreDiff} points.
+                  </p>
+
                   <div className="grid grid-cols-2 gap-3">
-                    {/* Benchmark */}
-                    <div className="bg-success/5 border border-success/10 rounded-xl p-3.5">
-                      <span className="text-[10px] text-success font-medium uppercase tracking-wide">Benchmark</span>
+                    <div className="bg-muted/20 border border-border/30 rounded-xl p-3.5">
+                      <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">{flag.studentA.id}</span>
                       <div className="flex items-center justify-between mt-1.5 mb-1">
-                        <span className="text-xs font-medium text-muted-foreground">{flag.benchmark.id}</span>
-                        <span className="text-base font-bold text-success">{flag.benchmark.score}<span className="text-xs font-normal text-muted-foreground">/{flag.maxScore}</span></span>
+                        <span className="text-base font-bold text-foreground">{flag.studentA.score}<span className="text-xs font-normal text-muted-foreground">/{flag.maxScore}</span></span>
                       </div>
-                      <p className="text-[10px] text-muted-foreground">AI: {flag.benchmark.aiScore}/{flag.maxScore}</p>
+                      <p className="text-[10px] text-muted-foreground">AI: {flag.studentA.aiScore}/{flag.maxScore}</p>
                     </div>
-                    {/* Flagged */}
-                    <div className="bg-destructive/5 border border-destructive/10 rounded-xl p-3.5">
-                      <span className="text-[10px] text-destructive font-medium uppercase tracking-wide">{flag.direction === "over" ? "Over-scored" : "Under-scored"}</span>
+                    <div className="bg-muted/20 border border-border/30 rounded-xl p-3.5">
+                      <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">{flag.studentB.id}</span>
                       <div className="flex items-center justify-between mt-1.5 mb-1">
-                        <span className="text-xs font-medium text-muted-foreground">{flag.flagged.id}</span>
-                        <span className="text-base font-bold text-destructive">{flag.flagged.score}<span className="text-xs font-normal text-muted-foreground">/{flag.maxScore}</span></span>
+                        <span className="text-base font-bold text-foreground">{flag.studentB.score}<span className="text-xs font-normal text-muted-foreground">/{flag.maxScore}</span></span>
                       </div>
-                      <p className="text-[10px] text-muted-foreground">AI: {flag.flagged.aiScore}/{flag.maxScore}</p>
+                      <p className="text-[10px] text-muted-foreground">AI: {flag.studentB.aiScore}/{flag.maxScore}</p>
                     </div>
                   </div>
-
-                  <p className="text-[11px] text-muted-foreground/80 italic leading-relaxed pl-3 border-l-2 border-destructive/20">
-                    "{flag.flagged.explanation.slice(0, 120)}…"
-                  </p>
-
-                  <p className="text-xs text-destructive/70 leading-relaxed border-l-2 border-destructive/20 pl-3">
-                    {flag.reason}
-                  </p>
                 </div>
               ))}
             </div>
