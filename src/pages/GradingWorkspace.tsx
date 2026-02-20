@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Shield, ArrowLeft, ChevronLeft, ChevronRight, BarChart3 } from "lucide-react";
 import { studentSubmissions, rubricCriteria, sampleGradedData, type GradingScore } from "@/lib/mockData";
 import SubmissionViewer from "@/components/grading/SubmissionViewer";
 import RubricPanel from "@/components/grading/RubricPanel";
 import LiveAnalytics from "@/components/grading/LiveAnalytics";
+import { toast } from "sonner";
 
 const GradingWorkspace = () => {
   const navigate = useNavigate();
@@ -12,7 +13,6 @@ const GradingWorkspace = () => {
   const student = studentSubmissions[currentStudentIdx];
 
   const [scores, setScores] = useState<Record<string, GradingScore[]>>(() => {
-    // Initialize with sample data for demo
     const initial: Record<string, GradingScore[]> = {};
     studentSubmissions.forEach((s) => {
       initial[s.id] = sampleGradedData[s.id] || rubricCriteria.map((c) => ({
@@ -26,6 +26,7 @@ const GradingWorkspace = () => {
   });
 
   const [activeValidation, setActiveValidation] = useState<string | null>("arg-clarity");
+  const [pendingHighlight, setPendingHighlight] = useState<string | null>(null);
 
   const currentScores = scores[student.id] || [];
   const totalScore = currentScores.reduce((sum, s) => sum + (s.score || 0), 0);
@@ -39,6 +40,71 @@ const GradingWorkspace = () => {
       ),
     }));
   };
+
+  const handleTextSelected = useCallback((text: string) => {
+    setPendingHighlight(text);
+    toast.info("Text selected — attach it to a rubric criterion below", { duration: 3000 });
+  }, []);
+
+  const handleAttachHighlight = useCallback((criterionId: string) => {
+    if (!pendingHighlight) return;
+    updateScore(criterionId, "highlightedText", pendingHighlight);
+    updateScore(criterionId, "validationStatus", null);
+    setPendingHighlight(null);
+  }, [pendingHighlight]);
+
+  const handleValidateJustification = useCallback(async (criterionId: string) => {
+    const scoreData = currentScores.find((s) => s.criterionId === criterionId);
+    const criterion = rubricCriteria.find((c) => c.id === criterionId);
+    if (!scoreData?.highlightedText || !scoreData?.explanation || !criterion) return;
+
+    updateScore(criterionId, "validationLoading", true);
+
+    try {
+      const resp = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/validate-justification`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({
+            highlightedText: scoreData.highlightedText,
+            justification: scoreData.explanation,
+            criterionName: criterion.name,
+            criterionDescription: criterion.description,
+            maxScore: criterion.maxScore,
+            score: scoreData.score,
+          }),
+        }
+      );
+
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({ error: "Validation failed" }));
+        toast.error(err.error || "Validation failed");
+        updateScore(criterionId, "validationLoading", false);
+        return;
+      }
+
+      const result = await resp.json();
+      updateScore(criterionId, "validationStatus", result.status);
+      updateScore(criterionId, "validationLoading", false);
+
+      const labels: Record<string, string> = {
+        fully_supported: "✅ Fully Supported",
+        partially_supported: "⚠️ Partially Supported",
+        not_supported: "❌ Not Supported",
+      };
+      toast(labels[result.status] || "Validated", {
+        description: result.reasoning,
+        duration: 5000,
+      });
+    } catch (e) {
+      toast.error("Failed to validate justification");
+      updateScore(criterionId, "validationLoading", false);
+    }
+  }, [currentScores]);
 
   const gradedStudents = Object.entries(scores).filter(([_, s]) =>
     s.every((sc) => sc.score !== null)
@@ -65,7 +131,6 @@ const GradingWorkspace = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            {/* Student nav */}
             <div className="flex items-center gap-2 bg-muted/50 rounded-lg px-3 py-1.5">
               <button
                 onClick={() => setCurrentStudentIdx(Math.max(0, currentStudentIdx - 1))}
@@ -102,14 +167,28 @@ const GradingWorkspace = () => {
         </div>
       </header>
 
+      {/* Pending highlight indicator */}
+      {pendingHighlight && (
+        <div className="bg-primary/5 border-b border-primary/10 px-5 py-2 flex items-center justify-between flex-shrink-0">
+          <p className="text-xs text-primary truncate max-w-[60%]">
+            <span className="font-semibold">Selected:</span> "{pendingHighlight.slice(0, 80)}
+            {pendingHighlight.length > 80 ? "..." : ""}"
+          </p>
+          <button
+            onClick={() => setPendingHighlight(null)}
+            className="text-xs text-muted-foreground hover:text-destructive transition-colors"
+          >
+            Clear
+          </button>
+        </div>
+      )}
+
       {/* 3-Column Layout */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Left: Submission */}
         <div className="w-[30%] border-r border-border/40 overflow-y-auto scrollbar-thin">
-          <SubmissionViewer student={student} />
+          <SubmissionViewer student={student} onTextSelected={handleTextSelected} />
         </div>
 
-        {/* Center: Rubric Scoring */}
         <div className="w-[45%] overflow-y-auto scrollbar-thin">
           <RubricPanel
             criteria={rubricCriteria}
@@ -118,10 +197,12 @@ const GradingWorkspace = () => {
             onScoreChange={updateScore}
             onToggleValidation={(id) => setActiveValidation(activeValidation === id ? null : id)}
             studentId={student.id}
+            pendingHighlight={pendingHighlight}
+            onAttachHighlight={handleAttachHighlight}
+            onValidateJustification={handleValidateJustification}
           />
         </div>
 
-        {/* Right: Live Analytics */}
         <div className="w-[25%] border-l border-border/40 overflow-y-auto scrollbar-thin bg-surface-overlay/50">
           <LiveAnalytics
             scores={currentScores}

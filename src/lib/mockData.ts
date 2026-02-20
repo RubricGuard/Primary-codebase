@@ -100,6 +100,8 @@ This analysis concludes that Netflix's pivot represents a masterclass in strateg
   },
 ];
 
+export type ValidationStatus = "not_supported" | "partially_supported" | "fully_supported" | null;
+
 export interface GradingScore {
   criterionId: string;
   score: number | null;
@@ -107,6 +109,9 @@ export interface GradingScore {
   validated: boolean;
   aiSuggestion?: string;
   overridden?: boolean;
+  highlightedText?: string;
+  validationStatus?: ValidationStatus;
+  validationLoading?: boolean;
 }
 
 export const sampleGradedData: Record<string, GradingScore[]> = {
