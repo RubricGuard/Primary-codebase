@@ -25,24 +25,48 @@ export const rubricCriteria = [
     name: "Argument Clarity",
     description: "Strength and clarity of the central thesis and overall argument structure.",
     maxScore: 25,
+    scoringGuide: {
+      excellent: "Thesis is precise, debatable, and consistently sustained. Argument flows logically with smooth transitions and a compelling structure.",
+      good: "Clear thesis with mostly logical structure. Minor lapses in flow or transitions but overall argument is easy to follow.",
+      adequate: "Thesis is present but vague or overly broad. Argument structure is discernible but disjointed in places.",
+      needsWork: "No clear thesis or position. Essay reads as a summary of opinions rather than a structured argument.",
+    },
   },
   {
     id: "evidence-use",
     name: "Evidence Use",
     description: "Quality, relevance, and integration of supporting evidence from credible sources.",
     maxScore: 25,
+    scoringGuide: {
+      excellent: "3+ credible, well-integrated sources. Evidence directly supports claims with proper citations and context. Sources are current and authoritative.",
+      good: "3 sources cited with mostly effective integration. Occasional gaps between evidence and claims. Citations are present but may lack context.",
+      adequate: "Fewer than 3 sources or sources are weakly integrated. Evidence is present but doesn't clearly support the argument being made.",
+      needsWork: "Little to no credible evidence. Claims are unsupported or rely on anecdotal reasoning. Missing or incorrect citations.",
+    },
   },
   {
     id: "critical-analysis",
     name: "Critical Analysis",
     description: "Depth of analytical reasoning, identification of assumptions, and engagement with counterarguments.",
     maxScore: 25,
+    scoringGuide: {
+      excellent: "Engages meaningfully with counterarguments and rebuts them with evidence. Identifies underlying assumptions and demonstrates nuanced, multi-perspective thinking.",
+      good: "Addresses at least one counterargument with some depth. Shows awareness of complexity but may not fully develop rebuttals.",
+      adequate: "Mentions opposing views superficially without genuine engagement. Analysis stays at surface level with limited critical depth.",
+      needsWork: "No engagement with counterarguments. Essay is one-sided with no evidence of critical thinking or analysis of assumptions.",
+    },
   },
   {
     id: "writing-quality",
     name: "Writing Quality",
     description: "Clarity, coherence, grammar, and adherence to academic writing conventions.",
     maxScore: 25,
+    scoringGuide: {
+      excellent: "Polished, professional prose with no significant errors. Academic tone is consistent. Paragraphs are well-organized with clear topic sentences.",
+      good: "Generally well-written with minor grammatical issues. Tone is mostly academic. Organization is clear with occasional rough transitions.",
+      adequate: "Noticeable grammatical or structural issues that impede readability. Tone shifts between casual and academic. Weak paragraph cohesion.",
+      needsWork: "Frequent errors in grammar, spelling, or syntax. Lacks academic tone. Poor organization makes the argument difficult to follow.",
+    },
   },
 ];
 

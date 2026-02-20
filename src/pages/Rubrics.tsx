@@ -61,18 +61,21 @@ const Rubrics = () => {
               {/* Scoring guide */}
               <div className="mt-4 ml-11 grid grid-cols-4 gap-2">
                 {[
-                  { range: `${criterion.maxScore - 2}–${criterion.maxScore}`, level: "Excellent", color: "emerald" },
-                  { range: `${criterion.maxScore - 7}–${criterion.maxScore - 3}`, level: "Good", color: "blue" },
-                  { range: `${criterion.maxScore - 13}–${criterion.maxScore - 8}`, level: "Adequate", color: "amber" },
-                  { range: `0–${criterion.maxScore - 14}`, level: "Needs Work", color: "red" },
-                ].map(({ range, level, color }) => (
-                  <div key={level} className="bg-white/[0.02] border border-white/[0.05] rounded-lg px-3 py-2 text-center">
+                  { level: "Excellent", color: "emerald", range: `${criterion.maxScore - 2}–${criterion.maxScore}`, desc: criterion.scoringGuide?.excellent },
+                  { level: "Good", color: "blue", range: `${criterion.maxScore - 7}–${criterion.maxScore - 3}`, desc: criterion.scoringGuide?.good },
+                  { level: "Adequate", color: "amber", range: `${criterion.maxScore - 13}–${criterion.maxScore - 8}`, desc: criterion.scoringGuide?.adequate },
+                  { level: "Needs Work", color: "red", range: `0–${criterion.maxScore - 14}`, desc: criterion.scoringGuide?.needsWork },
+                ].map(({ range, level, color, desc }) => (
+                  <div key={level} className="bg-white/[0.02] border border-white/[0.05] rounded-lg px-3 py-2.5">
                     <p className={`text-xs font-semibold ${
                       color === "emerald" ? "text-emerald-400" :
                       color === "blue" ? "text-blue-400" :
                       color === "amber" ? "text-amber-400" : "text-red-400"
                     }`}>{level}</p>
-                    <p className="text-[11px] text-white/30 mt-0.5">{range}</p>
+                    <p className="text-[11px] text-white/30 mt-0.5 mb-1.5">{range}</p>
+                    {desc && (
+                      <p className="text-[11px] text-white/45 leading-relaxed">{desc}</p>
+                    )}
                   </div>
                 ))}
               </div>
