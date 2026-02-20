@@ -28,9 +28,10 @@ interface SimilarityFlag {
 /** Extract academic citation patterns (author names with years) from text */
 const extractCitations = (texts: string[]): string[] => {
   const patterns = [
-    /([A-Z][a-z]+)\s*(?:&|and)\s*[A-Z][a-z]+\s*\(\d{4}\)/g,
-    /([A-Z][a-z]+)\s+et\s+al\.\s*\(\d{4}\)/g,
-    /([A-Z][a-z]+)\s*\(\d{4}\)/g,
+    /([A-Z][a-z]+)\s*(?:&|and)\s*[A-Z][a-z]+(?:'s)?\s*\(\d{4}\)/g,
+    /([A-Z][a-z]+)\s+et\s+al\.?\s*(?:\(\d{4}\))?/g,
+    /([A-Z][a-z]+)(?:'s)?\s*\(\d{4}\)/g,
+    /\(([A-Z][a-z]+),?\s*\d{4}\)/g,
   ];
   const found = new Set<string>();
   texts.forEach((t) => {

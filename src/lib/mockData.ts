@@ -305,7 +305,7 @@ export const sampleGradedData: Record<string, GradingScore[]> = {
     {
       criterionId: "evidence-use",
       score: 24,
-      explanation: "Excellent evidence integration with five credible sources. The student compares effect sizes across the Mueller and Urry studies quantitatively, demonstrating strong methodological awareness and data literacy beyond typical undergraduate work.",
+      explanation: "Excellent use of well-integrated, credible sources throughout. The student compares effect sizes across the Mueller and Urry studies quantitatively, demonstrating strong methodological awareness and data literacy beyond typical undergraduate work.",
       validated: false,
       highlightedTexts: [
         "Mueller and Oppenheimer's (2014) landmark study demonstrated that longhand note-takers outperformed laptop users on conceptual recall",
