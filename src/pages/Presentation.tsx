@@ -807,6 +807,8 @@ const FairnessDetectionSlide = () => (
   </SlideLayout>
 );
 
+const storyboardImages = Object.values(import.meta.glob('@/assets/storyboard/*.png', { eager: true, import: 'default' })) as string[];
+
 const StoryboardSlide = () => {
   const panels = [
     { num: 1, icon: <GraduationCap className="w-7 h-7" />, title: "The Professor", desc: "A professor teaches a large multi-section university course. Multiple teaching assistants grade essay assignments across different sections." },
@@ -825,24 +827,28 @@ const StoryboardSlide = () => {
       <div className="absolute top-20 left-1/3 w-[500px] h-[400px] bg-blue-500/6 rounded-full blur-[120px]" />
       <div className="absolute inset-0 flex flex-col justify-center items-center px-24">
         <SectionLabel text="User Journey" color="blue" />
-        <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-4 mb-10">
+        <h2 className="text-[48px] font-serif font-bold text-white leading-tight mt-4 mb-8">
           Storyboard
         </h2>
-        <div className="grid grid-cols-3 gap-5 max-w-[1500px]">
-          {panels.map((p) => (
-            <div key={p.num} className="relative bg-white/[0.04] border border-white/10 rounded-xl p-5 hover:bg-white/[0.06] transition-colors">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-8 h-8 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400 text-sm font-bold shrink-0">
-                  {p.num}
-                </div>
-                <div className="text-blue-400/60">{p.icon}</div>
-                <span className="text-white/80 font-semibold text-sm">{p.title}</span>
+        <div className="grid grid-cols-3 gap-4 max-w-[1500px]">
+          {panels.map((p, i) => (
+            <div key={p.num} className="relative bg-white/[0.04] border border-white/10 rounded-xl overflow-hidden hover:bg-white/[0.06] transition-colors">
+              <div className="h-[100px] overflow-hidden">
+                <img src={storyboardImages[i]} alt={p.title} className="w-full h-full object-cover opacity-60" />
               </div>
-              <p className="text-white/40 text-xs leading-relaxed">{p.desc}</p>
+              <div className="p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-7 h-7 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400 text-xs font-bold shrink-0">
+                    {p.num}
+                  </div>
+                  <span className="text-white/80 font-semibold text-sm">{p.title}</span>
+                </div>
+                <p className="text-white/40 text-xs leading-relaxed">{p.desc}</p>
+              </div>
             </div>
           ))}
         </div>
-        <p className="text-white/20 text-sm mt-8 italic">RubricGuard AI supports human judgment — it does not replace it.</p>
+        <p className="text-white/20 text-sm mt-6 italic">RubricGuard AI supports human judgment — it does not replace it.</p>
       </div>
     </SlideLayout>
   );
