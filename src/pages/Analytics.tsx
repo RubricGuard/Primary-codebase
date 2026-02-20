@@ -118,11 +118,11 @@ const Analytics = () => {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/")}
               className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back
+              Dashboard
             </button>
             <div className="w-px h-5 bg-border/60" />
             <div className="flex items-center gap-2">
@@ -422,15 +422,22 @@ const Analytics = () => {
           )}
         </div>
 
-        {/* View Full Segment Grades */}
-        <div className="flex justify-center pb-6 animate-fade-in" style={{ animationDelay: "0.28s" }}>
+        {/* Navigation buttons */}
+        <div className="flex justify-center gap-4 pb-6 animate-fade-in" style={{ animationDelay: "0.28s" }}>
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center gap-2 bg-muted/50 border border-border/40 text-foreground font-medium text-sm rounded-2xl px-8 py-3.5 hover:bg-muted transition-all duration-200"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Dashboard
+          </button>
           <button
             onClick={() => navigate("/segment-grades")}
-            className="group relative flex items-center gap-2.5 bg-gradient-to-r from-primary to-primary/85 text-primary-foreground font-semibold text-base rounded-2xl px-10 py-4 shadow-soft-lg hover:shadow-[0_8px_30px_-6px_hsl(217_91%_60%_/_0.4)] transition-all duration-500 overflow-hidden"
+            className="group relative flex items-center gap-2.5 bg-gradient-to-r from-primary to-primary/85 text-primary-foreground font-semibold text-sm rounded-2xl px-8 py-3.5 shadow-soft-lg hover:shadow-[0_8px_30px_-6px_hsl(217_91%_60%_/_0.4)] transition-all duration-500 overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
-            <BarChart3 className="w-5 h-5 relative z-10" />
             <span className="relative z-10">View Full Segment Grades</span>
+            <BarChart3 className="w-4 h-4 relative z-10" />
           </button>
         </div>
       </main>
