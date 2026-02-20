@@ -46,7 +46,7 @@ const Dashboard = () => {
       {/* Main */}
       <main className="relative z-10 flex-1 flex flex-col items-center px-6 pt-16 pb-16">
         {/* Hero */}
-        <div className="max-w-2xl w-full text-center mb-14 animate-fade-in">
+        <div className="max-w-xl w-full text-center mb-10 animate-fade-in">
           <h2 className="font-serif text-5xl font-semibold text-white leading-[1.15] mb-5 tracking-tight">
             Grade with
             <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent"> confidence</span>
@@ -56,7 +56,7 @@ const Dashboard = () => {
           </p>
 
           {/* Feature highlights */}
-          <div className="grid grid-cols-3 gap-4 mt-8 w-full max-w-lg">
+          <div className="grid grid-cols-3 gap-3 mt-8">
             {[
               { icon: TrendingUp, label: "Drift Detection", desc: "Cross-section" },
               { icon: Eye, label: "Live Validation", desc: "Real-time" },
