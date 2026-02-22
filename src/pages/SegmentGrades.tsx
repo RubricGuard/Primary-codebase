@@ -111,10 +111,24 @@ const SegmentGrades = () => {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button
-              onClick={() => navigate("/analytics")}
+              onClick={() => navigate("/")}
               className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
+              Homepage
+            </button>
+            <div className="w-px h-5 bg-border/60" />
+            <button
+              onClick={() => navigate("/grading/bus302-ca1")}
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Grading
+            </button>
+            <div className="w-px h-5 bg-border/60" />
+            <button
+              onClick={() => navigate("/analytics")}
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
               Analytics
             </button>
             <div className="w-px h-5 bg-border/60" />
