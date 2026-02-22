@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Shield, ArrowLeft, ChevronLeft, ChevronRight, BarChart3 } from "lucide-react";
 import { studentSubmissions as allStudents, rubricCriteria, sampleGradedData, type GradingScore } from "@/lib/mockData";
@@ -33,6 +33,7 @@ const GradingWorkspace = () => {
   const [activeValidation, setActiveValidation] = useState<string | null>("arg-clarity");
   const [pendingHighlight, setPendingHighlight] = useState<string | null>(null);
   const [focusedCriterion, setFocusedCriterion] = useState<string | null>(null);
+  const [showAnalytics, setShowAnalytics] = useState(false);
 
   const currentScores = scores[student.id] || [];
   const totalScore = currentScores.reduce((sum, s) => sum + (s.score || 0), 0);
@@ -178,8 +179,8 @@ const GradingWorkspace = () => {
             </div>
 
             <button
-              onClick={() => navigate("/analytics")}
-              className="flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+              onClick={() => setShowAnalytics(!showAnalytics)}
+              className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${showAnalytics ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
             >
               <BarChart3 className="w-4 h-4" />
               Analytics
@@ -206,11 +207,11 @@ const GradingWorkspace = () => {
 
       {/* 3-Column Layout */}
       <div className="flex-1 flex overflow-hidden">
-        <div className="w-[30%] border-r border-border/40 overflow-y-auto scrollbar-thin">
+        <div className={`${showAnalytics ? 'w-[30%]' : 'w-[40%]'} border-r border-border/40 overflow-y-auto scrollbar-thin transition-all duration-300`}>
           <SubmissionViewer student={student} onTextSelected={handleTextSelected} aiHighlights={aiHighlightedQuotes} />
         </div>
 
-        <div className="w-[45%] overflow-y-auto scrollbar-thin">
+        <div className={`${showAnalytics ? 'w-[45%]' : 'w-[60%]'} overflow-y-auto scrollbar-thin transition-all duration-300`}>
           <RubricPanel
             criteria={rubricCriteria}
             scores={currentScores}
@@ -226,14 +227,16 @@ const GradingWorkspace = () => {
           />
         </div>
 
-        <div className="w-[25%] border-l border-border/40 overflow-y-auto scrollbar-thin bg-surface-overlay/50">
-          <LiveAnalytics
-            scores={currentScores}
-            criteria={rubricCriteria}
-            gradedCount={gradedStudents}
-            totalCount={studentSubmissions.length}
-            allScores={scores}
-          />
+        <div className={`border-l border-border/40 overflow-y-auto scrollbar-thin bg-surface-overlay/50 transition-all duration-300 ${showAnalytics ? 'w-[25%]' : 'w-0 border-l-0 overflow-hidden'}`}>
+          {showAnalytics && (
+            <LiveAnalytics
+              scores={currentScores}
+              criteria={rubricCriteria}
+              gradedCount={gradedStudents}
+              totalCount={studentSubmissions.length}
+              allScores={scores}
+            />
+          )}
         </div>
       </div>
     </div>
