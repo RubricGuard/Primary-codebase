@@ -401,20 +401,23 @@ const Analytics = () => {
                   </p>
 
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-muted/20 border border-border/30 rounded-xl p-3.5">
-                      <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">{flag.studentA.id}</span>
-                      <div className="flex items-center justify-between mt-1.5 mb-1">
-                        <span className="text-base font-bold text-foreground">{flag.studentA.score}<span className="text-xs font-normal text-muted-foreground">/{flag.maxScore}</span></span>
-                      </div>
-                      <p className="text-[10px] text-muted-foreground">AI: {flag.studentA.aiScore}/{flag.maxScore}</p>
-                    </div>
-                    <div className="bg-muted/20 border border-border/30 rounded-xl p-3.5">
-                      <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">{flag.studentB.id}</span>
-                      <div className="flex items-center justify-between mt-1.5 mb-1">
-                        <span className="text-base font-bold text-foreground">{flag.studentB.score}<span className="text-xs font-normal text-muted-foreground">/{flag.maxScore}</span></span>
-                      </div>
-                      <p className="text-[10px] text-muted-foreground">AI: {flag.studentB.aiScore}/{flag.maxScore}</p>
-                    </div>
+                    {[flag.studentA, flag.studentB].map((stu) => {
+                      const studentIdx = gradedStudentIds.indexOf(stu.id);
+                      return (
+                        <div key={stu.id} className="bg-muted/20 border border-border/30 rounded-xl p-3.5">
+                          <button
+                            onClick={() => navigate(`/grading/bus302-ca1?student=${studentIdx}`)}
+                            className="text-[10px] text-primary font-semibold uppercase tracking-wide hover:underline underline-offset-2 transition-colors"
+                          >
+                            {stu.id} →
+                          </button>
+                          <div className="flex items-center justify-between mt-1.5 mb-1">
+                            <span className="text-base font-bold text-foreground">{stu.score}<span className="text-xs font-normal text-muted-foreground">/{flag.maxScore}</span></span>
+                          </div>
+                          <p className="text-[10px] text-muted-foreground">AI: {stu.aiScore}/{flag.maxScore}</p>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               ))}
