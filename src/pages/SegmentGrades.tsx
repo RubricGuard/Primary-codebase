@@ -12,6 +12,8 @@ const graders = [
 
 const AI_SIMILARITY_THRESHOLD = 2;
 const SCORE_DIFF_THRESHOLD = 1.5;
+const PENALTY_PER_FLAGGED_CRITERION = 3;
+const MAX_FAIRNESS_PENALTY = 15;
 
 // Group students by section
 const studentsBySection = graders.map((g) => {
@@ -43,9 +45,9 @@ const graderAnalytics = studentsBySection.map((g) => {
       }
     });
   });
-  const validityRate = totalValidated > 0 ? Math.round((fullySupported / totalValidated) * 100) : 100;
 
-  // Fairness alerts (within this grader's students)
+  // Fairness: count unique flagged criteria (not pairs)
+  const flaggedCriteriaSet = new Set<string>();
   let fairnessAlerts = 0;
   rubricCriteria.forEach((c) => {
     const studs = studentScores
@@ -62,10 +64,15 @@ const graderAnalytics = studentsBySection.map((g) => {
         const scoreDiff = Math.abs(studs[i].score - studs[j].score);
         if (aiDiff <= AI_SIMILARITY_THRESHOLD && scoreDiff > SCORE_DIFF_THRESHOLD) {
           fairnessAlerts++;
+          flaggedCriteriaSet.add(c.id);
         }
       }
     }
   });
+
+  const rawValidityPct = totalValidated > 0 ? (fullySupported / totalValidated) * 100 : 100;
+  const fairnessPenalty = Math.min(flaggedCriteriaSet.size * PENALTY_PER_FLAGGED_CRITERION, MAX_FAIRNESS_PENALTY);
+  const validityRate = Math.max(0, Math.round(rawValidityPct - fairnessPenalty));
 
   // Validation breakdown
   const validationCounts = { fully_supported: 0, partially_supported: 0, not_supported: 0 };
@@ -234,7 +241,7 @@ const SegmentGrades = () => {
 
             {/* Validity Rate Trend */}
             {(() => {
-              const trendData: { name: string; rate: number }[] = [];
+              const trendData: { name: string; rate: number; rawPct: number; penalty: number }[] = [];
               let cumValid = 0;
               let cumTotal = 0;
 
@@ -249,9 +256,9 @@ const SegmentGrades = () => {
                   }
                 });
 
-                // Cumulative fairness flags up to this student
+                // Count unique flagged criteria up to this student
                 const gradedSoFar = g.studentScores.slice(0, sIdx + 1);
-                let flagCount = 0;
+                const flaggedSet = new Set<string>();
                 rubricCriteria.forEach((c) => {
                   const stuData = gradedSoFar
                     .map((st) => {
@@ -263,16 +270,16 @@ const SegmentGrades = () => {
                   for (let i = 0; i < stuData.length; i++) {
                     for (let j = i + 1; j < stuData.length; j++) {
                       if (Math.abs(stuData[i].aiScore - stuData[j].aiScore) <= AI_SIMILARITY_THRESHOLD && Math.abs(stuData[i].score - stuData[j].score) > SCORE_DIFF_THRESHOLD) {
-                        flagCount++;
+                        flaggedSet.add(c.id);
                       }
                     }
                   }
                 });
 
-                const raw = cumTotal > 0 ? (cumValid / cumTotal) * 100 : 100;
-                const penalty = Math.min(flagCount * 1, 20);
-                const rate = Math.max(0, Math.round(raw - penalty));
-                trendData.push({ name: s.id.replace("STU0", "S").replace("STU", "S"), rate });
+                const rawPct = cumTotal > 0 ? (cumValid / cumTotal) * 100 : 100;
+                const penalty = Math.min(flaggedSet.size * PENALTY_PER_FLAGGED_CRITERION, MAX_FAIRNESS_PENALTY);
+                const rate = Math.max(0, Math.round(rawPct - penalty));
+                trendData.push({ name: s.id.replace("STU0", "S").replace("STU", "S"), rate, rawPct, penalty });
               });
 
               if (trendData.length < 2) return null;
@@ -293,7 +300,10 @@ const SegmentGrades = () => {
                         <Tooltip
                           contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: 8, fontSize: 12 }}
                           labelStyle={{ color: 'hsl(var(--foreground))' }}
-                          formatter={(value: number) => [`${value}%`, 'Validity']}
+                          formatter={(value: number, _: any, props: any) => {
+                            const d = props.payload;
+                            return [`${value}% (${Math.round(d.rawPct)}% − ${d.penalty}%)`, 'Validity'];
+                          }}
                         />
                         <Line type="monotone" dataKey="rate" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: 'hsl(var(--primary))', r: 3 }} activeDot={{ r: 5 }} />
                       </LineChart>
