@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { Shield, ArrowLeft, ChevronLeft, ChevronRight, BarChart3, PanelRightOpen, PanelRightClose } from "lucide-react";
 import { studentSubmissions as allStudents, rubricCriteria, sampleGradedData, type GradingScore } from "@/lib/mockData";
 
@@ -215,25 +216,33 @@ const GradingWorkspace = () => {
 
       {/* 3-Column Layout */}
       <div className="flex-1 flex overflow-hidden">
-        <div className={`${showAnalytics ? 'w-[30%]' : 'w-[40%]'} border-r border-border/40 overflow-y-auto scrollbar-thin transition-all duration-300`}>
-          <SubmissionViewer student={student} onTextSelected={handleTextSelected} aiHighlights={aiHighlightedQuotes} />
-        </div>
+        <ResizablePanelGroup direction="horizontal">
+          <ResizablePanel defaultSize={50} minSize={25}>
+            <div className="h-full overflow-y-auto scrollbar-thin">
+              <SubmissionViewer student={student} onTextSelected={handleTextSelected} aiHighlights={aiHighlightedQuotes} />
+            </div>
+          </ResizablePanel>
 
-        <div className={`${showAnalytics ? 'w-[45%]' : 'w-[60%]'} overflow-y-auto scrollbar-thin transition-all duration-300`}>
-          <RubricPanel
-            criteria={rubricCriteria}
-            scores={currentScores}
-            activeValidation={activeValidation}
-            onScoreChange={updateScore}
-            onToggleValidation={(id) => setActiveValidation(activeValidation === id ? null : id)}
-            studentId={student.id}
-            pendingHighlight={pendingHighlight}
-            onAttachHighlight={handleAttachHighlight}
-            onValidateJustification={handleValidateJustification}
-            focusedCriterion={focusedCriterion}
-            onFocusCriterion={(id) => setFocusedCriterion(focusedCriterion === id ? null : id)}
-          />
-        </div>
+          <ResizableHandle withHandle />
+
+          <ResizablePanel defaultSize={50} minSize={25}>
+            <div className="h-full overflow-y-auto scrollbar-thin">
+              <RubricPanel
+                criteria={rubricCriteria}
+                scores={currentScores}
+                activeValidation={activeValidation}
+                onScoreChange={updateScore}
+                onToggleValidation={(id) => setActiveValidation(activeValidation === id ? null : id)}
+                studentId={student.id}
+                pendingHighlight={pendingHighlight}
+                onAttachHighlight={handleAttachHighlight}
+                onValidateJustification={handleValidateJustification}
+                focusedCriterion={focusedCriterion}
+                onFocusCriterion={(id) => setFocusedCriterion(focusedCriterion === id ? null : id)}
+              />
+            </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
 
         <div className={`border-l border-border/40 overflow-y-auto scrollbar-thin bg-surface-overlay/50 transition-all duration-300 ${showAnalytics ? 'w-[25%]' : 'w-0 border-l-0 overflow-hidden'}`}>
           {showAnalytics && (
