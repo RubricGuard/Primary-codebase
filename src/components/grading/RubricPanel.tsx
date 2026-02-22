@@ -126,11 +126,15 @@ const RubricPanel = ({
                     )}
                     {statusInfo && !score?.validationLoading && (
                       <button
-                        onClick={() => setValidationDialogCriterion(criterion.id)}
-                        className={`flex items-center gap-1 text-xs font-medium rounded-md px-2 py-0.5 border cursor-pointer hover:opacity-80 transition-opacity ${statusInfo.className}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setValidationDialogCriterion(criterion.id);
+                        }}
+                        className={`flex items-center gap-1.5 text-xs font-semibold rounded-full px-3 py-1 border cursor-pointer shadow-sm hover:shadow-md hover:scale-105 active:scale-95 transition-all duration-150 ${statusInfo.className}`}
                       >
-                        <statusInfo.icon className="w-3 h-3" />
+                        <statusInfo.icon className="w-3.5 h-3.5" />
                         {statusInfo.label}
+                        <span className="ml-0.5 opacity-60 text-[10px]">→</span>
                       </button>
                     )}
                     {score?.validated && (
