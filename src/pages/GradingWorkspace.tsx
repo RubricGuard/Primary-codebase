@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Shield, ArrowLeft, ChevronLeft, ChevronRight, BarChart3 } from "lucide-react";
+import { Shield, ArrowLeft, ChevronLeft, ChevronRight, BarChart3, PanelRightOpen, PanelRightClose } from "lucide-react";
 import { studentSubmissions as allStudents, rubricCriteria, sampleGradedData, type GradingScore } from "@/lib/mockData";
 
 // Only grade the first 5 students (Prof. Sharma's section)
@@ -179,11 +179,19 @@ const GradingWorkspace = () => {
             </div>
 
             <button
-              onClick={() => setShowAnalytics(!showAnalytics)}
-              className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${showAnalytics ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
+              onClick={() => navigate("/analytics")}
+              className="flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
             >
               <BarChart3 className="w-4 h-4" />
               Analytics
+            </button>
+
+            <button
+              onClick={() => setShowAnalytics(!showAnalytics)}
+              className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${showAnalytics ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}
+              title={showAnalytics ? "Hide live stats" : "Show live stats"}
+            >
+              {showAnalytics ? <PanelRightClose className="w-4 h-4" /> : <PanelRightOpen className="w-4 h-4" />}
             </button>
           </div>
         </div>
