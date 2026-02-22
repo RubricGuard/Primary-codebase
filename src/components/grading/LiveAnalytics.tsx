@@ -27,6 +27,8 @@ interface FairnessFlag {
 
 const AI_SIMILARITY_THRESHOLD = 2;
 const SCORE_DIFF_THRESHOLD = 1.5;
+const PENALTY_PER_FLAGGED_CRITERION = 3; // 3% per unique criterion with inconsistency
+const MAX_FAIRNESS_PENALTY = 15; // cap at 15%
 
 /** Detect grading inconsistencies: similar answers (by AI score) with different grader scores */
 const detectFairnessFlags = (
@@ -67,9 +69,28 @@ const detectFairnessFlags = (
   return flags;
 };
 
+/** Count unique criteria that have at least one fairness flag */
+const countFlaggedCriteria = (flags: FairnessFlag[]): number => {
+  return new Set(flags.map((f) => f.criterionId)).size;
+};
+
+/** Calculate validity rate: raw validity % minus penalty for flagged criteria */
+const calcValidityRate = (
+  validCount: number,
+  totalCount: number,
+  flaggedCriteriaCount: number
+): { rate: number; rawPct: number; penalty: number } => {
+  if (totalCount === 0) return { rate: 100, rawPct: 100, penalty: 0 };
+  const rawPct = (validCount / totalCount) * 100;
+  const penalty = Math.min(flaggedCriteriaCount * PENALTY_PER_FLAGGED_CRITERION, MAX_FAIRNESS_PENALTY);
+  const rate = Math.max(0, Math.round(rawPct - penalty));
+  return { rate, rawPct, penalty };
+};
+
 const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }: Props) => {
   // Fairness flags: compare grader scores to AI-assessed quality per criterion
   const similarityFlags = allScores ? detectFairnessFlags(allScores, criteria) : [];
+  const flaggedCriteriaCount = countFlaggedCriteria(similarityFlags);
 
   // Validation status summary
   const statusCounts = {
@@ -78,7 +99,6 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
     not_supported: scores.filter((s) => s.validationStatus === "not_supported").length,
   };
   const totalValidated = statusCounts.fully_supported + statusCounts.partially_supported + statusCounts.not_supported;
-  const qualityRate = totalValidated > 0 ? Math.round((statusCounts.fully_supported / totalValidated) * 100) : 0;
 
   // Explanation Validity Rate: computed across ALL graded students
   const allValidationCounts = (() => {
@@ -96,11 +116,11 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
     return { total, valid };
   })();
 
-  const rawValidityPct = allValidationCounts.total > 0
-    ? (allValidationCounts.valid / allValidationCounts.total) * 100
-    : 100;
-  const fairnessPenalty = Math.min(similarityFlags.length * 1, 20); // cap penalty at 20%
-  const explanationValidityRate = Math.max(0, Math.round(rawValidityPct - fairnessPenalty));
+  const { rate: explanationValidityRate, rawPct: rawValidityPct, penalty: fairnessPenalty } = calcValidityRate(
+    allValidationCounts.valid,
+    allValidationCounts.total,
+    flaggedCriteriaCount
+  );
 
   const validityBarColor =
     explanationValidityRate >= 75
@@ -183,7 +203,7 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
           <div className="flex items-center justify-between text-sm mb-2">
             <span className="text-muted-foreground text-xs">
               {allValidationCounts.total > 0
-                ? `${allValidationCounts.valid}/${allValidationCounts.total} valid${similarityFlags.length > 0 ? ` · ${similarityFlags.length} fairness alert${similarityFlags.length > 1 ? "s" : ""}` : ""}`
+                ? `${allValidationCounts.valid}/${allValidationCounts.total} valid${flaggedCriteriaCount > 0 ? ` · ${flaggedCriteriaCount} criterion flagged` : ""}`
                 : "No validations yet"}
             </span>
             <span className={`font-semibold text-sm ${validityTextColor}`}>{explanationValidityRate}%</span>
@@ -192,7 +212,7 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
             <p className="text-[10px] text-muted-foreground font-mono mb-2">
               {Math.round(rawValidityPct)}%{fairnessPenalty > 0 ? ` − ${fairnessPenalty}%` : ""} = {explanationValidityRate}%
               <span className="ml-1 text-muted-foreground/60">
-                ({allValidationCounts.valid}/{allValidationCounts.total} valid{fairnessPenalty > 0 ? ` · ${similarityFlags.length} flag${similarityFlags.length > 1 ? "s" : ""} × 1%` : ""})
+                ({allValidationCounts.valid}/{allValidationCounts.total} valid{fairnessPenalty > 0 ? ` · ${flaggedCriteriaCount} criteria × ${PENALTY_PER_FLAGGED_CRITERION}%` : ""})
               </span>
             </p>
           )}
@@ -214,10 +234,9 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
         {/* Validity Rate Trend */}
         {allScores && (() => {
           const studentIds = Object.keys(allScores);
-          const trendData: { name: string; rate: number }[] = [];
+          const trendData: { name: string; rate: number; rawPct: number; penalty: number }[] = [];
           let cumValid = 0;
           let cumTotal = 0;
-          let cumFlags = 0;
 
           studentIds.forEach((sid, idx) => {
             const sScores = allScores[sid];
@@ -231,32 +250,16 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
               }
             });
 
-            // Count new fairness flags up to this student
-            const gradedSoFar = studentIds.slice(0, idx + 1);
-            let flagCount = 0;
-            criteria.forEach((c) => {
-              const stuData = gradedSoFar
-                .map((id) => {
-                  const sc = allScores[id]?.find((s) => s.criterionId === c.id);
-                  if (!sc || sc.score == null || sc.aiSuggestedScore == null) return null;
-                  return { score: sc.score, aiScore: sc.aiSuggestedScore };
-                })
-                .filter(Boolean) as { score: number; aiScore: number }[];
-              for (let i = 0; i < stuData.length; i++) {
-                for (let j = i + 1; j < stuData.length; j++) {
-                  if (Math.abs(stuData[i].aiScore - stuData[j].aiScore) <= 2 && Math.abs(stuData[i].score - stuData[j].score) > 1.5) {
-                    flagCount++;
-                  }
-                }
-              }
+            // Count unique flagged criteria up to this student
+            const partialScores: Record<string, GradingScore[]> = {};
+            studentIds.slice(0, idx + 1).forEach((id) => {
+              partialScores[id] = allScores[id];
             });
-            cumFlags = flagCount;
+            const partialFlags = detectFairnessFlags(partialScores, criteria);
+            const flaggedCount = countFlaggedCriteria(partialFlags);
 
-            const raw = cumTotal > 0 ? (cumValid / cumTotal) * 100 : 100;
-            const penalty = Math.min(cumFlags * 1, 20);
-            const rate = Math.max(0, Math.round(raw - penalty));
-
-            trendData.push({ name: sid.replace("STU0", "S"), rate });
+            const { rate, rawPct, penalty } = calcValidityRate(cumValid, cumTotal, flaggedCount);
+            trendData.push({ name: sid.replace("STU0", "S"), rate, rawPct, penalty });
           });
 
           if (trendData.length < 2) return null;
@@ -277,7 +280,10 @@ const LiveAnalytics = ({ scores, criteria, gradedCount, totalCount, allScores }:
                     <Tooltip
                       contentStyle={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: 8, fontSize: 12 }}
                       labelStyle={{ color: 'hsl(var(--foreground))' }}
-                      formatter={(value: number) => [`${value}%`, 'Validity']}
+                      formatter={(value: number, _: any, props: any) => {
+                        const d = props.payload;
+                        return [`${value}% (${Math.round(d.rawPct)}% − ${d.penalty}%)`, 'Validity'];
+                      }}
                     />
                     <Line type="monotone" dataKey="rate" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: 'hsl(var(--primary))', r: 3 }} activeDot={{ r: 5 }} />
                   </LineChart>
