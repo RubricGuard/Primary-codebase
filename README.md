@@ -1,73 +1,81 @@
-# Welcome to your Lovable project
+# RubricGuard
 
-## Project info
+**Live:** https://rubricguard.vercel.app
 
-**URL**: https://rubricguard.lovable.app
+An AI-powered grading assistant that helps educators grade student submissions consistently using customizable rubrics.
 
-## How can I edit this code?
+## Tech Stack
 
-There are several ways of editing your application.
+- **Frontend**: React 18, TypeScript, Vite
+- **UI**: shadcn/ui, Tailwind CSS
+- **Backend**: Supabase (auth, database, storage)
+- **State**: TanStack Query
+- **Routing**: React Router v6
 
-**Use Lovable**
+## Getting Started
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+### Prerequisites
 
-Changes made via Lovable will be committed automatically to this repo.
+- Node.js 18+ or [Bun](https://bun.sh)
+- A [Supabase](https://supabase.com) project
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+### Local Development
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Clone the repo
 git clone <YOUR_GIT_URL>
+cd rubricguard
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Set up environment variables
+cp .env.example .env
+# Fill in your Supabase credentials in .env
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the dev server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Environment Variables
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Create a `.env` file at the project root with the following:
 
-**Use GitHub Codespaces**
+```
+VITE_SUPABASE_URL=https://<your-project>.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=<your-anon-key>
+VITE_SUPABASE_PROJECT_ID=<your-project-id>
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Deployment (Vercel)
 
-## What technologies are used for this project?
+This project is configured to deploy on [Vercel](https://vercel.com).
 
-This project is built with:
+### Deploy via CLI
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```sh
+npm install -g vercel
+vercel
+```
 
-## How can I deploy this project?
+### Deploy via Vercel Dashboard
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+1. Push this repo to GitHub.
+2. Go to [vercel.com/new](https://vercel.com/new) and import the repository.
+3. Set the following **Environment Variables** in the Vercel project settings:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_PUBLISHABLE_KEY`
+   - `VITE_SUPABASE_PROJECT_ID`
+4. Click **Deploy**. Vercel auto-detects Vite and uses `npm run build` with `dist` as the output directory.
 
-## Can I connect a custom domain to my Lovable project?
+> The `vercel.json` in this repo configures all routes to serve `index.html` for client-side routing.
 
-Yes, you can!
+## Scripts
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+| Command | Description |
+|---|---|
+| `npm run dev` | Start dev server on port 8080 |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build locally |
+| `npm run test` | Run tests |
+| `npm run lint` | Lint code |
