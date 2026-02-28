@@ -9,9 +9,7 @@ An AI-powered grading co-pilot that helps
 
 RubricGuard is a real-time grading alignment tool for professors teaching large, multi-section courses.
 
-It helps graders evaluate student submissions consistently.
-
-It helps instructors catch inconsistency while they’re grading — not after students file regrade requests.
+It helps instructors catch grading inconsistency for equivalent answers during the grading process — not after students file regrade requests.
 
 ---
 
