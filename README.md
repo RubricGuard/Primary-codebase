@@ -2,7 +2,102 @@
 
 **Live:** https://rubricguard.vercel.app
 
-An AI-powered grading assistant that helps educators grade student submissions consistently using customizable rubrics.
+An AI-powered grading co-pilot that helps  
+
+# RubricGuard AI  
+### Stop grading drift before it becomes a dispute.
+
+RubricGuard is a real-time grading alignment tool for professors teaching large, multi-section courses.
+
+It helps graders evaluate student submissions consistently.
+
+It helps instructors catch inconsistency while they’re grading — not after students file regrade requests.
+
+---
+
+## The Problem
+
+In large, multi-grader courses:
+
+- Equivalent work receives different scores  
+- Rubrics are interpreted differently across TAs  
+- Grading drifts over long sessions  
+- Regrades consume time and create fairness concerns  
+
+Learning Management Systems record grades.  
+Feedback tools assist with comments.  
+Manual Calibration meetings happen occasionally.
+
+No system monitors grading alignment live.
+
+---
+
+## The Solution
+
+RubricGuard runs alongside grading.
+
+As instructors score submissions, it:
+
+- Detects scoring drift across graders  
+- Flags deviations from baseline patterns  
+- Checks whether written justifications align with rubric criteria  
+- Highlights unstable rubric dimensions  
+- Logs decisions for defensibility  
+
+Professors keep full authority.  
+Nothing is auto-graded.  
+Nothing is overridden.
+
+---
+
+## Who It’s For
+
+- Multi-section core classes  
+- TA-heavy grading teams  
+- Essay and case-based assessments  
+
+If grading alignment is a recurring departmental issue, this is built for you.
+
+---
+
+## How It Works
+
+1. Upload rubric and submissions  
+2. Grade as usual  
+3. Receive real-time consistency alerts  
+4. Review session analytics  
+5. Finalize with documented alignment summary  
+
+No LMS integration required to start.
+
+---
+
+## Why Now
+
+- Larger class sizes  
+- More subjective assessments  
+- More TA-heavy grading  
+- Increased scrutiny around fairness  
+- Growth of AI-generated student work  
+
+The cost of inconsistency is rising.
+
+---
+
+## What It Is Not
+
+- Not automated grading  
+- Not an LMS replacement  
+- Not a plagiarism tool  
+
+It’s a grading copilot — not a grading robot.
+
+---
+
+## Status
+
+MVP deployed. 
+Pilot to start with large, multi-section courses at Carnegie Mellon University.
 
 ## Tech Stack
 
