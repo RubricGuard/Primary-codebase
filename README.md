@@ -2,14 +2,13 @@
 
 **Live:** https://rubricguard.vercel.app
 
-An AI-powered grading co-pilot that helps  
-
 # RubricGuard AI  
 ### Stop grading drift before it becomes a dispute.
 
+An AI-powered grading co-pilot that helps instructors catch grading inconsistency during the grading process — not after students file regrade requests.
+
 RubricGuard is a real-time grading alignment tool for professors teaching large, multi-section courses.
 
-It helps instructors catch grading inconsistency for equivalent answers during the grading process — not after students file regrade requests.
 
 ---
 
