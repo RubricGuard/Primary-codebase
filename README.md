@@ -9,6 +9,7 @@ An AI-powered grading co-pilot that helps instructors catch grading inconsistenc
 
 RubricGuard is a real-time grading alignment tool for professors teaching large, multi-section courses.
 
+Team Members: Anubhav Sharma, Manav Somani, Aritra Raychaudhuri, Anmol Sahu, Sanath Mahesh
 
 ---
 
